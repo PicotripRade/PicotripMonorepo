@@ -75,8 +75,6 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
 
     if (data && data.results) {
         const selectedType = typeMap[typeToDisplay] || 'top';
-        console.log("selectedType")
-        console.log(selectedType)
         const rawData = data.results[selectedType];
         if (selectedType === 'flight') {
             filteredData = rawData.filter(city => city.transport === 'direct');

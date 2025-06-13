@@ -1,4 +1,5 @@
 // shared/fetchUserLocation.js
+import Cookies from "js-cookie";
 
 export const fetchUserLocation = async () => {
     try {
@@ -21,4 +22,5 @@ export const fetchUserLocation = async () => {
             id: null,
         };
     }
+
 };
