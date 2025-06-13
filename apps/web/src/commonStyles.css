@@ -1,0 +1,229 @@
+/*colors */
+
+/** light theme **/
+:root {
+    --background-less-dark: #f2f2f2;
+    --background-dark: #848484;
+    --dark-text: #00000;
+    --background-light: #DFDFDF;
+    --screen-light: #CD8F46;
+    --screen-shadow: #A26E32;
+    --disabled-text: #a8a8a8;
+    --accent-text: #b3b3b3;
+    --navigation-button-outer: #40b02c;
+    --navigation-button-inner: #40b02c;
+    --element-background: white;
+    --pressed-button-color: #A26E32;
+    --error-color: red;
+    --border-color: #ababab;
+    --text-color: #666666;
+    --text-color-light: white;
+    --monitor-shadow-color: #007bff;
+    --details-monitor-shadow: 0 7px 0 0 #00010055 inset;
+
+    --texture: url('images/backgrounds/tekstura-new-2.png');
+    --texture2: url('images/backgrounds/tekstura-input.png');
+
+
+    --container-width-smartphone: 350px;
+    --container-width-tiny-smartphone: 320px;
+}
+
+/********************/
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevents scrolling on the body */
+    background: var(--background-less-dark);
+    background-image: var(--texture);
+}
+
+.page-title {
+    color: var(--element-background);
+    font-family: 'Upheaval TT BRK', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: center;
+    border: none;
+    margin: 10px auto;
+    width: var(--container-width-smartphone);
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    margin-top: 4px;
+    margin-right: 3px;
+}
+
+.error-detail {
+    color: var(--error-color);
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'IBM Plex Mono', serif;
+    width: 90%;
+    margin: 7px auto;
+}
+
+.error-message {
+    font-size: 11px;
+    font-weight: bold;
+    width: 90%;
+    margin: 40px auto 20px;
+    text-align: center;
+}
+
+@font-face {
+    font-family: 'Upheaval TT BRK';
+    src: url('fonts/upheavtt.woff') format('woff'),
+    url('fonts/upheavtt.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBM Plex Mono';
+    src: url('fonts/plex_mono/IBMPlexMono-SemiBold.woff') format('woff'),
+    url('fonts/plex_mono/IBMPlexMono-SemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Zapfino';
+    src: url('fonts/Zapfino.ttf') format('ttf'),
+    url('fonts/Zapfino.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cardo';
+    src: url('fonts/Cardo99s.ttf') format('ttf'),
+    url('fonts/Cardo99s.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Upheaval TT BRK', sans-serif;
+    border: none;
+}
+
+input {
+    font-family: Aspira, sans-serif;
+}
+
+.wide {
+    min-width: 200px !important;
+}
+
+.highlight {
+    /* Adjust the brightness if needed */
+    filter: brightness(1.2);
+
+    background-color: var(--screen-light) !important;
+}
+
+.input-box-title {
+    color: var(--text-color);
+    font-family: Aspira, sans-serif;
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+    margin-left: 15px;
+}
+
+.logo-title {
+    color: var(--background-light);
+    font-family: 'Upheaval TT BRK', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.strong-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+
+.rounded-button {
+    border-radius: 20px;
+}
+
+.rounded-left-button {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.rounded-right-button {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.rounded-bottom-button {
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.rounded-top-button {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.nav-button-outer.ready {
+    background-color: var(--navigation-button-outer);
+    background-image: none !important;
+}
+
+.nav-button-outer {
+    background-color: var(--navigation-button-outer);
+    background-image: none !important;
+    height: 40px;
+    width: 290px;
+    align-content: center;
+    margin: 0 auto;
+    color: var(--element-background);
+    font-weight: bold;
+}
+
+
+.nav-button-inner.ready {
+    background-color: var(--navigation-button-inner);
+    background-image: none !important;
+    color: var(--text-color);
+}
+
+.nav-button-inner {
+    background-color: var(--navigation-button-inner);
+    background-image: none !important;
+    color: var(--background-less-dark);
+}
+
+.monitor {
+    background-color: var(--screen-light);
+    background-image: var(--texture2);
+}
+
+.main-color {
+    background: black !important;
+}
+
+.skewed-text {
+    transform: skew(-10deg);
+    display: inline-block;
+}

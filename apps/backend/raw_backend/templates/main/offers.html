@@ -1,0 +1,117 @@
+{% extends 'main/base.html' %}
+
+{% block script %}
+<script>
+const swiper = new Swiper('.swiper', {
+  // Optional parameters
+  direction: 'vertical',
+  loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.swiper-pagination',
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+});
+
+
+</script>
+{% endblock %}
+
+{% block custom_css %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'offers.css' %}">
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<div><h2>Destinations</h2> <br>
+    <!-- Slider main container -->
+    <div class="swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+                <ul>
+                    <li> Destination 1
+                    <li>
+                    <li> Transfer to airport
+                    <li>
+                    <li> Flight 1
+                    <li>
+                    <li> Transfer from airport to hotel
+                    <li>
+                    <li> Hotel 1
+                    <li>
+                    <li> Transfer from hotel to airport
+                    <li>
+                    <li> Return Flight 1
+                    <li>
+                    <li> Transfer from airport to home</li>
+                </ul>
+            </div>
+            <div class="swiper-slide">
+
+                <div class="swiper-slide">
+                    <ul>
+                        <li> Destination 3
+                        <li>
+                        <li> Transfer to airport
+                        <li>
+                        <li> Flight 3
+                        <li>
+                        <li> Transfer from airport to hotel
+                        <li>
+                        <li> Hotel 3
+                        <li>
+                        <li> Transfer from hotel to airport
+                        <li>
+                        <li> Return Flight 3
+                        <li>
+                        <li> Transfer from airport to home</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- If we need scrollbar -->
+        <div class="swiper-scrollbar"></div>
+    </div>
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+
+            </div>
+
+
+        </div>
+      </div>
+      </div>
+        {% endblock %}

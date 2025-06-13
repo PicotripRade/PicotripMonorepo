@@ -1,0 +1,27 @@
+{
+    "tag_name": "MTS",
+    "relevant_feature_list": [
+        "MTS"
+    ],
+    "h3_city_airport_distance": [
+        4,
+        1
+    ],
+    "h3_city_hotel_distance": [
+        6,
+        0
+    ],
+    "h3_feature_hotel_distance": [
+        5,
+        1
+    ],
+    "h3_feature_city_distance": [
+        5,
+        1
+    ],
+    "min_hotels_cities": 15,
+    "min_hotels_features": 0,
+    "foc_min_pop": 20000,
+    "max_pop": 50000000,
+    "min_pop": 500
+}

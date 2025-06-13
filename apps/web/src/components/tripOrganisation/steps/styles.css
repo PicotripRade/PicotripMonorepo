@@ -1,0 +1,79 @@
+@import url('../../../commonStyles.css');
+
+p {
+    font-family: 'IBM Plex Mono', sans-serif;
+    font-size: 11px;
+}
+
+.page-subtitle {
+    color: var(--background-dark);
+}
+
+.form-inline-wrapper {
+    position: relative;
+    width: 100%;
+    background-color: var(--background-less-dark);
+    background-image: var(--texture);
+    text-align: center;
+    font-family: "Upheaval TT (BRK)", sans-serif;
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    gap: 15px;
+}
+
+.city-pick-length {
+    padding-bottom: 5px !important;
+    max-height: 100vh !important;
+}
+
+.user-entry-length {
+   height: 95vh !important;
+}
+
+
+.date-range-picker-container .rdrDateRangePickerWrapper {
+    flex-direction: column;
+}
+
+.budget-container {
+    background: var(--background-less-dark);
+    background-image: none;
+    border-radius: 5px;
+    border: 2px solid var(--border-color);
+    border-bottom: none !important;
+    margin: 15px auto;
+    max-width: 340px;
+}
+
+
+.budget-monitor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--screen-light);
+    width: 90%;
+    margin: 12px auto;
+    height: 90%;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 0 5px 0 var(--monitor-shadow-color);
+}
+
+.budget-buttons {
+    display: flex;
+}
+
+.budget-button.selected {
+    background-color: #ccc;
+}
+
+.city-slider-container {
+    border-radius: 5px;
+    border: 2px solid var(--border-color);
+    height: 326px;
+    background: var(--background-dark);
+}
+
+.vertical-scroll {
+    overflow-y: auto;
+}

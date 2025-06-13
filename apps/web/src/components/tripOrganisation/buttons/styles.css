@@ -1,0 +1,209 @@
+@import url('../../../commonStyles.css');
+
+.button-minus-outer, .button-plus-outer, .left-month-outer,
+.button-month-outer, .right-month-outer, .button-info-outer,
+.button-detail-outer, .button-select-destination-outer,
+.button-budget-outer, .button-standard-outer, .button-lux-outer {
+    background-color: var(--background-dark);
+    transition: background-color 0.3s ease;
+    border: 2px solid var(--border-color);
+}
+
+.button-search-outer {
+    transition: background-color 0.3s ease;
+    border: 2px solid var(--border-color);
+}
+
+.button-x-outer, .button-previous-outer, .button-next-outer, .button-next-large-outer {
+    transition: background-color 0.3s ease;
+    border: 2px solid var(--border-color);
+}
+
+.button-select-destination-outer {
+    height: 50px;
+    width: 330px;
+    margin-left: -2px;
+    margin-bottom: -2px;
+}
+
+.button-search-outer {
+    width: 150px;
+    margin: 0 auto;
+    border-radius: 5px;
+    height: 48px;
+}
+
+.button-month-outer {
+    width: 100px;
+    height: 48px;
+    left: 0;
+    position: relative;
+    transition: background-color 0.3s ease;
+    border: 2px solid var(--border-color);
+}
+
+.button-month-outer, .button-year-outer, .button-adults-outer {
+    background-color: var(--background-light);
+    border: 2px solid var(--border-color);
+}
+
+.right-month-outer, .left-month-outer {
+    height: 48px;
+    width: 44px;
+}
+
+.button-previous-outer, .button-next-outer {
+    min-width: 140px;
+    height: 48px;
+}
+
+.button-x-outer {
+    width: 24px;
+    height: 30px;
+}
+
+.button-x-inner {
+    width: 24px;
+    height: 24px;
+    border-bottom: 2px solid;
+}
+
+.button-previous-outer, .button-next-outer, .button-next-large-outer {
+    position: relative;
+    bottom: 0;
+}
+
+.button-next-outer, .button-detail-outer {
+    border-left: none !important;
+}
+
+.button-next-large-outer {
+    transition: background-color 0.3s ease;
+    border: 2px solid var(--border-color); /* Add a black border */
+    height: 48px;
+    width: 130px;
+    position: relative;
+    bottom: 0;
+    background-image: none !important;
+    border-left: none;
+}
+
+.button-next-large-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 41px;
+    transition: transform 0.3s ease;
+    border-bottom: 2px solid var(--border-color); /* Add a black border */
+    border-top: 2px solid var(--border-color); /* Add a black border */
+    top: -2px;
+    position: relative;
+}
+
+.button-x-outer.pressed {
+    background-color: var(--background-dark);
+    background-image: none;
+}
+
+.button-previous-inner,
+.button-next-inner, .button-next-large-inner, .left-month-inner, .button-month-inner, .right-month-inner,
+.button-budget-inner, .button-standard-inner, .button-lux-inner,
+.button-detail-inner, .button-search-inner, .button-select-destination-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 41px;
+    transition: transform 0.3s ease;
+    border-bottom: 2px solid var(--border-color); /* Add a black border */
+    border-top: 2px solid var(--border-color); /* Add a black border */
+    top: -2px;
+    position: relative;
+}
+
+
+.button-minus-inner, .button-plus-inner,
+.left-month-inner, .right-month-inner, .button-info-inner,
+.button-detail-inner, .button-budget-inner, .button-standard-inner, .button-lux-inner,
+.left-month-inner, .right-month-inner, .button-select-destination-inner {
+    background-color: var(--background-less-dark);
+}
+
+.button-previous-inner, .button-next-inner, .button-next-large-inner {
+    height: 40px;
+}
+
+.button-search-inner {
+    border-radius: 5px !important;
+}
+
+.button-info-inner {
+    height: 52px;
+    width: 50px;
+    border-left: none !important;
+}
+
+.button-month-inner, .button-year-inner {
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.button-minus-inner.translate, .button-plus-inner.translate, .button-previous-inner.translate,
+.button-next-inner.translate, .button-done-inner.translate, .left-month-inner.translate, .right-month-inner.translate,
+.button-info-inner.translate, .button-budget-inner.translate, .button-standard-inner.translate,
+.button-lux-inner.translate, .button-detail-inner.translate, .button-search-inner.translate, .button-select-destination-inner.translate {
+    transform: translateY(8px); /* Adjust the translateY value to match your design */
+    color: var(--element-background);
+}
+
+.left-month-inner.translate, .right-month-inner.translate {
+    background: var(--navigation-button-inner);
+}
+
+.button-detail-inner.translate {
+    color: var(--element-background)
+}
+
+.button-budget-inner.translate, .button-standard-inner.translate,
+.button-lux-inner.translate, .button-detail-inner.translate, .button-select-destination-inner.translate {
+    background: var(--pressed-button-color);
+    box-shadow: 0 6px 0 0 #00000033 inset;
+}
+
+.button-done-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--navigation-button-inner);
+    position: relative;
+    width: 85%;
+    height: 40px;
+    background-image: none;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    margin: 0 auto;
+    max-width: 330px;
+    color: var(--element-background);
+}
+
+.button-budget-inner, .button-standard-inner, .button-lux-inner, .button-done-inner,
+.button-month-inner, .button-year-inner, .button-previous-inner, .button-next-inner,
+.button-next-large-inner, .button-detail-inner, .button-search-inner {
+    font-family: 'IBM Plex Mono', sans-serif;
+}
+
+.button-budget-outer, .button-standard-outer, .button-lux-outer {
+    background-image: none !important;
+    background: var(--background-dark);
+}
+
+.destination-letters {
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.destination-letters.translate {
+    color: var(--text-color-light);
+}

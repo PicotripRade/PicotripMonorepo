@@ -1,0 +1,34 @@
+{
+    "tag_name": "test",
+    "relevant_feature_list": [
+        "BCH",
+        "BCHS",
+        "COVE",
+        "COVES",
+        "FJD",
+        "FJDS",
+        "BAY",
+        "BAYS"
+    ],
+    "h3_city_airport_distance": [
+        4,
+        1
+    ],
+    "h3_city_hotel_distance": [
+        6,
+        0
+    ],
+    "h3_feature_hotel_distance": [
+        7,
+        0
+    ],
+    "h3_feature_city_distance": [
+        7,
+        0
+    ],
+    "min_hotels_cities": 0,
+    "min_hotels_features": 0,
+    "foc_min_pop": 100000,
+    "max_pop": 50000000,
+    "min_pop": 500
+}

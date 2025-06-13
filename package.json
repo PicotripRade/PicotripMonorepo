@@ -1,0 +1,8 @@
+{
+  "name": "picotrip-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

@@ -1,0 +1,11 @@
+h2 {
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: var(--text-color);
+}
+
+.date-range {
+    font-weight: bold;
+    font-size: 11px;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block content %}
+    <form method="post" action="/offers/">
+        {% csrf_token %}
+        {{ form.media }}
+        {% bootstrap_form form %}
+
+        <button type="submit" name="Search">Search</button>
+    </form>
+{% endblock %}

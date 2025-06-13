@@ -1,0 +1,226 @@
+.autocomplete-wrapper {
+    width: var(--container-width-smartphone);
+    margin: 0 auto;
+}
+
+@media (max-width: 330px) {
+    /* CSS rules for small screens (less than 350px) */
+    .autocomplete-wrapper {
+        width: var(--container-width-tiny-smartphone);
+    }
+}
+
+
+.svg-icon-nav.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.input-field {
+    display: block; /* Ensures the label block-level for full width */
+    width: 80%;
+    min-height: 28px; /* Set your desired height */
+    padding: 5px; /* Optional: Adjust as needed */
+    position: relative; /* Needed for absolute positioning of the input */
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin: auto;
+    font-size: 18px;
+}
+
+.time-range-box {
+    display: flex;
+    background: var(--element-background);
+}
+
+.date-range-info-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.date-range-info {
+    height: 35px;
+    width: 180px;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    margin-right: 10px;
+}
+
+.range-display {
+    height: 25px;
+    border-radius: 5px;
+    margin: auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.range-display, .input-collapsed, .activity-tag div {
+    font-size: 13px;
+    font-family: Aspira, sans-serif;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.range-display.unselected, p.unselected {
+    color: var(--disabled-text) !important;
+}
+
+.navigation {
+    display: flex;
+    margin: auto;
+}
+
+.datepicker-wrapper {
+    display: flex;
+}
+
+.time-range-container, .counter-wrapper {
+    margin: 0 auto;
+    width: var(--container-width-smartphone);
+    background-color: var(--element-background);
+}
+
+@media (max-width: 350px) {
+    .time-range-container {
+        width: var(--container-width-tiny-smartphone);
+    }
+}
+
+/*.time-range-container {*/
+/*    height: 75vh;*/
+/*}*/
+
+.item-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 14px;
+    margin-bottom: 2px;
+}
+
+.label-time, .label-description {
+    color: var(--border-color);
+    font-size: 11px;
+    justify-content: left;
+    margin: 0;
+    opacity: 0.7;
+}
+
+.initial-data-label {
+    color: var(--border-color);
+    font-size: 12px;
+    justify-content: left;
+    height: 6px;
+    display: flex;
+}
+
+.short-data-label {
+    color: var(--background-dark);
+    font-size: 12px;
+    justify-content: left;
+    height: 6px;
+    display: flex;
+    width: 50px;
+}
+
+.travel-type-selection {
+    display: flex;
+    flex-direction: row;
+    width: var(--container-width-smartphone);
+    margin: 5px auto -8px;
+}
+
+.all-types, .by-car, .by-plane {
+    width: 33%;
+    margin-top: 15px;
+}
+
+.all-types div, .by-car div, .by-plane div {
+    font-size: 15px;
+    font-family: Arial;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.all-types.selected, .by-car.selected, .by-plane.selected {
+    border-bottom: 2px solid var(--monitor-shadow-color) !important;
+}
+
+.results-container {
+    height: 65vh;
+}
+
+.user-entry-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-top: 20px;
+}
+
+.collapsed-input-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 320px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.collapsed-input {
+    height: 60px;
+    width: 220px;
+    font-family: Arial;
+    display: flex;
+    align-items: center;
+    border-radius: 45px;
+    background: var(--element-background);
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.activity-name-collapsed {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Aspira, sans-serif;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+.time-range-collapsed {
+    font-size: 14px;
+    font-family: Arial;
+    color: black;
+}
+
+.x-button-results {
+    width: var(--container-width-smartphone);
+    margin: 0 auto;
+    display: flex;
+    align-items: start;
+    padding-left: 12px;
+}
+
+
+@media (max-width: 330px) {
+    /* CSS rules for small screens (less than 350px) */
+    .x-button-results {
+        width: var(--container-width-tiny-smartphone);
+    }
+}
+
+
+.filter-results img, .back-arrow-results img {
+    width: 35px;
+    height: 35px;
+}
+
+.search-again-button {
+    color: var(--accent-text);
+    padding: 5px;
+    font-size: 14px;
+}

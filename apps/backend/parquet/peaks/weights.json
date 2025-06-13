@@ -1,0 +1,30 @@
+{
+    "number_of_hotels": [
+        3,
+        "normal"
+    ],
+    "number_of_hotels_lux": [
+        1,
+        "normal"
+    ],
+    "lux_hotel_ratio": [
+        1,
+        "normal"
+    ],
+    "no_PK_score": [
+        1,
+        "normal"
+    ],
+    "distance_PK_score": [
+        5,
+        "normal"
+    ],
+    "no_MT_score": [
+        10,
+        "normal"
+    ],
+    "distance_MT_score": [
+        10,
+        "normal"
+    ]
+}

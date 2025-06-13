@@ -1,0 +1,41 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6d66c0da.css",
+    "main.js": "/static/js/main.871180b2.js",
+    "static/js/511.a980df20.chunk.js": "/static/js/511.a980df20.chunk.js",
+    "static/media/Zapfino.ttf": "/static/media/Zapfino.c83b4a2c80c7d537eb71.ttf",
+    "static/media/tekstura-new-2.png": "/static/media/tekstura-new-2.35ed3f777e71fe5621bb.png",
+    "static/media/IBMPlexMono-SemiBold.ttf": "/static/media/IBMPlexMono-SemiBold.e24a62f7aba6ac518667.ttf",
+    "static/media/Cardo99s.ttf": "/static/media/Cardo99s.64cde46de73d255b15a4.ttf",
+    "static/media/IBMPlexMono-SemiBold.woff": "/static/media/IBMPlexMono-SemiBold.af0e02701fbb26d1f256.woff",
+    "static/media/upheavtt.ttf": "/static/media/upheavtt.e3d365ba5fa6a65e9caf.ttf",
+    "static/media/grey-9026_128.gif": "/static/media/grey-9026_128.b6e1765efb6d23d32cf7.gif",
+    "static/media/paris.jpg": "/static/media/paris.8955860455c7d1bfe794.jpg",
+    "static/media/upheavtt.woff": "/static/media/upheavtt.14449937efa405421f0b.woff",
+    "static/media/picotrip.svg": "/static/media/picotrip.0548b7a873657572782f712e6b033457.svg",
+    "static/media/summer-svgrepo-com.svg": "/static/media/summer-svgrepo-com.38e5b00521727ba1bbba70d4faa49867.svg",
+    "static/media/family-svgrepo-com.svg": "/static/media/family-svgrepo-com.3328138caad56a328ac7f3bb5ec00926.svg",
+    "static/media/lake-svgrepo-com.svg": "/static/media/lake-svgrepo-com.fb81f002241dae433d404cebc506174c.svg",
+    "static/media/mountain-svgrepo-com.svg": "/static/media/mountain-svgrepo-com.a4cf984a67c875c1a68622742d2e1d3f.svg",
+    "static/media/parachute-svgrepo-com.svg": "/static/media/parachute-svgrepo-com.b198b39672e174a3a0920fefad1c5dae.svg",
+    "static/media/my-location-svgrepo-com.svg": "/static/media/my-location-svgrepo-com.a5becfa4777fedbef647f0dea5f5c5b0.svg",
+    "static/media/ski-svgrepo-com.svg": "/static/media/ski-svgrepo-com.e602d8c54aa0a62de82504e1d9736dcc.svg",
+    "static/media/car-taxi-front.svg": "/static/media/car-taxi-front.791730dc4c173dcd94d26b525de906d9.svg",
+    "static/media/hiking-svgrepo-com-2.svg": "/static/media/hiking-svgrepo-com-2.c14676c3d68f50a45f4986974e7d6e2f.svg",
+    "static/media/underground-cave-svgrepo-com.svg": "/static/media/underground-cave-svgrepo-com.32a36c15f7e50f37304d9b9683f364db.svg",
+    "static/media/filters-2-svgrepo-com.svg": "/static/media/filters-2-svgrepo-com.54d78eec86e7b09e38a46a83d71d7de0.svg",
+    "static/media/plane.svg": "/static/media/plane.edaf3ba5a80d2deeffcb9aed07c9272c.svg",
+    "index.html": "/index.html",
+    "static/media/check-mark-svgrepo-com.svg": "/static/media/check-mark-svgrepo-com.0ce8eb7c9218e1de93170dbaf9f608c8.svg",
+    "static/media/left-navigation-back-svgrepo-com.svg": "/static/media/left-navigation-back-svgrepo-com.efe9ddc57efc599d8e01ef68a66a899f.svg",
+    "static/media/plus-minus.svg": "/static/media/plus-minus.32ac358c769ac7c6891d9a688d7a1320.svg",
+    "static/media/plus-minus-white.svg": "/static/media/plus-minus-white.0451f5ae0d61ff20d3e180a7cb703883.svg",
+    "main.6d66c0da.css.map": "/static/css/main.6d66c0da.css.map",
+    "main.871180b2.js.map": "/static/js/main.871180b2.js.map",
+    "511.a980df20.chunk.js.map": "/static/js/511.a980df20.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6d66c0da.css",
+    "static/js/main.871180b2.js"
+  ]
+}

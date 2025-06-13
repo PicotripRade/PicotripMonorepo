@@ -1,0 +1,86 @@
+{
+    "number_of_hotels": [
+        1,
+        "normal"
+    ],
+    "number_of_hotels_lux": [
+        1,
+        "normal"
+    ],
+    "lux_hotel_ratio": [
+        1,
+        "normal"
+    ],
+    "h3_index_0": [
+        1,
+        "normal"
+    ],
+    "h3_index_1": [
+        1,
+        "normal"
+    ],
+    "h3_index_2": [
+        1,
+        "normal"
+    ],
+    "h3_index_3": [
+        1,
+        "normal"
+    ],
+    "h3_index_4": [
+        1,
+        "normal"
+    ],
+    "h3_index_5": [
+        1,
+        "normal"
+    ],
+    "h3_index_6": [
+        1,
+        "normal"
+    ],
+    "h3_index_7": [
+        1,
+        "normal"
+    ],
+    "no_BCH_score": [
+        1,
+        "normal"
+    ],
+    "distance_BCH_score": [
+        1,
+        "normal"
+    ],
+    "no_BCHS_score": [
+        1,
+        "normal"
+    ],
+    "distance_BCHS_score": [
+        1,
+        "normal"
+    ],
+    "no_BAY_score": [
+        1,
+        "normal"
+    ],
+    "distance_BAY_score": [
+        1,
+        "normal"
+    ],
+    "no_BAYS_score": [
+        1,
+        "normal"
+    ],
+    "distance_BAYS_score": [
+        1,
+        "normal"
+    ],
+    "no_COVE_score": [
+        1,
+        "normal"
+    ],
+    "distance_COVE_score": [
+        1,
+        "normal"
+    ]
+}

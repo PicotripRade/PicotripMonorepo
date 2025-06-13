@@ -1,0 +1,226 @@
+.autocomplete {
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    background: var(--element-background);
+}
+
+.autocomplete-results {
+    list-style: none;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    height: 340px;
+    overflow: hidden;
+}
+
+.autocomplete-item {
+    cursor: pointer;
+    font-size: 15px;
+    border-bottom: 1px dashed var(--background-dark);
+    padding: 8px 0;
+}
+
+.last {
+    border-bottom: none !important;
+}
+
+.first {
+    border-top: none !important;
+}
+
+.name {
+    color: var(--text-color);
+}
+
+.code {
+    color: black;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.edge-block {
+    width: 100%;
+    margin: auto;
+    border-radius: 5px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    background-color: var(--element-background);
+    display: flex;
+}
+
+.inner-block {
+    position: relative;
+    width: 100%;
+    background-position: 0 0;
+    background-size: auto;
+    box-sizing: border-box;
+}
+
+.inner-block.expanded {
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+}
+
+.inner-block.expanded.decreased-height{
+    height: 80vh !important;
+}
+
+@media (max-width: 350px) {
+  /* CSS rules for small screens (less than 350px) */
+  .your-class {
+    font-size: 12px;
+    padding: 5px;
+    background-color: lightgray;
+  }
+}
+
+
+.location-block {
+    position: relative;
+    width: 40px;
+    box-sizing: border-box;
+    margin: auto;
+    background-size: auto;
+    height: 42px;
+    border-left: 1px solid var(--border-color);
+    background-color: var(--monitor-shadow-color);
+    margin: auto;
+}
+
+.location-block img {
+    width: 70%;
+    height: 100%;
+}
+
+.destination-input-field {
+    position: relative; /* Create a relative positioning context */
+    width: 90%;
+    border: 1px solid var(--border-color);
+    margin: 10px auto 0;
+    display: flex;
+}
+
+.input-container {
+    position: relative; /* Create relative context for the input and placeholder */
+}
+
+.placeholder-text {
+    position: absolute;
+    top: 50%;
+    width: 95%;
+    transform: translateY(-50%); /* Center the placeholder text vertically */
+    color: var(--disabled-text);
+    font-family: Aspira, sans-serif;
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: 30;
+}
+
+.placeholder-text:focus {
+    color: var(--screen-light) !important;
+    display: none !important;
+    height: 0px !important;
+    font-family: 'IBM Plex Mono', sans-serif;
+}
+
+input {
+    width: 90%;
+    padding: 10px; /* Adjust padding as needed */
+    box-sizing: border-box; /* Include padding in width/height calculation */
+    z-index: 1; /* Place above the placeholder text */
+    text-align: center;
+    border: none;
+    background-color: var(--background-less-dark);
+    outline: none;
+    font-size: 16px;
+    color: var(--text-color);
+    font-family: Aspira, sans-serif;
+}
+
+input:focus {
+    caret-color: var(--background-dark);
+}
+
+.placeholder-active {
+    color: transparent; /* Hide the text visually but keep the input field */
+}
+
+.collapsed {
+    margin: auto !important;
+    width: 100% !important;
+    border: none !important;
+}
+
+.disabled-text {
+    color: var(--accent-text);
+    font-size: 18px;
+    margin: auto;
+    padding-left: 10px;
+    font-family: Aspira, sans-serif;
+}
+
+.input-collapsed {
+    text-align: end;
+    background-color: var(--element-background);
+}
+
+.placeholder-collapsed {
+    text-align: end;
+}
+
+.input-navigation {
+    width: 100%;
+    height: 90px;
+    align-items: center;
+    display: flex;
+}
+
+.empty-space {
+    flex-grow: 1; /* This will take up the remaining space */
+}
+
+.airport-checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    display: flex;
+    margin-bottom: 5px;
+    flex-direction: row;
+    width: 80px;
+}
+
+input[type=checkbox] {
+    background-color: var(--monitor-shadow-color);
+    width: 20px;
+}
+
+.section-title {
+    font-style: italic;
+    font-size: 12px;
+    font-family: 'Aspira', sans-serif;
+    color: var(--text-color);
+    text-align: initial;
+    padding-left: 16px;
+    margin: 23px 0 12px;
+}
+
+.airport-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% + 24px);
+}
+
+.checkbox.hidden {
+    width:24px;
+    visibility: hidden;
+}

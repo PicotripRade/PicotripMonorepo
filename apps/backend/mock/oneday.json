@@ -1,0 +1,69 @@
+{
+  "results": {
+    "car": [
+      {
+        "geonameid": 3263356,
+        "name": "Uvala Pasja\u010da",
+        "country_code": "HR",
+        "transport": "car"
+      },
+      {
+        "geonameid": 3198876,
+        "name": "Uvala Janska",
+        "country_code": "HR",
+        "transport": "car"
+      },
+      {
+        "geonameid": 3264001,
+        "name": "Uvala Orsan",
+        "country_code": "HR",
+        "transport": "car"
+      },
+      {
+        "geonameid": 3206888,
+        "name": "Uvala Tiha",
+        "country_code": "HR",
+        "transport": "car"
+      },
+      {
+        "geonameid": 3207212,
+        "name": "Uvala Veliki Jakljan",
+        "country_code": "HR",
+        "transport": "car"
+      },
+      {
+        "geonameid": 3196130,
+        "name": "Uvala Lu\u010dica",
+        "country_code": "HR",
+        "transport": "car"
+      },
+      {
+        "geonameid": 12036348,
+        "name": "Banje Beach",
+        "country_code": "HR",
+        "transport": "car"
+      },
+      {
+        "geonameid": 3188034,
+        "name": "Luka Donji Molunat",
+        "country_code": "HR",
+        "transport": "car"
+      },
+      {
+        "geonameid": 3264626,
+        "name": "Uvala Sapluni",
+        "country_code": "HR",
+        "transport": "car"
+      },
+      {
+        "geonameid": 3338975,
+        "name": "Uvala Rastova",
+        "country_code": "HR",
+        "transport": "car"
+      }
+    ],
+    "direct_flight": "no results",
+    "flight": "no results",
+    "any": "no results"
+  }
+}

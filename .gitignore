@@ -1,0 +1,25 @@
+# Node-related
+node_modules/
+package-lock.json
+
+# Python venv
+venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Log files
+*.log
+
+# Vite/React
+dist/
+.env
+*.lock
+
+# DB files
+*.db
+
+# Large files
+apps/backend/raw_backend/all_reviews.json
