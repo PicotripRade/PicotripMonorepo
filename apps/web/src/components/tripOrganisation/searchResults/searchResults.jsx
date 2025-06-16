@@ -11,7 +11,7 @@ import {
 } from "../functions/functions.jsx";
 import FlightSegment from "./flightSegment.jsx";
 import Cookies from "js-cookie";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setSelectedCityRedux} from "../../../store/store/actions/CityInformationActions.jsx";
 
 const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityInfo, isLoadingCityData}) => {
@@ -159,6 +159,7 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
                                     </div>
                                 </div>
                                 <div className={"footer-desc"}>
+                                    {/* Summer Vacation */}
                                     {city.BCH_no_h6_1 > 0 && (
                                         <div
                                             className={"beaches-count"}>{`BCH ${city.BCH_no_h6_1}`}
@@ -178,6 +179,15 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
                                     {city.GULF_no_h6_1 > 0 && (
                                         <div
                                             className={"gulf-count"}>{`GULF ${city.GULF_no_h6_1}`}
+                                        </div>)}
+                                    {/* Mountains */}
+                                    {city.PK_no_h5_1 > 0 && (
+                                        <div
+                                            className={"peaks-count"}>{`PEAKS ${city.PK_no_h5_1}`}
+                                        </div>)}
+                                    {city.MT_no_h5_1 > 0 && (
+                                        <div
+                                            className={"mountains-count"}>{`MOUNTAINS ${city.MT_no_h5_1}`}
                                         </div>)}
                                 </div>
                             </div>

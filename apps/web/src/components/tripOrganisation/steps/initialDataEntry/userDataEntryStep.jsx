@@ -152,12 +152,7 @@ function UserDataEntryStep() {
         Cookies.set("airportList", JSON.stringify(airportList));
         Cookies.set("selectedAirports", JSON.stringify(selectedAirports));
         Cookies.set("beginDate", beginDate);
-
-        Cookies.set('finalDate', finalDate, {
-            sameSite: window.location.protocol === 'https:' ? 'None' : 'Lax',
-            secure: window.location.protocol === 'https:',
-            path: '/'
-        });
+        Cookies.set("finalDate", finalDate);
     };
 
 
