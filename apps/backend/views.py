@@ -47,16 +47,17 @@ def autocomplete_api(request):
                            'h3_index_4', 'h3_index_5', 'h3_index_6')
 
     # Determine Elasticsearch password based on WORKMODE
-    workmode = os.getenv("WORKMODE", "DEV")
+    workmode = os.getenv("VITE_WORKMODE", "DEV")
     if workmode.upper() == "PROD":
         password = "MCNCMhwigWK+1PD0svS5"
     else:
         password = "rade123"
 
     es = Elasticsearch(
-        "http://127.0.0.1:9200",  # Replace with your Elasticsearch server URL
+        "http://127.0.0.1:9200",
         basic_auth=("elastic", password),
-        verify_certs=False
+        verify_certs=False,
+        headers={"Accept": "application/vnd.elasticsearch+json; compatible-with=8"}
     )
 
     INDEX_NAME = "cities"
@@ -298,7 +299,7 @@ def get_user_location_initial(request):
 
         ip_addr_mock = '109.245.205.77'
         # Using ip-api.com (free tier available)
-        workmode = os.getenv("WORKMODE", "DEV")
+        workmode = os.getenv("VITE_WORKMODE", "DEV")
         if workmode.upper() == "PROD":
             response = requests.get(f'http://ip-api.com/json/{ip_address}')
         else:

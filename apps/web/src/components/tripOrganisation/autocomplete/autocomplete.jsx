@@ -137,7 +137,6 @@ const Autocomplete = forwardRef(({
     };
 
     const onItemClick = (item) => {
-        console.log("ITEM CLICK");
         // Set input value in the format: City, Country, Admin Name
         const startingPointText = `${item.city}, ${item.country}, ${item.admin_name}`;
         setInputValue(startingPointText);
@@ -145,8 +144,6 @@ const Autocomplete = forwardRef(({
         // Update the parent component with the selected airport code
         // Mark the selection as valid and remove any previous error messages
         setIsValidSelection(true);
-        console.log("STARTING", startingPoint);
-        console.log("INPUT VALUE", inputValue);
         // Set originId based on the selected item and pass it upward
         if (onOriginChange) {
             onOriginChange(item.id);

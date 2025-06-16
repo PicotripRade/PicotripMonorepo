@@ -22,7 +22,11 @@ zstandard
 cache
 openai
 pydantic
-elastic
+elasticsearch~=8.18.1
 polars
 h3
+xarray
+dask
+jmespath
+groq
 
