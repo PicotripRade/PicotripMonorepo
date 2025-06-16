@@ -11,7 +11,7 @@ import {
 } from "../functions/functions.jsx";
 import FlightSegment from "./flightSegment.jsx";
 import Cookies from "js-cookie";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setSelectedCityRedux} from "../../../store/store/actions/CityInformationActions.jsx";
 
 const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityInfo, isLoadingCityData}) => {
@@ -30,10 +30,6 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
     const [loadingIndex, setLoadingIndex] = useState(0);
     const [dotCount, setDotCount] = useState(0);
     const [selectedCity, setSelectedCity] = useState(null);
-
-    const [touchStartY, setTouchStartY] = useState(null);
-    const [touchEndY, setTouchEndY] = useState(null);
-    const [swipeDown, setSwipeDown] = useState(false);
 
     const startDate = Cookies.get('beginDate') || '';
     const finalDate = Cookies.get('finalDate') || '';
@@ -75,8 +71,6 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
 
     if (data && data.results) {
         const selectedType = typeMap[typeToDisplay] || 'top';
-        console.log("selectedType")
-        console.log(selectedType)
         const rawData = data.results[selectedType];
         if (selectedType === 'flight') {
             filteredData = rawData.filter(city => city.transport === 'direct');
@@ -118,31 +112,6 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
             </div>
         );
     }
-
-    const handleTouchStart = (e) => {
-        setTouchStartY(e.targetTouches[0].clientY);
-    };
-
-    const handleTouchMove = (e) => {
-        setTouchEndY(e.targetTouches[0].clientY);
-    };
-
-    const handleTouchEnd = () => {
-        if (touchStartY !== null && touchEndY !== null) {
-            const distance = touchEndY - touchStartY;
-            if (distance > 100) {
-                // Trigger swipe-down animation before closing
-                setSwipeDown(true);
-                setTimeout(() => {
-                    closeModal();
-                    setSwipeDown(false);
-                }, 300); // match animation duration
-                return;
-            }
-        }
-        setTouchStartY(null);
-        setTouchEndY(null);
-    };
 
 
     if (ready) {
@@ -190,12 +159,36 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
                                     </div>
                                 </div>
                                 <div className={"footer-desc"}>
-                                    <div
-                                        className={"beaches-count"}>{city.BCH_no_h6_1 > 0 && `BCH ${city.BCH_no_h6_1}`}
-                                    </div>
-                                    <div
-                                        className={"bay-count"}>{city.BAY_no_h6_1 > 0 && `BAY ${city.BAY_no_h6_1}`}
-                                    </div>
+                                    {/* Summer Vacation */}
+                                    {city.BCH_no_h6_1 > 0 && (
+                                        <div
+                                            className={"beaches-count"}>{`BCH ${city.BCH_no_h6_1}`}
+                                        </div>)}
+                                    {city.BAY_no_h6_1 > 0 && (
+                                        <div
+                                            className={"bay-count"}>{`BAY ${city.BAY_no_h6_1}`}
+                                        </div>)}
+                                    {city.COVE_no_h6_1 > 0 && (
+                                        <div
+                                            className={"cove-count"}>{`COVE ${city.COVE_no_h6_1}`}
+                                        </div>)}
+                                    {city.LGN_no_h6_1 > 0 && (
+                                        <div
+                                            className={"lagoon-count"}>{`LAGOON ${city.LGN_no_h6_1}`}
+                                        </div>)}
+                                    {city.GULF_no_h6_1 > 0 && (
+                                        <div
+                                            className={"gulf-count"}>{`GULF ${city.GULF_no_h6_1}`}
+                                        </div>)}
+                                    {/* Mountains */}
+                                    {city.PK_no_h5_1 > 0 && (
+                                        <div
+                                            className={"peaks-count"}>{`PEAKS ${city.PK_no_h5_1}`}
+                                        </div>)}
+                                    {city.MT_no_h5_1 > 0 && (
+                                        <div
+                                            className={"mountains-count"}>{`MOUNTAINS ${city.MT_no_h5_1}`}
+                                        </div>)}
                                 </div>
                             </div>
                         </div>
@@ -206,11 +199,8 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
                 {selectedCity && (
                     <div className="modal-overlay" onClick={closeModal}>
                         <div
-                            className={`modal-content ${swipeDown ? 'swipe-down' : ''}`}
+                            className={`modal-content`}
                             onClick={(e) => e.stopPropagation()}
-                            // onTouchStart={handleTouchStart}
-                            // onTouchMove={handleTouchMove}
-                            // onTouchEnd={handleTouchEnd}
                         >
                             <div className={"modal-header"}>
                                 <button className="close-button" onClick={closeModal}>×</button>

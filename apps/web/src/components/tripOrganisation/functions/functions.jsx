@@ -234,12 +234,7 @@ export const formatDateToMonthDayYear = (dateStr) => {
     return d.toLocaleDateString('en-US', options);
 };
 
-export const saveTripCookies = ({airportList, selectedAirports, beginDate, finalDate}) => {
-    Cookies.set("airportList", JSON.stringify(airportList));
-    Cookies.set("selectedAirports", JSON.stringify(selectedAirports));
-    Cookies.set("beginDate", beginDate);
-    Cookies.set("finalDate", finalDate);
-};
+
 
 
 export const loadLocationCookies = () => {

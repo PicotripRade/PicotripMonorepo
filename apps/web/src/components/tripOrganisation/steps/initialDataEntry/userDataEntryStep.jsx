@@ -19,7 +19,6 @@ import {
     formatDateToNumbersAndLetters,
     getTagDescription,
     loadLocationCookies,
-    saveTripCookies
 } from "../../functions/functions.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {addCityInfo} from "../../../../store/store/actions/CityInformationActions.jsx";
@@ -148,6 +147,14 @@ function UserDataEntryStep() {
         return () => document.removeEventListener('mousedown', handleClick);
     }, [isValidSelection]);
 
+    const saveTripCookies = ({airportList, selectedAirports, beginDate, finalDate}) => {
+        console.log("save trip cookies");
+        Cookies.set("airportList", JSON.stringify(airportList));
+        Cookies.set("selectedAirports", JSON.stringify(selectedAirports));
+        Cookies.set("beginDate", beginDate);
+        Cookies.set("finalDate", finalDate);
+    };
+
 
     const fetchAirports = async (originId) => {
         try {
@@ -178,7 +185,7 @@ function UserDataEntryStep() {
 
             // Save to cookies
 
-            saveTripCookies(airportList, selectedAirports, beginDate, finalDate);
+            saveTripCookies({airportList, selectedAirports, beginDate, finalDate});
 
             if (!skipUpdateURL) {
                 navigate(`?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}`, {
@@ -187,8 +194,6 @@ function UserDataEntryStep() {
             }
 
             setIsLoading(true);
-
-            console.log("arrow back", arrowBackPressed);
 
             const data = await GetRequest(
                 `/api/get_trips_info?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}&selectedAirports=${selectedAirports.join(',')}`
