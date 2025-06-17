@@ -57,7 +57,6 @@ def autocomplete_api(request):
         "http://127.0.0.1:9200",
         basic_auth=("elastic", password),
         verify_certs=False,
-        headers={"Accept": "application/vnd.elasticsearch+json; compatible-with=8"}
     )
 
     INDEX_NAME = "cities"
