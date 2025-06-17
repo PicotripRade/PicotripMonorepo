@@ -1,11 +1,11 @@
 import React, {forwardRef, useState} from "react";
-import SkiingIcon from "../../../../images/tags/travel_type/retro/v3/ski-svgrepo-com.svg";
-import SummerVacationIcon from "../../../../images/tags/travel_type/retro/v3/summer-svgrepo-com.svg";
-import HikingIcon from "../../../../images/tags/travel_type/retro/v3/hiking-svgrepo-com-2.svg";
-import FamilyTripIcon from "../../../../images/tags/travel_type/retro/v3/family-svgrepo-com.svg";
-import LakesIcon from "../../../../images/tags/travel_type/retro/v3/lake-svgrepo-com.svg";
-import ParachuteIcon from "../../../../images/tags/travel_type/retro/v3/parachute-svgrepo-com.svg";
-import CavingIcon from "../../../../images/tags/travel_type/retro/v3/underground-cave-svgrepo-com.svg";
+import SkiingIcon from "../../../../images/tags/travel_type/v3/ski-svgrepo-com.svg";
+import SummerVacationIcon from "../../../../images/tags/travel_type/v3/summer-svgrepo-com.svg";
+import HikingIcon from "../../../../images/tags/travel_type/v3/hiking-svgrepo-com-2.svg";
+import FamilyTripIcon from "../../../../images/tags/travel_type/v3/family-svgrepo-com.svg";
+import LakesIcon from "../../../../images/tags/travel_type/v3/lake-svgrepo-com.svg";
+import ParachuteIcon from "../../../../images/tags/travel_type/v3/parachute-svgrepo-com.svg";
+import CavingIcon from "../../../../images/tags/travel_type/v3/underground-cave-svgrepo-com.svg";
 import MountainIcon from "../../../../images/destinations/tags/mountain-svgrepo-com.svg";
 
 import Tag from "../../tag/tag.jsx";

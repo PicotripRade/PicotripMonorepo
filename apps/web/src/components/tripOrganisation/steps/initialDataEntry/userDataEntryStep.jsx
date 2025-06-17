@@ -15,15 +15,15 @@ import ArrowBack from '../../../../images/destinations/left-navigation-back-svgr
 import {CloseIcon} from "../../../utils/reactIcons/icons.jsx";
 import Cookies from "js-cookie";
 
-import {
-    formatDateToNumbersAndLetters,
-    getTagDescription,
-    loadLocationCookies,
-} from "../../functions/functions.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {addCityInfo} from "../../../../store/store/actions/CityInformationActions.jsx";
 import CustomButton from "../../buttons/customButton.jsx";
-import {fetchUserLocation} from "@picotrip/shared";
+import {
+    fetchUserLocation,
+    formatDateToNumbersAndLetters,
+    getTagDescription,
+    loadLocationCookies
+} from "@picotrip/shared";
 
 function UserDataEntryStep() {
     const dispatch = useDispatch();

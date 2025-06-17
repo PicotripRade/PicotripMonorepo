@@ -1,4 +1,4 @@
-import {removeTextInBrackets} from "../functions/functions.jsx";
+import {removeTextInBrackets} from "@picotrip/shared";
 
 const FlightSegment = ({segment}) => {
     return (
