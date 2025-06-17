@@ -11,7 +11,7 @@ import FlightSegment from "./flightSegment.jsx";
 import Cookies from "js-cookie";
 import {useDispatch} from "react-redux";
 import {setSelectedCityRedux} from "../../../store/store/actions/CityInformationActions.jsx";
-import {formatDateToMonthDayYear} from "@picotrip/shared";
+import {formatDateToMonthDayYear, removeTextInBrackets} from "@picotrip/shared";
 
 const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityInfo, isLoadingCityData}) => {
     const SENTENCE_TIME_MILLISECONDS = 3000;
