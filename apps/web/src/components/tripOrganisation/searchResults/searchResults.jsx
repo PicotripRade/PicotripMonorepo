@@ -5,7 +5,6 @@ import PlaneIcon from '../../../images/destinations/plane.svg';
 import CarIcon from '../../../images/destinations/car-taxi-front.svg';
 import Paris from '../../../images/mock/paris.jpg';
 import {
-    removeTextInBrackets,
     getCountryName
 } from "../functions/functions.jsx";
 import FlightSegment from "./flightSegment.jsx";
