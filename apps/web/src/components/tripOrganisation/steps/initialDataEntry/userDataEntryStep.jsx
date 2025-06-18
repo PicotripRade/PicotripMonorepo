@@ -9,7 +9,6 @@ import Header from "../../../header/header.jsx";
 import SearchResults from "../../searchResults/searchResults.jsx";
 import TagSelection from "../setActivityTag/typeOfTravelStep.jsx";
 import GetRequest from "../../../api/getRequest.jsx";
-import {formatDisplayDate} from "../../../utils/dataProcessingFunctions.jsx";
 import FilterResults from '../../../../images/destinations/filters-2-svgrepo-com.svg';
 import ArrowBack from '../../../../images/destinations/left-navigation-back-svgrepo-com.svg';
 import {CloseIcon} from "../../../utils/reactIcons/icons.jsx";
@@ -20,7 +19,7 @@ import {addCityInfo} from "../../../../store/store/actions/CityInformationAction
 import CustomButton from "../../buttons/customButton.jsx";
 import {
     fetchUserLocation,
-    formatDateToNumbersAndLetters,
+    formatDateToNumbersAndLetters, formatDisplayDate,
     getTagDescription,
     loadLocationCookies
 } from "@picotrip/shared";

@@ -9,9 +9,9 @@ import {
     resetStartDate, setEndDateRedux,
     setStartDateRedux,
 } from "../../../store/store/actions/tripOrganisationActions.jsx";
-import {formatDisplayDate} from "../../utils/dataProcessingFunctions.jsx";
 import PlusMinus from "./../../../images/destinations/datepicker/plus-minus.svg";
 import PlusMinusWhite from "./../../../images/destinations/datepicker/plus-minus-white.svg";
+import {formatDisplayDate} from "@picotrip/shared";
 
 const months = [
     "January", "February", "March", "April", "May", "June",
