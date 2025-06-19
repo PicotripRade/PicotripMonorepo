@@ -11,14 +11,7 @@ import {
 } from "../../../store/store/actions/tripOrganisationActions.jsx";
 import PlusMinus from "./../../../images/destinations/datepicker/plus-minus.svg";
 import PlusMinusWhite from "./../../../images/destinations/datepicker/plus-minus-white.svg";
-import {formatDisplayDate} from "@picotrip/shared";
-
-const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December",
-];
-
-const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+import {formatDisplayDate, monthsNames, dayNames} from "@picotrip/shared";
 
 const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
         const [tempStartDate, setTempStartDate] = useState(null);
@@ -38,13 +31,11 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
 
 
         useEffect(() => {
-            // Initialize displayedMonths with the current month and the next 5 months
+            // Initialize displayedMonths with the current month and the next 12 months
             const initialMonths = [];
             const current = new Date();
             for (let i = 0; i < 12; i++) {
                 const newMonth = new Date(current.getFullYear(), current.getMonth() + i, 1);
-                if (hasSelectableDaysInCurrentMonth(current)) {
-                }
                 initialMonths.push(newMonth);
             }
             setDisplayedMonths(initialMonths);
@@ -75,7 +66,7 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
             if (onMonthSelection) {
                 // Convert to more readable format for parent component
                 const formattedSelection = selectedMonths.map(({monthIndex, year}) => ({
-                    month: months[monthIndex],
+                    month: monthsNames[monthIndex],
                     monthIndex,
                     year
                 }));
@@ -243,7 +234,7 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                 return (
                     <div key={currentDate.getMonth()} className={`month-container ${isLastMonth ? "last-month" : ""} `}>
                         <div className="calendar-header-inner">
-                            {months[currentDate.getMonth()]}&nbsp;{currentDate.getFullYear()}
+                            {monthsNames[currentDate.getMonth()]}&nbsp;{currentDate.getFullYear()}
                         </div>
                         <div
                             className={`calendar-days ${getNumberOfRows(currentDate) === 5 ? "tight-rows" : ""} ${getNumberOfRows(currentDate) === 4 ? "very-tight-rows" : ""}`}>
@@ -321,7 +312,7 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                                                 const monthIndex = (currentMonth + monthOffset) % 12;
                                                 const year = currentYear + Math.floor((currentMonth + monthOffset) / 12);
 
-                                                const monthName = months[monthIndex];
+                                                const monthName = monthsNames[monthIndex];
 
                                                 // Check if this month is selected
                                                 const isSelected = selectedMonths.some(

@@ -345,3 +345,12 @@ export const formatDisplayDate = (startDate, endDate) => {
         end: `${endFormatted} '${endDate.getFullYear().toString().slice(-2)}`
     };
 };
+
+// datepicker functions
+
+export const monthsNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+];
+
+export const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
