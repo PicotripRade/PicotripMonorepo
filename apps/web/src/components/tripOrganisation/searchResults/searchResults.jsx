@@ -234,8 +234,6 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
                                 </div>
                                 {["direct", "non_direct"].includes(selectedCity.transport) && (
                                     <div className="modal-transport">
-                                        {console.log("selectedCity")}
-                                        {console.log(selectedCity)}
 
                                         <div className={"flight-info-wrapper"}>
                                             <div className={"title-section"}>

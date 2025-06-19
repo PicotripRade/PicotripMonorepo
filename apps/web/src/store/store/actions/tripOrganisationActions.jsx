@@ -2,6 +2,7 @@ export const SET_START_DATE = 'SET_START_DATE';
 export const SET_END_DATE = 'SET_END_DATE';
 export const RESET_START_DATE = 'RESET_START_DATE';
 export const RESET_END_DATE = 'RESET_END_DATE';
+export const CALENDAR_SWITCH = 'CALENDAR_SWITCH';
 
 export const setStartDateRedux = (date) => ({
     type: SET_START_DATE,
@@ -17,4 +18,9 @@ export const resetStartDate = () => ({
 
 export const resetEndDate = () => ({
     type: RESET_END_DATE
+});
+
+export const setCalendarSwitch = (calendarSwitch) => ({
+    type: CALENDAR_SWITCH,
+    payload: calendarSwitch
 });

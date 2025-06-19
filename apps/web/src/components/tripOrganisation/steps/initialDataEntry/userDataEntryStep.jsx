@@ -70,12 +70,10 @@ function UserDataEntryStep() {
     }, [arrowBackPressed]);
 
     useEffect(() => {
-        console.log("Redux endDateFromRedux in start:", endDateFromRedux);
         setStartDate(startDateFromRedux);
     }, [startDateFromRedux]);
 
     useEffect(() => {
-        console.log("Redux endDateFromRedux:", endDateFromRedux);
         setEndDate(endDateFromRedux);
     }, [endDateFromRedux]);
 

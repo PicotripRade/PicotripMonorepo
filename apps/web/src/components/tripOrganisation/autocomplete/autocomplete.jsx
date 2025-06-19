@@ -36,9 +36,6 @@ const Autocomplete = forwardRef(({
     const MAX_NUMBER_OF_RESULTS = 10;
 
     useEffect(() => {
-        console.log("expanded:", expanded);
-        console.log("isValidSelection:", isValidSelection);
-        console.log("airportList:", airportList);
         if (inputValue.length >= 2 && dropdownVisible) {
             if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
             debounceTimeout.current = setTimeout(() => {

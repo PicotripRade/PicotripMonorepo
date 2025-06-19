@@ -2,12 +2,14 @@ import {
     RESET_START_DATE,
     SET_END_DATE,
     SET_START_DATE,
-    RESET_END_DATE
+    RESET_END_DATE,
+    CALENDAR_SWITCH
 } from '../actions/tripOrganisationActions.jsx';
 
 const initialState = { // Define the initial state
     startDate: null,
     endDate: null,
+    CALENDAR_SWITCH: false,
 };
 
 const tripOrganisationReducer = (state = initialState, action) => { // Provide default state value
@@ -32,6 +34,11 @@ const tripOrganisationReducer = (state = initialState, action) => { // Provide d
                 ...state,
                 endDate: null,
             };
+        case CALENDAR_SWITCH:
+            return {
+                ...state,
+                calendarSwitch: action.payload,
+            }
         default:
             return state;
     }

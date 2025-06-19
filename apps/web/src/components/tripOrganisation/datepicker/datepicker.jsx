@@ -6,12 +6,12 @@ import CustomButton from "../buttons/customButton.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {
     resetEndDate,
-    resetStartDate, setEndDateRedux,
+    resetStartDate, setCalendarSwitch, setEndDateRedux,
     setStartDateRedux,
 } from "../../../store/store/actions/tripOrganisationActions.jsx";
 import PlusMinus from "./../../../images/destinations/datepicker/plus-minus.svg";
 import PlusMinusWhite from "./../../../images/destinations/datepicker/plus-minus-white.svg";
-import {formatDisplayDate, monthsNames, dayNames} from "@picotrip/shared";
+import {formatDisplayDate, monthsNames, dayNames, getNumberOfRows} from "@picotrip/shared";
 
 const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
         const [tempStartDate, setTempStartDate] = useState(null);
@@ -22,8 +22,8 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
 
         const startDateFromRedux = useSelector((state) => state.tripOrganisation.startDate);
         const endDateFromRedux = useSelector((state) => state.tripOrganisation.endDate);
+        const isDates = useSelector((state) => state.tripOrganisation.calendarSwitch) || false;
 
-        const [isDates, setIsDates] = useState(false);
         const scrollableRef = useRef(null);  // Add this ref
         const dispatch = useDispatch();
 
@@ -103,35 +103,8 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
         };
 
         const toggleSlider = () => {
-            const slider = document.getElementById("slider");
-            setIsDates(!isDates);
-            slider.style.left = isDates ? "5px" : "105px";
+            dispatch(setCalendarSwitch(!isDates));
         }
-
-        const hasSelectableDaysInCurrentMonth = (currentDate) => {
-            const today = new Date();
-            const minSelectableDate = new Date(today.setDate(today.getDate() - 1));
-
-            // Check if this month is after the minimum selectable date
-            if (new Date(currentDate.getFullYear(), currentDate.getMonth(), 1) >= minSelectableDate) {
-                return true;
-            }
-
-            // Check individual days if month contains the threshold
-            const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
-            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), daysInMonth);
-
-            return lastDay >= minSelectableDate && firstDay <= minSelectableDate;
-        }
-
-        const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
-
-        const getNumberOfRows = (currentDate) => {
-            const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
-            const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
-            return Math.ceil((firstDayOfMonth + daysInMonth) / 7);
-        };
 
         const handleDayClick = (day, currentDate) => {
             const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
@@ -275,15 +248,16 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                     {isOpen && (
                         <>
                             <p className={"input-box-title"}> When's your trip?</p>
-                            {/*{process.env.REACT_APP_WORKMODE !== 'prod' && (*/}
-                            {/*    <div className="toggle-container" onClick={toggleSlider}>*/}
-                            {/*        <div className="slider" id="slider"></div>*/}
-                            {/*        <div className="label">Dates</div>*/}
-                            {/*        <div className="label">Flexible</div>*/}
-                            {/*    </div>*/}
-                            {/*)}*/}
+                            {import.meta.env.VITE_WORKMODE !== 'prod' && (
+                                <div className="toggle-container" onClick={toggleSlider}>
+                                    <div className={`slider ${isDates ? "toggled" : ""}`}></div>
+                                    <div className="label">Dates</div>
+                                    <div className="label">Flexible</div>
+                                </div>
+                            )}
                             <div>
                                 <div className={`custom-calendar rounded-button`}>
+                                    {console.log("sad mi reci is dates", isDates)}
                                     {isDates === false ? (
                                         <>
                                             <div className="datepicker-day-names">

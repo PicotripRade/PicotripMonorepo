@@ -1,6 +1,7 @@
 // shared/fetchUserLocation.js
 import Cookies from "js-cookie";
 
+
 export const fetchUserLocation = async () => {
     try {
         const response = await fetch('/api/get_initial_location');
@@ -354,3 +355,28 @@ export const monthsNames = [
 ];
 
 export const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+export const hasSelectableDaysInCurrentMonth = (currentDate) => {
+    const today = new Date();
+    const minSelectableDate = new Date(today.setDate(today.getDate() - 1));
+
+    // Check if this month is after the minimum selectable date
+    if (new Date(currentDate.getFullYear(), currentDate.getMonth(), 1) >= minSelectableDate) {
+        return true;
+    }
+
+    // Check individual days if month contains the threshold
+    const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
+    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), daysInMonth);
+
+    return lastDay >= minSelectableDate && firstDay <= minSelectableDate;
+}
+
+export const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
+
+export const getNumberOfRows = (currentDate) => {
+    const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
+    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+    return Math.ceil((firstDayOfMonth + daysInMonth) / 7);
+};

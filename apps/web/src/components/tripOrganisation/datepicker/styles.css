@@ -315,6 +315,10 @@ div.unselected {
     z-index: 1;
 }
 
+.slider.toggled {
+    left: 105px;
+}
+
 .label {
     z-index: 2;
     width: 50%;
