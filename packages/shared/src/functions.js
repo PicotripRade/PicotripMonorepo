@@ -304,6 +304,7 @@ export const getCountryName = (code) => {
 };
 
 export const formatDisplayDate = (startDate, endDate) => {
+
     if (!startDate) return {start: "start", end: "end"};
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",

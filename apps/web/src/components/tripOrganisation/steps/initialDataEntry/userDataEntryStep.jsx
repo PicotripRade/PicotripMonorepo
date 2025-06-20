@@ -37,8 +37,8 @@ function UserDataEntryStep() {
     const [searchResultsReady, setSearchResultsReady] = useState(false);
     const [searchResultsDisplayed, setSearchResultsDisplayed] = useState(false);
     const [inputFieldsCollapsed, setInputFieldsCollapsed] = useState(false);
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const startDate = useSelector((state) => state.tripOrganisation.startDate);
+    const endDate = useSelector((state) => state.tripOrganisation.endDate);
 
     const errorMessageAirportRef = useRef(null);
     const autocompleteRef = useRef(null);
@@ -61,21 +61,12 @@ function UserDataEntryStep() {
 
     const arrowBackPressedRef = useRef(arrowBackPressed);
 
-    const startDateFromRedux = useSelector((state) => state.tripOrganisation.startDate);
-    const endDateFromRedux = useSelector((state) => state.tripOrganisation.endDate);
     const dataPerCityRedux = useSelector((state) => state.cityInfoReducer.cities) || '';
 
     useEffect(() => {
         arrowBackPressedRef.current = arrowBackPressed;
     }, [arrowBackPressed]);
 
-    useEffect(() => {
-        setStartDate(startDateFromRedux);
-    }, [startDateFromRedux]);
-
-    useEffect(() => {
-        setEndDate(endDateFromRedux);
-    }, [endDateFromRedux]);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -276,8 +267,6 @@ function UserDataEntryStep() {
         setSearchResultsReady(false);
         setSearchResultsDisplayed(false);
         setInputFieldsCollapsed(false);
-        setStartDate(startDateFromRedux);
-        setEndDate(endDateFromRedux);
         setIsLoading(false);
         setSelectedTag(null);
         setResponseData(null);
@@ -350,13 +339,9 @@ function UserDataEntryStep() {
                                                 setTagsExpanded(true);
                                             }}
                                             onMonthSelection={() => {
-                                                // Do something with the selection
                                             }}
-                                            selectedRange={startDate && endDate ? {
-                                                start: startDate,
-                                                end: endDate
-                                            } : null}
                                         />
+
                                     </div>
                                 )}
                                 {!whereFromExpanded && !calendarOpen && (

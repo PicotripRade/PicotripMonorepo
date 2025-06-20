@@ -13,15 +13,13 @@ import PlusMinus from "./../../../images/destinations/datepicker/plus-minus.svg"
 import PlusMinusWhite from "./../../../images/destinations/datepicker/plus-minus-white.svg";
 import {formatDisplayDate, monthsNames, dayNames, getNumberOfRows} from "@picotrip/shared";
 
-const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
-        const [tempStartDate, setTempStartDate] = useState(null);
-        const [tempEndDate, setTempEndDate] = useState(null);
+const CustomCalendar = ({isOpen, onClose, onMonthSelection}) => {
         const [displayedMonths, setDisplayedMonths] = useState([new Date()]); // Array of displayed months
 
         const [selectedDateExtender, setSelectedDateExtender] = useState("exact");
 
-        const startDateFromRedux = useSelector((state) => state.tripOrganisation.startDate);
-        const endDateFromRedux = useSelector((state) => state.tripOrganisation.endDate);
+        const startDate = useSelector((state) => state.tripOrganisation.startDate);
+        const endDate = useSelector((state) => state.tripOrganisation.endDate);
         const isDates = useSelector((state) => state.tripOrganisation.calendarSwitch) || false;
 
         const scrollableRef = useRef(null);  // Add this ref
@@ -41,16 +39,6 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
             setDisplayedMonths(initialMonths);
         }, []);
 
-
-        useEffect(() => {
-            if (selectedRange) {
-                setTempStartDate(selectedRange.start);
-                setTempEndDate(selectedRange.end);
-            } else {
-                setTempStartDate(startDateFromRedux || null);
-                setTempEndDate(endDateFromRedux || null);
-            }
-        }, [selectedRange]);
 
         // Add this useEffect to handle scrolling when calendar opens
         useEffect(() => {
@@ -82,11 +70,12 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
 
             for (let el of dayElements) {
                 const elDate = new Date(el.getAttribute('data-calendar-date'));
-                if (tempStartDate) {
+
+                if (startDate) {
                     if (
-                        elDate.getDate() === tempStartDate.getDate() &&
-                        elDate.getMonth() === tempStartDate.getMonth() &&
-                        elDate.getFullYear() === tempStartDate.getFullYear()
+                        elDate.getDate() === startDate.getDate() &&
+                        elDate.getMonth() === startDate.getMonth() &&
+                        elDate.getFullYear() === startDate.getFullYear()
                     ) {
                         el.scrollIntoView({behavior: 'smooth', block: 'start'});
                         return;
@@ -109,35 +98,33 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
         const handleDayClick = (day, currentDate) => {
             const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
 
-            if (!tempStartDate) {
-                setTempStartDate(date);
+            if (!startDate) {
+                console.log("handlic startdate");
                 dispatch(setStartDateRedux(date));
                 dispatch(resetEndDate());
-            } else if (!tempEndDate) {
+            } else if (!endDate) {
                 // Check if the selected end date is before the start date
-                if (date < tempStartDate) {
-
-                    setTempStartDate(date);
+                console.log("handlic click no enddate");
+                if (date < endDate) {
                     dispatch(setStartDateRedux(date));
                 } else {
-                    setTempEndDate(date);
                     dispatch(setEndDateRedux(date));
                 }
             } else {
+                console.log("handlic click reset");
                 dispatch(resetStartDate());
                 dispatch(resetEndDate());
-                setTempStartDate(null);
-                setTempEndDate(null);
             }
         };
 
         const isDayActive = (day, currentDate) => {
-            if (!tempStartDate) return false;
+
+            if (!startDate) return false;
             const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
             return (
-                date.getDate() === tempStartDate.getDate() &&
-                date.getMonth() === tempStartDate.getMonth() &&
-                date.getFullYear() === tempStartDate.getFullYear()
+                date.getDate() === startDate.getDate() &&
+                date.getMonth() === startDate.getMonth() &&
+                date.getFullYear() === startDate.getFullYear()
             );
         };
 
@@ -148,9 +135,10 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
         };
 
         const isDayInRange = (day, currentDate) => {
-            if (!tempStartDate || !tempEndDate) return false;
+
+            if (!startDate || !endDate) return false;
             const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-            return date >= Math.min(tempStartDate, tempEndDate) && date <= Math.max(tempStartDate, tempEndDate); // Corrected range check
+            return date >= Math.min(startDate, endDate) && date <= Math.max(startDate, endDate); // Corrected range check
         };
 
 
@@ -159,6 +147,8 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                 const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
                 const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
                 const days = [];
+
+
 
                 // Check if the current month is the last month in the displayedMonths array
                 const isLastMonth = index === displayedMonths.length - 1;
@@ -184,14 +174,14 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                                 isActive={isDayActive(i, currentDate)}
                                 isInRange={isDayInRange(i, currentDate)}
                                 isStart={
-                                    i === tempStartDate?.getDate() &&
-                                    tempStartDate?.getMonth() === currentDate.getMonth() &&
-                                    tempStartDate?.getFullYear() === currentDate.getFullYear()
+                                    i === startDate?.getDate() &&
+                                    startDate?.getMonth() === currentDate.getMonth() &&
+                                    startDate?.getFullYear() === currentDate.getFullYear()
                                 }
                                 isEnd={
-                                    i === tempEndDate?.getDate() &&
-                                    tempEndDate?.getMonth() === currentDate.getMonth() &&
-                                    tempEndDate?.getFullYear() === currentDate.getFullYear()
+                                    i === endDate?.getDate() &&
+                                    endDate?.getMonth() === currentDate.getMonth() &&
+                                    endDate?.getFullYear() === currentDate.getFullYear()
                                 }
                                 onClick={() => handleDayClick(i, currentDate)}
                                 isDisabled={isDisabled}
@@ -216,11 +206,11 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                     </div>
                 );
             });
-        }, [displayedMonths, tempStartDate, tempEndDate]);
+        }, [displayedMonths, startDate, endDate]);
 
 
         // Usage in your JSX:
-        const dateDisplay = formatDisplayDate(tempStartDate, tempEndDate);
+        const dateDisplay = formatDisplayDate(startDate, endDate);
 
         const handleDoneClick = () => onClose();
 
@@ -233,12 +223,12 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                             {<div className={"disabled-text rounded-left-button"}> When</div>}
                             <div className={"date-range-info-wrapper"}>
                                 <div className="date-range-info rounded-right-button">
-                                    <div className={`range-display ${tempStartDate ? "" : "unselected"}`}>
+                                    <div className={`range-display ${startDate} ? "" : "unselected"}`}>
                                         {dateDisplay.start}
                                     </div>
                                     {!(dateDisplay.start && !dateDisplay.end) &&
                                         <div className={"line unselected"}>-</div>}
-                                    <div className={`range-display ${tempEndDate ? "" : "unselected"}`}>
+                                    <div className={`range-display ${endDate ? "" : "unselected"}`}>
                                         {dateDisplay.end}
                                     </div>
                                 </div>
