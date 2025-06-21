@@ -99,19 +99,16 @@ const CustomCalendar = ({isOpen, onClose, onMonthSelection}) => {
             const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
 
             if (!startDate) {
-                console.log("handlic startdate");
                 dispatch(setStartDateRedux(date));
                 dispatch(resetEndDate());
             } else if (!endDate) {
                 // Check if the selected end date is before the start date
-                console.log("handlic click no enddate");
                 if (date < endDate) {
                     dispatch(setStartDateRedux(date));
                 } else {
                     dispatch(setEndDateRedux(date));
                 }
             } else {
-                console.log("handlic click reset");
                 dispatch(resetStartDate());
                 dispatch(resetEndDate());
             }

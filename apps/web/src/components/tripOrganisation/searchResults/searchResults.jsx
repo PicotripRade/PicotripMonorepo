@@ -70,9 +70,6 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
         const rawData = data.results[selectedType];
         if (selectedType === 'flight') {
             filteredData = rawData.filter(city => city.transport === 'direct');
-
-            console.log("direct flights:");
-            console.log(filteredData);
         } else {
             console.log("no direct flights");
         }

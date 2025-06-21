@@ -253,9 +253,11 @@ function UserDataEntryStep() {
 
     const resetAutocompleteParameters = () => {
         const {startingPoint, airportList, selectedAirports} = loadLocationCookies();
+        console.log("starting point on reset", startingPoint);
         setStartingPoint(startingPoint);
         setAirportList(airportList);
         setSelectedAirports(selectedAirports);
+        setAutocompleteKey(autocompleteKey + 1);
     };
 
     const resetToInitialState = () => {
