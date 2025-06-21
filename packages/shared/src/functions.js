@@ -381,3 +381,9 @@ export const getNumberOfRows = (currentDate) => {
     const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
     return Math.ceil((firstDayOfMonth + daysInMonth) / 7);
 };
+
+export const isDaySelectable = (day, currentDate) => {
+    const today = new Date();
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    return date > new Date(today.setDate(today.getDate() - 1));
+};

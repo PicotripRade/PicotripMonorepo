@@ -11,7 +11,7 @@ import {
 } from "../../../store/store/actions/tripOrganisationActions.jsx";
 import PlusMinus from "./../../../images/destinations/datepicker/plus-minus.svg";
 import PlusMinusWhite from "./../../../images/destinations/datepicker/plus-minus-white.svg";
-import {formatDisplayDate, monthsNames, dayNames, getNumberOfRows} from "@picotrip/shared";
+import {formatDisplayDate, monthsNames, dayNames, getNumberOfRows, isDaySelectable} from "@picotrip/shared";
 
 const CustomCalendar = ({isOpen, onClose, onMonthSelection}) => {
         const [displayedMonths, setDisplayedMonths] = useState([new Date()]); // Array of displayed months
@@ -126,12 +126,6 @@ const CustomCalendar = ({isOpen, onClose, onMonthSelection}) => {
                 date.getMonth() === startDate.getMonth() &&
                 date.getFullYear() === startDate.getFullYear()
             );
-        };
-
-        const isDaySelectable = (day, currentDate) => {
-            const today = new Date();
-            const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-            return date > new Date(today.setDate(today.getDate() - 1));
         };
 
         const isDayInRange = (day, currentDate) => {
