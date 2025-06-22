@@ -8,7 +8,7 @@ import CustomCalendar from "../../datepicker/datepicker.jsx";
 import Header from "../../../header/header.jsx";
 import SearchResults from "../../searchResults/searchResults.jsx";
 import TagSelection from "../setActivityTag/typeOfTravelStep.jsx";
-import GetRequest from "../../../api/getRequest.jsx";
+
 import FilterResults from '../../../../images/destinations/filters-2-svgrepo-com.svg';
 import ArrowBack from '../../../../images/destinations/left-navigation-back-svgrepo-com.svg';
 import {CloseIcon} from "../../../utils/reactIcons/icons.jsx";
@@ -23,6 +23,7 @@ import {
     getTagDescription,
     loadLocationCookies
 } from "@picotrip/shared";
+import GetRequest from "@picotrip/shared/src/api/getRequest.js";
 
 function UserDataEntryStep() {
     const dispatch = useDispatch();
