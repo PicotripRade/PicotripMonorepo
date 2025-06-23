@@ -8,7 +8,7 @@ import {
     resetEndDate,
     resetStartDate, setCalendarSwitch, setEndDateRedux,
     setStartDateRedux,
-} from "../../../store/store/actions/tripOrganisationActions.jsx";
+} from "../../../../../../packages/shared/src/store/actions/tripOrganisationActions.jsx";
 import PlusMinus from "./../../../images/destinations/datepicker/plus-minus.svg";
 import PlusMinusWhite from "./../../../images/destinations/datepicker/plus-minus-white.svg";
 import {formatDisplayDate, monthsNames, dayNames, getNumberOfRows, isDaySelectable} from "@picotrip/shared";

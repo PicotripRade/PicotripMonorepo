@@ -7,7 +7,7 @@ import Paris from '../../../images/mock/paris.jpg';
 import FlightSegment from "./flightSegment.jsx";
 import Cookies from "js-cookie";
 import {useDispatch} from "react-redux";
-import {setSelectedCityRedux} from "../../../store/store/actions/CityInformationActions.jsx";
+import {setSelectedCityRedux} from "../../../../../../packages/shared/src/store/actions/CityInformationActions.jsx";
 import {formatDateToMonthDayYear, getCountryName, removeTextInBrackets} from "@picotrip/shared";
 
 const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityInfo, isLoadingCityData}) => {

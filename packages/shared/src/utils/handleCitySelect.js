@@ -1,14 +1,11 @@
 
 
-import {addCityInfo} from "web/src/store/store/actions/CityInformationActions";
+
 import {formatDateToNumbersAndLetters} from "../functions";
-import GetRequest from "../api/getRequest"; // adjust as needed
+import GetRequest from "../api/getRequest";
+import {addCityInfo} from "../store/actions/CityInformationActions.jsx"; // adjust as needed
 
 export const handleCitySelect = async ({
-  geonameid,
-  transportType,
-  cityName,
-  countryName,
   startDate,
   endDate,
   originId,

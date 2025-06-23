@@ -15,7 +15,7 @@ import {CloseIcon} from "../../../utils/reactIcons/icons.jsx";
 import Cookies from "js-cookie";
 
 import {useDispatch, useSelector} from "react-redux";
-import {addCityInfo} from "../../../../store/store/actions/CityInformationActions.jsx";
+import {addCityInfo} from "../../../../../../../packages/shared/src/store/actions/CityInformationActions.jsx";
 import CustomButton from "../../buttons/customButton.jsx";
 import {
     fetchUserLocation,
@@ -267,7 +267,7 @@ function UserDataEntryStep() {
         setResponseData(null);
         setAllTypes(1);
         setErrorResponse(false);
-        setAutocompleteKey(autocompleteKey + 1);
+        setAutocompleteKey(autocompleteKey + 1)
         window.history.replaceState(null, '', location.pathname);
         resetAutocompleteParameters();
     };
