@@ -21,7 +21,7 @@ import {
     fetchUserLocation,
     formatDateToNumbersAndLetters, formatDisplayDate,
     getTagDescription,
-    loadLocationCookies
+    loadLocationCookies, saveTripCookies
 } from "@picotrip/shared";
 import GetRequest from "@picotrip/shared/src/api/getRequest.js";
 
@@ -135,14 +135,6 @@ function UserDataEntryStep() {
         document.addEventListener('mousedown', handleClick);
         return () => document.removeEventListener('mousedown', handleClick);
     }, [isValidSelection]);
-
-    const saveTripCookies = ({airportList, selectedAirports, beginDate, finalDate}) => {
-        console.log("save trip cookies");
-        Cookies.set("airportList", JSON.stringify(airportList));
-        Cookies.set("selectedAirports", JSON.stringify(selectedAirports));
-        Cookies.set("beginDate", beginDate);
-        Cookies.set("finalDate", finalDate);
-    };
 
 
     const fetchAirports = async (originId) => {
@@ -275,6 +267,7 @@ function UserDataEntryStep() {
         setResponseData(null);
         setAllTypes(1);
         setErrorResponse(false);
+        setAutocompleteKey(autocompleteKey + 1);
         window.history.replaceState(null, '', location.pathname);
         resetAutocompleteParameters();
     };

@@ -1,5 +1,6 @@
 // shared/fetchUserLocation.js
 import Cookies from "js-cookie";
+import GetRequest from "./api/getRequest.js";
 
 
 export const fetchUserLocation = async () => {
@@ -386,4 +387,12 @@ export const isDaySelectable = (day, currentDate) => {
     const today = new Date();
     const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
     return date > new Date(today.setDate(today.getDate() - 1));
+};
+
+export const saveTripCookies = ({airportList, selectedAirports, beginDate, finalDate}) => {
+    console.log("save trip cookies");
+    Cookies.set("airportList", JSON.stringify(airportList));
+    Cookies.set("selectedAirports", JSON.stringify(selectedAirports));
+    Cookies.set("beginDate", beginDate);
+    Cookies.set("finalDate", finalDate);
 };
