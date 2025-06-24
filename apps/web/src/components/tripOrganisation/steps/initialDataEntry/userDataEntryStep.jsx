@@ -16,7 +16,7 @@ import Cookies from "js-cookie";
 
 import {useDispatch, useSelector} from "react-redux";
 import {addCityInfo} from "@picotrip/shared/src/store/actions/CityInformationActions.jsx";
-import {setAirportsList} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
+import {setAirportsList, setTag} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import CustomButton from "../../buttons/customButton.jsx";
 import {
     fetchUserLocation,
@@ -53,7 +53,7 @@ function UserDataEntryStep() {
     const [startingPoint, setStartingPoint] = useState('');
     const [arrowBackPressed, setArrowBackPressed] = useState(false);
     const [originId, setOriginId] = useState('') || Cookies.get("geoname");
-    const [selectedTag, setSelectedTag] = useState(null);
+    const selectedTag = useSelector((state) => state.tripOrganisation.tag);
     const [responseData, setResponseData] = useState(null);
     const [responseCityData, setResponseCityData] = useState(null);
     const [errorResponse, setErrorResponse] = useState(false);
@@ -81,7 +81,7 @@ function UserDataEntryStep() {
         if (from && begin && end) {
             setOriginId(from);
             Cookies.set("geoname", from);
-            if (tag) setSelectedTag(tag);
+            if (tag) dispatch(setTag(tag));
 
             handleSearchClick({
                 overrideParams: {
@@ -147,10 +147,6 @@ function UserDataEntryStep() {
         } catch (error) {
             console.error('Failed to fetch airports list:', error);
         }
-    };
-
-    const handleTagSelection = (tagId) => {
-        setSelectedTag(tagId);
     };
 
 
@@ -261,7 +257,6 @@ function UserDataEntryStep() {
         setSearchResultsDisplayed(false);
         setInputFieldsCollapsed(false);
         setIsLoading(false);
-        setSelectedTag(null);
         setResponseData(null);
         setAllTypes(1);
         setErrorResponse(false);
@@ -342,7 +337,6 @@ function UserDataEntryStep() {
                                     <div id={"tag-selection"} ref={tagContainerRef}>
                                         <TagSelection
                                             tagsExpanded={tagsExpanded}
-                                            onTagSelect={handleTagSelection}
                                             onSearchClick={() => handleSearchClick()}
                                         />
                                     </div>

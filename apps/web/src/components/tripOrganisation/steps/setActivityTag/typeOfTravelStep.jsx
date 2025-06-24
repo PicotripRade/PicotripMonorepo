@@ -1,4 +1,4 @@
-import React, {forwardRef, useState} from "react";
+import React, {forwardRef} from "react";
 import SkiingIcon from "../../../../images/tags/travel_type/v3/ski-svgrepo-com.svg";
 import SummerVacationIcon from "../../../../images/tags/travel_type/v3/summer-svgrepo-com.svg";
 import HikingIcon from "../../../../images/tags/travel_type/v3/hiking-svgrepo-com-2.svg";
@@ -10,17 +10,21 @@ import MountainIcon from "../../../../images/destinations/tags/mountain-svgrepo-
 
 import Tag from "../../tag/tag.jsx";
 import CustomNextButton from "../../buttons/customNextButton.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {setTag} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 
-const TagSelection = forwardRef(({tagsExpanded, onTagSelect, onSearchClick}, ref) => {
-    const [selectedTagId, setSelectedTagId] = useState(null); // Store the ID of the selected tag
 
+
+const TagSelection = forwardRef(({tagsExpanded, onSearchClick}, ref) => {
+
+    const dispatch = useDispatch();
+
+    const selectedTag = useSelector((state) => state.tripOrganisation.tag);
     const handleTagClick = (tagId) => {
-        if (selectedTagId === tagId) { // Check if the clicked tag is already selected
-            setSelectedTagId(null);       // If so, deselect it
-            onTagSelect(null);           // and notify parent
+        if (selectedTag === tagId) { // Check if the clicked tag is already selected
+            dispatch(setTag(null))
         } else {
-            setSelectedTagId(tagId);     // Otherwise, select the clicked tag
-            onTagSelect(tagId);       // and notify parent
+            dispatch(setTag(tagId))
         }
     };
 
@@ -47,7 +51,7 @@ const TagSelection = forwardRef(({tagsExpanded, onTagSelect, onSearchClick}, ref
                             icon={tag.icon}
                             alt={tag.alt}
                             onClick={handleTagClick}
-                            isSelected={tag.id === selectedTagId}
+                            isSelected={tag.id === selectedTag}
                             ref={ref}
                         />
                     ))}
@@ -62,10 +66,10 @@ const TagSelection = forwardRef(({tagsExpanded, onTagSelect, onSearchClick}, ref
         return (
             <div className={"tags-container collapsed bottom-shadow rounded-button"}>
                 <div className="disabled-text rounded-left-button">What</div>
-                <div className={`activity-tag ${selectedTagId ? "" : "unselected"}`}>{!selectedTagId && (
+                <div className={`activity-tag ${selectedTag ? "" : "unselected"}`}>{!selectedTag && (
                     <div>Type of activity</div>)}
-                    {selectedTagId && (
-                        <div>{selectedTagId}</div>)}</div>
+                    {selectedTag && (
+                        <div>{selectedTag}</div>)}</div>
             </div>
         );
     }

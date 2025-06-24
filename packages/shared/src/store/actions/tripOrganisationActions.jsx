@@ -5,6 +5,7 @@ export const RESET_END_DATE = 'RESET_END_DATE';
 export const CALENDAR_SWITCH = 'CALENDAR_SWITCH';
 
 export const AIRPORTS_LIST = 'AIRPORTS_LIST';
+export const TAG_SELECTION = 'TAG_SELECTION';
 
 export const setStartDateRedux = (date) => ({
     type: SET_START_DATE,
@@ -30,4 +31,8 @@ export const setCalendarSwitch = (calendarSwitch) => ({
 export const setAirportsList = (airports) => ({
     type: AIRPORTS_LIST,
     payload: airports
+});
+export const setTag = (tag) => ({
+    type: TAG_SELECTION,
+    payload: tag
 });
