@@ -7,6 +7,8 @@ import CustomNextButton from "../buttons/customNextButton.jsx";
 import {CloseIcon} from "../../utils/reactIcons/icons.jsx";
 import LoadingSpinner from "../../utils/loadingSpinner/loadingSpinner.jsx";
 import CheckMark from '../../../images/destinations/check-mark-svgrepo-com.svg';
+import {setSelectedAirportsList} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
+import {useDispatch, useSelector} from "react-redux";
 
 const Autocomplete = forwardRef(({
                                      setIsValidSelection,
@@ -17,8 +19,6 @@ const Autocomplete = forwardRef(({
                                      onNextClick,
                                      onOriginChange,
                                      airportList,
-                                     selectedAirports,
-                                     setSelectedAirports,
                                      xButtonDisplayed
                                  }, ref) => {
 
@@ -34,6 +34,10 @@ const Autocomplete = forwardRef(({
 
     const preFilledPlaceholder = "Starting Point";
     const MAX_NUMBER_OF_RESULTS = 10;
+
+    const dispatch = useDispatch();
+
+    const selectedAirports = useSelector((state) => state.tripOrganisation.selectedAirportsList);
 
     useEffect(() => {
         if (inputValue.length >= 2 && dropdownVisible) {
@@ -68,6 +72,10 @@ const Autocomplete = forwardRef(({
     useEffect(() => {
         setInputValue(startingPoint || ''); // Update input when startingPoint changes
     }, [startingPoint]);
+
+    useEffect(() => {
+        console.log("selectedAirports", selectedAirports);
+    }, [selectedAirports]);
 
     const clearInput = () => {
         setInputValue(''); // Clear the input value
@@ -237,11 +245,12 @@ const Autocomplete = forwardRef(({
                                             key={airport.iata_code}
                                             className={`airport-button ${isSelected ? 'selected bottom-shadow' : ''}`}
                                             onClick={() => {
-                                                setSelectedAirports(prev =>
-                                                    prev.includes(airport.iata_code)
-                                                        ? prev.filter(code => code !== airport.iata_code)
-                                                        : [...prev, airport.iata_code]
-                                                );
+                                                const isSelected = selectedAirports.includes(airport.iata_code);
+                                                const updatedList = isSelected
+                                                    ? selectedAirports.filter(code => code !== airport.iata_code)
+                                                    : [...selectedAirports, airport.iata_code];
+
+                                                dispatch(setSelectedAirportsList(updatedList));
                                             }}
                                         >
                                             <div className={"airport-text-wrapper"}>

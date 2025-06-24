@@ -16,7 +16,11 @@ import Cookies from "js-cookie";
 
 import {useDispatch, useSelector} from "react-redux";
 import {addCityInfo} from "@picotrip/shared/src/store/actions/CityInformationActions.jsx";
-import {setAirportsList, setTag} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
+import {
+    setAirportsList,
+    setSelectedAirportsList,
+    setTag
+} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import CustomButton from "../../buttons/customButton.jsx";
 import {
     fetchUserLocation,
@@ -59,7 +63,8 @@ function UserDataEntryStep() {
     const [errorResponse, setErrorResponse] = useState(false);
 
     const airportsListRedux = useSelector((state) => state.tripOrganisation.airportList);
-    const [selectedAirports, setSelectedAirports] = useState([]);
+    const selectedAirportsListRedux = useSelector((state) => state.tripOrganisation.selectedAirportsList);
+
     const [allTypes, setAllTypes] = useState(1);
 
     const arrowBackPressedRef = useRef(arrowBackPressed);
@@ -142,7 +147,8 @@ function UserDataEntryStep() {
         try {
             const airports_list = await GetRequest(`/api/get_airports_list/?city_id=${originId}`);
             dispatch(setAirportsList(airports_list));
-            setSelectedAirports(airports_list.map(a => a.iata_code)); // All selected initially
+            dispatch(setSelectedAirportsList(airports_list.map(a => a.iata_code)));
+
             setAutocompleteKey(prev => prev + 1); // Force re-render
         } catch (error) {
             console.error('Failed to fetch airports list:', error);
@@ -163,7 +169,7 @@ function UserDataEntryStep() {
 
             // Save to cookies
 
-            saveTripCookies({startingPoint, airportsListRedux, selectedAirports, beginDate, finalDate});
+            saveTripCookies({startingPoint, airportsListRedux, selectedAirportsListRedux, beginDate, finalDate});
 
             if (!skipUpdateURL) {
                 navigate(`?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}`, {
@@ -173,7 +179,7 @@ function UserDataEntryStep() {
 
             setIsLoading(true);
 
-            const data = await getTripsInfo({ from, beginDate, finalDate, tag, selectedAirports });
+            const data = await getTripsInfo({ from, beginDate, finalDate, tag, selectedAirportsListRedux });
 
             if (!arrowBackPressedRef.current) {
                 setSearchResultsReady(true);
@@ -220,7 +226,7 @@ function UserDataEntryStep() {
             setIsLoadingCityData(true);
             const city_response = await GetRequest(
                 `/api/get_city_info?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}` +
-                `&selectedAirports=${selectedAirports.join(',')}&geoname=${geonameid}&transportType=${transportType}` +
+                `&selectedAirports=${selectedAirportsListRedux.join(',')}&geoname=${geonameid}&transportType=${transportType}` +
                 `&cityName=${encodeURIComponent(cityName)}&countryName=${encodeURIComponent(countryName)}`
             );
 
@@ -239,11 +245,10 @@ function UserDataEntryStep() {
     };
 
     const resetAutocompleteParameters = () => {
-        const {startingPoint, selectedAirports} = loadLocationCookies();
+        const {startingPoint} = loadLocationCookies();
         console.log("starting point on reset", startingPoint);
         setStartingPoint(startingPoint);
 
-        setSelectedAirports(selectedAirports);
         setAutocompleteKey(autocompleteKey + 1);
     };
 
@@ -312,8 +317,6 @@ function UserDataEntryStep() {
                                             }}
                                             onOriginChange={(newDestId) => setOriginId(newDestId)}
                                             airportList={airportsListRedux}
-                                            selectedAirports={selectedAirports}
-                                            setSelectedAirports={setSelectedAirports}
                                             xButtonDisplayed={!searchResultsDisplayed && searchResultsReady}
                                         />
                                     )}
