@@ -379,8 +379,9 @@ export const isDaySelectable = (day, currentDate) => {
     return date > new Date(today.setDate(today.getDate() - 1));
 };
 
-export const saveTripCookies = ({airportList, selectedAirports, beginDate, finalDate}) => {
+export const saveTripCookies = ({startingPoint, airportList, selectedAirports, beginDate, finalDate}) => {
     console.log("save trip cookies");
+    Cookies.set("startingPoint", startingPoint);
     Cookies.set("airportList", JSON.stringify(airportList));
     Cookies.set("selectedAirports", JSON.stringify(selectedAirports));
     Cookies.set("beginDate", beginDate);

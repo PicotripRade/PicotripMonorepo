@@ -25,6 +25,7 @@ import {
     loadLocationCookies, saveTripCookies
 } from "@picotrip/shared";
 import GetRequest from "@picotrip/shared/src/api/getRequest.js";
+import getTripsInfo from "@picotrip/shared/src/api/getTripsInformation.js";
 
 function UserDataEntryStep() {
     const dispatch = useDispatch();
@@ -166,7 +167,7 @@ function UserDataEntryStep() {
 
             // Save to cookies
 
-            saveTripCookies({airportsListRedux, selectedAirports, beginDate, finalDate});
+            saveTripCookies({startingPoint, airportsListRedux, selectedAirports, beginDate, finalDate});
 
             if (!skipUpdateURL) {
                 navigate(`?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}`, {
@@ -176,9 +177,7 @@ function UserDataEntryStep() {
 
             setIsLoading(true);
 
-            const data = await GetRequest(
-                `/api/get_trips_info?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}&selectedAirports=${selectedAirports.join(',')}`
-            );
+            const data = await getTripsInfo({ from, beginDate, finalDate, tag, selectedAirports });
 
             if (!arrowBackPressedRef.current) {
                 setSearchResultsReady(true);
@@ -186,7 +185,6 @@ function UserDataEntryStep() {
                 setInputFieldsCollapsed(true);
                 setResponseData(data);
             }
-
             if (data.error === "Internal server error") {
                 console.log("there was a 500 error");
                 setErrorResponse(true);
