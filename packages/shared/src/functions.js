@@ -43,18 +43,8 @@ export const getTagDescription = (tag) => {
 
 
 export const loadLocationCookies = () => {
-    let airportList = [];
     let selectedAirports = [];
     const startingPoint = Cookies.get("startingPoint") || "";
-
-    try {
-        const cookieAirportList = Cookies.get("airportList");
-        if (cookieAirportList) {
-            airportList = JSON.parse(cookieAirportList);
-        }
-    } catch (e) {
-        console.error("Failed to parse airportList from cookies:", e);
-    }
 
     try {
         const cookieSelectedAirports = Cookies.get("selectedAirports");
@@ -65,7 +55,7 @@ export const loadLocationCookies = () => {
         console.error("Failed to parse selectedAirports from cookies:", e);
     }
 
-    return {startingPoint, airportList, selectedAirports};
+    return {startingPoint, selectedAirports};
 };
 
 

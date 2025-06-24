@@ -15,7 +15,8 @@ import {CloseIcon} from "../../../utils/reactIcons/icons.jsx";
 import Cookies from "js-cookie";
 
 import {useDispatch, useSelector} from "react-redux";
-import {addCityInfo} from "../../../../../../../packages/shared/src/store/actions/CityInformationActions.jsx";
+import {addCityInfo} from "@picotrip/shared/src/store/actions/CityInformationActions.jsx";
+import {setAirportsList} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import CustomButton from "../../buttons/customButton.jsx";
 import {
     fetchUserLocation,
@@ -56,7 +57,7 @@ function UserDataEntryStep() {
     const [responseCityData, setResponseCityData] = useState(null);
     const [errorResponse, setErrorResponse] = useState(false);
 
-    const [airportList, setAirportList] = useState([]);
+    const airportsListRedux = useSelector((state) => state.tripOrganisation.airportList);
     const [selectedAirports, setSelectedAirports] = useState([]);
     const [allTypes, setAllTypes] = useState(1);
 
@@ -102,7 +103,6 @@ function UserDataEntryStep() {
             setOriginId(id);
             setStartingPoint(response_formatted);
             setIsValidSelection(true);
-            Cookies.set('startingPoint in parent cookie', response_formatted);
             console.log("origin id", id);
             fetchAirports(id);
         };
@@ -140,7 +140,7 @@ function UserDataEntryStep() {
     const fetchAirports = async (originId) => {
         try {
             const airports_list = await GetRequest(`/api/get_airports_list/?city_id=${originId}`);
-            setAirportList(airports_list);
+            dispatch(setAirportsList(airports_list));
             setSelectedAirports(airports_list.map(a => a.iata_code)); // All selected initially
             setAutocompleteKey(prev => prev + 1); // Force re-render
         } catch (error) {
@@ -166,7 +166,7 @@ function UserDataEntryStep() {
 
             // Save to cookies
 
-            saveTripCookies({airportList, selectedAirports, beginDate, finalDate});
+            saveTripCookies({airportsListRedux, selectedAirports, beginDate, finalDate});
 
             if (!skipUpdateURL) {
                 navigate(`?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}`, {
@@ -245,10 +245,10 @@ function UserDataEntryStep() {
     };
 
     const resetAutocompleteParameters = () => {
-        const {startingPoint, airportList, selectedAirports} = loadLocationCookies();
+        const {startingPoint, selectedAirports} = loadLocationCookies();
         console.log("starting point on reset", startingPoint);
         setStartingPoint(startingPoint);
-        setAirportList(airportList);
+
         setSelectedAirports(selectedAirports);
         setAutocompleteKey(autocompleteKey + 1);
     };
@@ -318,7 +318,7 @@ function UserDataEntryStep() {
                                                 setWhereFromExpanded(false);
                                             }}
                                             onOriginChange={(newDestId) => setOriginId(newDestId)}
-                                            airportList={airportList}
+                                            airportList={airportsListRedux}
                                             selectedAirports={selectedAirports}
                                             setSelectedAirports={setSelectedAirports}
                                             xButtonDisplayed={!searchResultsDisplayed && searchResultsReady}
