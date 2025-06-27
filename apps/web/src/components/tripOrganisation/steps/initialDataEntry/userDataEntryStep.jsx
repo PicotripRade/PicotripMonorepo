@@ -26,7 +26,7 @@ import {
     fetchUserLocation,
     formatDateToNumbersAndLetters, formatDisplayDate,
     getTagDescription,
-    loadLocationCookies, saveTripCookies
+    saveTripInfo
 } from "@picotrip/shared";
 import GetRequest from "@picotrip/shared/src/api/getRequest.js";
 import getTripsInfo from "@picotrip/shared/src/api/getTripsInformation.js";
@@ -54,14 +54,16 @@ function UserDataEntryStep() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [isLoadingCityData, setIsLoadingCityData] = useState(false);
-    const [startingPoint, setStartingPoint] = useState('');
+
     const [arrowBackPressed, setArrowBackPressed] = useState(false);
     const [originId, setOriginId] = useState('') || Cookies.get("geoname");
-    const selectedTag = useSelector((state) => state.tripOrganisation.tag);
+    const [startingPoint, setStartingPoint] = useState('');
+
     const [responseData, setResponseData] = useState(null);
     const [responseCityData, setResponseCityData] = useState(null);
     const [errorResponse, setErrorResponse] = useState(false);
 
+    const selectedTag = useSelector((state) => state.tripOrganisation.tag);
     const airportsListRedux = useSelector((state) => state.tripOrganisation.airportList);
     const selectedAirportsListRedux = useSelector((state) => state.tripOrganisation.selectedAirportsList);
 
@@ -74,6 +76,10 @@ function UserDataEntryStep() {
     useEffect(() => {
         arrowBackPressedRef.current = arrowBackPressed;
     }, [arrowBackPressed]);
+
+    useEffect(() => {
+        setStartingPoint(startingPoint)
+    }, [startingPoint]);
 
 
     useEffect(() => {
@@ -107,9 +113,8 @@ function UserDataEntryStep() {
 
             console.log("response_formatted", JSON.stringify(response_formatted));
             setOriginId(id);
-            setStartingPoint(response_formatted);
             setIsValidSelection(true);
-            console.log("origin id", id);
+            setStartingPoint(response_formatted)
             fetchAirports(id);
         };
 
@@ -144,6 +149,7 @@ function UserDataEntryStep() {
 
 
     const fetchAirports = async (originId) => {
+        console.log("fetch airports function")
         try {
             const airports_list = await GetRequest(`/api/get_airports_list/?city_id=${originId}`);
             dispatch(setAirportsList(airports_list));
@@ -154,7 +160,6 @@ function UserDataEntryStep() {
             console.error('Failed to fetch airports list:', error);
         }
     };
-
 
     const handleSearchClick = async ({overrideParams = null, skipUpdateURL = false} = {}) => {
         try {
@@ -168,8 +173,9 @@ function UserDataEntryStep() {
             const tag = overrideParams?.tag || selectedTag || '';
 
             // Save to cookies
-
-            saveTripCookies({startingPoint, airportsListRedux, selectedAirportsListRedux, beginDate, finalDate});
+            dispatch(setSelectedAirportsList(selectedAirportsListRedux));
+            dispatch(setAirportsList(airportsListRedux));
+            saveTripInfo({startingPoint, beginDate, finalDate});
 
             if (!skipUpdateURL) {
                 navigate(`?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}`, {
@@ -179,7 +185,15 @@ function UserDataEntryStep() {
 
             setIsLoading(true);
 
-            const data = await getTripsInfo({ from, beginDate, finalDate, tag, selectedAirportsListRedux });
+            console.log("seelcted aorprororor", selectedAirportsListRedux);
+
+            const data = await getTripsInfo({
+                from,
+                beginDate,
+                finalDate,
+                tag,
+                selectedAirports: selectedAirportsListRedux
+            });
 
             if (!arrowBackPressedRef.current) {
                 setSearchResultsReady(true);
@@ -245,7 +259,7 @@ function UserDataEntryStep() {
     };
 
     const resetAutocompleteParameters = () => {
-        const {startingPoint} = loadLocationCookies();
+        const startingPoint = Cookies.get("startingPoint") || "";
         console.log("starting point on reset", startingPoint);
         setStartingPoint(startingPoint);
 
@@ -304,12 +318,12 @@ function UserDataEntryStep() {
                                 <div id={"autocomplete"} className={"autocomplete-wrapper"} ref={autocompleteRef}>
                                     {originId && (
                                         <Autocomplete
+                                            startingPoint={startingPoint}
+                                            setStartingPoint={setStartingPoint}
                                             key={autocompleteKey}
                                             ref={errorMessageAirportRef}
                                             setIsValidSelection={setIsValidSelection}
                                             isValidSelection={isValidSelection}
-                                            startingPoint={startingPoint}
-                                            setStartingPoint={setStartingPoint}
                                             expanded={whereFromExpanded}
                                             onNextClick={() => {
                                                 setCalendarOpen(true);

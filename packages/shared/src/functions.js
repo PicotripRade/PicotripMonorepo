@@ -42,13 +42,6 @@ export const getTagDescription = (tag) => {
 }
 
 
-export const loadLocationCookies = () => {
-    const startingPoint = Cookies.get("startingPoint") || "";
-
-    return startingPoint;
-};
-
-
 export const formatDateToMonthDayYear = (dateStr) => {
     if (!dateStr) return '';
     const d = new Date(dateStr);
@@ -369,11 +362,10 @@ export const isDaySelectable = (day, currentDate) => {
     return date > new Date(today.setDate(today.getDate() - 1));
 };
 
-export const saveTripCookies = ({startingPoint, airportList, selectedAirports, beginDate, finalDate}) => {
+export const saveTripInfo = ({startingPoint, beginDate, finalDate}) => {
+
     console.log("save trip cookies");
     Cookies.set("startingPoint", startingPoint);
-    Cookies.set("airportList", JSON.stringify(airportList));
-    Cookies.set("selectedAirports", JSON.stringify(selectedAirports));
     Cookies.set("beginDate", beginDate);
     Cookies.set("finalDate", finalDate);
 };

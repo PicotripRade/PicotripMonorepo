@@ -7,14 +7,16 @@ import CustomNextButton from "../buttons/customNextButton.jsx";
 import {CloseIcon} from "../../utils/reactIcons/icons.jsx";
 import LoadingSpinner from "../../utils/loadingSpinner/loadingSpinner.jsx";
 import CheckMark from '../../../images/destinations/check-mark-svgrepo-com.svg';
-import {setSelectedAirportsList} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
+import {
+    setSelectedAirportsList,
+} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import {useDispatch, useSelector} from "react-redux";
 
 const Autocomplete = forwardRef(({
+                                    startingPoint,
+                                    setStartingPoint,
                                      setIsValidSelection,
                                      isValidSelection,
-                                     startingPoint,
-                                     setStartingPoint,
                                      expanded,
                                      onNextClick,
                                      onOriginChange,
@@ -22,7 +24,7 @@ const Autocomplete = forwardRef(({
                                      xButtonDisplayed
                                  }, ref) => {
 
-    const [inputValue, setInputValue] = useState(startingPoint);
+
     const [results, setResults] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -39,7 +41,11 @@ const Autocomplete = forwardRef(({
 
     const selectedAirports = useSelector((state) => state.tripOrganisation.selectedAirportsList);
 
+    console.log("startibgf porint", startingPoint);
+    const [inputValue, setInputValue] = useState(startingPoint || "");
+
     useEffect(() => {
+
         if (inputValue.length >= 2 && dropdownVisible) {
             if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
             debounceTimeout.current = setTimeout(() => {
@@ -73,13 +79,9 @@ const Autocomplete = forwardRef(({
         setInputValue(startingPoint || ''); // Update input when startingPoint changes
     }, [startingPoint]);
 
-    useEffect(() => {
-        console.log("selectedAirports", selectedAirports);
-    }, [selectedAirports]);
-
     const clearInput = () => {
         setInputValue(''); // Clear the input value
-        setStartingPoint?.('');
+        setStartingPoint?.('')
         setResults([]); // Clear the autocomplete results
         setDropdownVisible(false); // Hide the dropdown
         setIsValidSelection(false); // Mark the selection as invalid
@@ -153,11 +155,7 @@ const Autocomplete = forwardRef(({
         if (onOriginChange) {
             onOriginChange(item.id);
         }
-        Cookies.set('startingPoint', startingPointText, {
-            sameSite: window.location.protocol === 'https:' ? 'None' : 'Lax',
-            secure: window.location.protocol === 'https:',
-            path: '/'
-        });
+
         // Clear the autocomplete results and hide the dropdown
         setResults([]);
         setDropdownVisible(false);
@@ -249,7 +247,7 @@ const Autocomplete = forwardRef(({
                                                 const updatedList = isSelected
                                                     ? selectedAirports.filter(code => code !== airport.iata_code)
                                                     : [...selectedAirports, airport.iata_code];
-
+                                                console.log("uppdated list of airports", updatedList);
                                                 dispatch(setSelectedAirportsList(updatedList));
                                             }}
                                         >
@@ -269,8 +267,6 @@ const Autocomplete = forwardRef(({
                                                 />
                                                 }
                                             </div>
-
-
                                         </div>
                                     );
                                 })}

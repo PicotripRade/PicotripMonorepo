@@ -6,6 +6,7 @@ export const CALENDAR_SWITCH = 'CALENDAR_SWITCH';
 
 export const AIRPORTS_LIST = 'AIRPORTS_LIST';
 export const SELECTED_AIRPORTS_LIST = 'SELECTED_AIRPORTS_LIST';
+export const STARTING_POINT = 'STARTING_POINT';
 export const TAG_SELECTION = 'TAG_SELECTION';
 
 export const setStartDateRedux = (date) => ({
@@ -37,6 +38,11 @@ export const setAirportsList = (airports) => ({
 export const setSelectedAirportsList = (airports) => ({
     type: SELECTED_AIRPORTS_LIST,
     payload: airports
+});
+
+export const setStartingPoint = (startingPoint) => ({
+    type: STARTING_POINT,
+    payload: startingPoint
 });
 
 export const setTag = (tag) => ({

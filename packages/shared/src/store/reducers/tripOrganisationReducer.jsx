@@ -5,7 +5,7 @@ import {
     RESET_END_DATE,
     CALENDAR_SWITCH,
     AIRPORTS_LIST,
-    TAG_SELECTION, SELECTED_AIRPORTS_LIST,
+    TAG_SELECTION, SELECTED_AIRPORTS_LIST, STARTING_POINT,
 } from '../actions/tripOrganisationActions.jsx';
 
 const initialState = { // Define the initial state
@@ -14,6 +14,7 @@ const initialState = { // Define the initial state
     calendarSwitch: false,
     airportList: [],
     selectedAirportsList: [],
+    startingPoint: "",
     tag: null,
 };
 
@@ -53,6 +54,11 @@ const tripOrganisationReducer = (state = initialState, action) => { // Provide d
             return {
                 ...state,
                 selectedAirportsList: Array.isArray(action.payload) ? action.payload : [],
+            }
+        case STARTING_POINT:
+            return {
+                ...state,
+                startingPoint: action.payload,
             }
         case TAG_SELECTION:
             return {
