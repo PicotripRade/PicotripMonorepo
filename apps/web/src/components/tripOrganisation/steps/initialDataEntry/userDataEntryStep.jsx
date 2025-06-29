@@ -17,7 +17,7 @@ import Cookies from "js-cookie";
 import {useDispatch, useSelector} from "react-redux";
 import {addCityInfo} from "@picotrip/shared/src/store/actions/CityInformationActions.jsx";
 import {
-    setAirportsList,
+    setAirportsList, setArrowBackPressed,
     setSelectedAirportsList,
     setTag
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
@@ -54,8 +54,6 @@ function UserDataEntryStep() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [isLoadingCityData, setIsLoadingCityData] = useState(false);
-
-    const [arrowBackPressed, setArrowBackPressed] = useState(false);
     const [originId, setOriginId] = useState('') || Cookies.get("geoname");
     const [startingPoint, setStartingPoint] = useState('');
 
@@ -63,6 +61,7 @@ function UserDataEntryStep() {
     const [responseCityData, setResponseCityData] = useState(null);
     const [errorResponse, setErrorResponse] = useState(false);
 
+    const arrowBackPressed = useSelector((state) => state.tripOrganisation.arrowBackPressed);
     const selectedTag = useSelector((state) => state.tripOrganisation.tag);
     const airportsListRedux = useSelector((state) => state.tripOrganisation.airportList);
     const selectedAirportsListRedux = useSelector((state) => state.tripOrganisation.selectedAirportsList);
@@ -77,9 +76,9 @@ function UserDataEntryStep() {
         arrowBackPressedRef.current = arrowBackPressed;
     }, [arrowBackPressed]);
 
-    useEffect(() => {
-        setStartingPoint(startingPoint)
-    }, [startingPoint]);
+    // useEffect(() => {
+    //     setStartingPoint(startingPoint)
+    // }, [startingPoint]);
 
 
     useEffect(() => {
@@ -114,7 +113,7 @@ function UserDataEntryStep() {
             console.log("response_formatted", JSON.stringify(response_formatted));
             setOriginId(id);
             setIsValidSelection(true);
-            setStartingPoint(response_formatted)
+            setStartingPoint(response_formatted);
             fetchAirports(id);
         };
 
@@ -165,7 +164,7 @@ function UserDataEntryStep() {
         try {
             setErrorResponse(false); // Reset error state on new search
             setTagsExpanded(false);
-            setArrowBackPressed(false);
+            dispatch(setArrowBackPressed(false));
 
             const beginDate = overrideParams?.begin || formatDateToNumbersAndLetters(startDate);
             const finalDate = overrideParams?.end || formatDateToNumbersAndLetters(endDate);
@@ -184,8 +183,6 @@ function UserDataEntryStep() {
             }
 
             setIsLoading(true);
-
-            console.log("seelcted aorprororor", selectedAirportsListRedux);
 
             const data = await getTripsInfo({
                 from,
@@ -260,14 +257,13 @@ function UserDataEntryStep() {
 
     const resetAutocompleteParameters = () => {
         const startingPoint = Cookies.get("startingPoint") || "";
-        console.log("starting point on reset", startingPoint);
         setStartingPoint(startingPoint);
 
         setAutocompleteKey(autocompleteKey + 1);
     };
 
     const resetToInitialState = () => {
-        setArrowBackPressed(true);
+        dispatch(setArrowBackPressed(true));
         setIsValidSelection(true);
         setWhereFromExpanded(true);
         setCalendarOpen(false);

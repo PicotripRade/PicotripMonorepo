@@ -8,6 +8,7 @@ export const AIRPORTS_LIST = 'AIRPORTS_LIST';
 export const SELECTED_AIRPORTS_LIST = 'SELECTED_AIRPORTS_LIST';
 export const STARTING_POINT = 'STARTING_POINT';
 export const TAG_SELECTION = 'TAG_SELECTION';
+export const ARROW_BACK_PRESSED = 'ARROW_BACK_PRESSED';
 
 export const setStartDateRedux = (date) => ({
     type: SET_START_DATE,
@@ -40,9 +41,9 @@ export const setSelectedAirportsList = (airports) => ({
     payload: airports
 });
 
-export const setStartingPoint = (startingPoint) => ({
-    type: STARTING_POINT,
-    payload: startingPoint
+export const setArrowBackPressed = (arrowPressed) => ({
+    type: ARROW_BACK_PRESSED,
+    payload: arrowPressed
 });
 
 export const setTag = (tag) => ({

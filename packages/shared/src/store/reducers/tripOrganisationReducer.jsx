@@ -16,6 +16,7 @@ const initialState = { // Define the initial state
     selectedAirportsList: [],
     startingPoint: "",
     tag: null,
+    arrowBackPressed: false,
 };
 
 const tripOrganisationReducer = (state = initialState, action) => { // Provide default state value
@@ -61,6 +62,11 @@ const tripOrganisationReducer = (state = initialState, action) => { // Provide d
                 startingPoint: action.payload,
             }
         case TAG_SELECTION:
+            return {
+                ...state,
+                tag: action.payload,
+            }
+        case ARROW_BACK_PRESSED:
             return {
                 ...state,
                 tag: action.payload,
