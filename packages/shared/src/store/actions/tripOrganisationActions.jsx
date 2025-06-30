@@ -7,7 +7,6 @@ export const CALENDAR_SWITCH = 'CALENDAR_SWITCH';
 export const AIRPORTS_LIST = 'AIRPORTS_LIST';
 export const SELECTED_AIRPORTS_LIST = 'SELECTED_AIRPORTS_LIST';
 export const STARTING_POINT = 'STARTING_POINT';
-export const TAG_SELECTION = 'TAG_SELECTION';
 export const ARROW_BACK_PRESSED = 'ARROW_BACK_PRESSED';
 
 export const setStartDateRedux = (date) => ({
@@ -44,9 +43,4 @@ export const setSelectedAirportsList = (airports) => ({
 export const setArrowBackPressed = (arrowPressed) => ({
     type: ARROW_BACK_PRESSED,
     payload: arrowPressed
-});
-
-export const setTag = (tag) => ({
-    type: TAG_SELECTION,
-    payload: tag
 });

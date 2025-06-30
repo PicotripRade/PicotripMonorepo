@@ -238,7 +238,6 @@ const CustomCalendar = ({isOpen, onClose, onMonthSelection}) => {
                             )}
                             <div>
                                 <div className={`custom-calendar rounded-button`}>
-                                    {console.log("sad mi reci is dates", isDates)}
                                     {isDates === false ? (
                                         <>
                                             <div className="datepicker-day-names">

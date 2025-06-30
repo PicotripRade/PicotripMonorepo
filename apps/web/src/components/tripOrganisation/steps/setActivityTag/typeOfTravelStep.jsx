@@ -10,21 +10,22 @@ import MountainIcon from "../../../../images/destinations/tags/mountain-svgrepo-
 
 import Tag from "../../tag/tag.jsx";
 import CustomNextButton from "../../buttons/customNextButton.jsx";
-import {useDispatch, useSelector} from "react-redux";
-import {setTag} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
+import {useSelector} from "react-redux";
 
 
+const TagSelection = forwardRef(({tagsExpanded, onSearchClick, selectedTag, onTagChange}, ref) => {
 
-const TagSelection = forwardRef(({tagsExpanded, onSearchClick}, ref) => {
-
-    const dispatch = useDispatch();
-
-    const selectedTag = useSelector((state) => state.tripOrganisation.tag);
     const handleTagClick = (tagId) => {
         if (selectedTag === tagId) { // Check if the clicked tag is already selected
-            dispatch(setTag(null))
+            console.log("dispatching null for tag id", tagId);
+            if (onTagChange) {
+                onTagChange(null);  // <-- Propagate to parent immediately
+            }
         } else {
-            dispatch(setTag(tagId))
+            console.log("dispatching tag", tagId);
+            if (onTagChange) {
+                onTagChange(tagId);  // <-- Propagate to parent immediately
+            }
         }
     };
 

@@ -15,21 +15,20 @@ import {CloseIcon} from "../../../utils/reactIcons/icons.jsx";
 import Cookies from "js-cookie";
 
 import {useDispatch, useSelector} from "react-redux";
-import {addCityInfo} from "@picotrip/shared/src/store/actions/CityInformationActions.jsx";
+import {addCityInfo} from "@picotrip/shared/src/store/actions/cityInformationActions.jsx";
 import {
     setAirportsList, setArrowBackPressed,
-    setSelectedAirportsList,
-    setTag
+    setSelectedAirportsList
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import CustomButton from "../../buttons/customButton.jsx";
 import {
     fetchUserLocation,
     formatDateToNumbersAndLetters, formatDisplayDate,
-    getTagDescription,
     saveTripInfo
 } from "@picotrip/shared";
 import GetRequest from "@picotrip/shared/src/api/getRequest.js";
 import getTripsInfo from "@picotrip/shared/src/api/getTripsInformation.js";
+import {setSearchResultsReady} from "@picotrip/shared/src/store/actions/searchResultsActions.jsx";
 
 function UserDataEntryStep() {
     const dispatch = useDispatch();
@@ -41,7 +40,7 @@ function UserDataEntryStep() {
     const [whereFromExpanded, setWhereFromExpanded] = useState(true);
     const [calendarOpen, setCalendarOpen] = useState(false);
     const [tagsExpanded, setTagsExpanded] = useState(false);
-    const [searchResultsReady, setSearchResultsReady] = useState(false);
+
     const [searchResultsDisplayed, setSearchResultsDisplayed] = useState(false);
     const [inputFieldsCollapsed, setInputFieldsCollapsed] = useState(false);
     const startDate = useSelector((state) => state.tripOrganisation.startDate);
@@ -56,15 +55,18 @@ function UserDataEntryStep() {
     const [isLoadingCityData, setIsLoadingCityData] = useState(false);
     const [originId, setOriginId] = useState('') || Cookies.get("geoname");
     const [startingPoint, setStartingPoint] = useState('');
+    const [selectedTag, setSelectedTag] = useState('');
 
     const [responseData, setResponseData] = useState(null);
     const [responseCityData, setResponseCityData] = useState(null);
     const [errorResponse, setErrorResponse] = useState(false);
 
     const arrowBackPressed = useSelector((state) => state.tripOrganisation.arrowBackPressed);
-    const selectedTag = useSelector((state) => state.tripOrganisation.tag);
+
     const airportsListRedux = useSelector((state) => state.tripOrganisation.airportList);
     const selectedAirportsListRedux = useSelector((state) => state.tripOrganisation.selectedAirportsList);
+
+    const searchResultsReady = useSelector((state) => state.searchResults.setSearchResultsReady);
 
     const [allTypes, setAllTypes] = useState(1);
 
@@ -76,11 +78,6 @@ function UserDataEntryStep() {
         arrowBackPressedRef.current = arrowBackPressed;
     }, [arrowBackPressed]);
 
-    // useEffect(() => {
-    //     setStartingPoint(startingPoint)
-    // }, [startingPoint]);
-
-
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         const from = params.get("from");
@@ -91,7 +88,6 @@ function UserDataEntryStep() {
         if (from && begin && end) {
             setOriginId(from);
             Cookies.set("geoname", from);
-            if (tag) dispatch(setTag(tag));
 
             handleSearchClick({
                 overrideParams: {
@@ -169,7 +165,7 @@ function UserDataEntryStep() {
             const beginDate = overrideParams?.begin || formatDateToNumbersAndLetters(startDate);
             const finalDate = overrideParams?.end || formatDateToNumbersAndLetters(endDate);
             const from = overrideParams?.from || originId;
-            const tag = overrideParams?.tag || selectedTag || '';
+            const tag = overrideParams?.tag || selectedTag;
 
             // Save to cookies
             dispatch(setSelectedAirportsList(selectedAirportsListRedux));
@@ -193,7 +189,7 @@ function UserDataEntryStep() {
             });
 
             if (!arrowBackPressedRef.current) {
-                setSearchResultsReady(true);
+                dispatch(setSearchResultsReady(true));
                 setSearchResultsDisplayed(true);
                 setInputFieldsCollapsed(true);
                 setResponseData(data);
@@ -268,7 +264,7 @@ function UserDataEntryStep() {
         setWhereFromExpanded(true);
         setCalendarOpen(false);
         setTagsExpanded(false);
-        setSearchResultsReady(false);
+        dispatch(setSearchResultsReady(false));
         setSearchResultsDisplayed(false);
         setInputFieldsCollapsed(false);
         setIsLoading(false);
@@ -279,6 +275,22 @@ function UserDataEntryStep() {
         window.history.replaceState(null, '', location.pathname);
         resetAutocompleteParameters();
     };
+
+    const getTagDescription = (tag) => {
+        switch (tag) {
+            case "summer_vacation":
+                return "Summer";
+            case "family_trip":
+                return "Family Trip";
+            case "mountains":
+                return "Mountains";
+            case "skiing":
+                return "Skiing";
+            default:
+                return tag;
+        }
+    }
+
 
     return (
         <div className={"full-content-wrapper"}>
@@ -350,7 +362,12 @@ function UserDataEntryStep() {
                                     <div id={"tag-selection"} ref={tagContainerRef}>
                                         <TagSelection
                                             tagsExpanded={tagsExpanded}
-                                            onSearchClick={() => handleSearchClick()}
+                                            onSearchClick={() => handleSearchClick()
+                                            }
+                                            selectedTag={selectedTag}
+                                            onTagChange={(tag) => {
+                                                setSelectedTag(tag);
+                                            }}
                                         />
                                     </div>
                                 )}
@@ -378,7 +395,7 @@ function UserDataEntryStep() {
                                             return (
                                                 <>
                                                     <div className={"activity-name-collapsed"}>
-                                                        {getTagDescription(selectedTag)}
+                                                        {selectedTag && getTagDescription(selectedTag)}
                                                     </div>
                                                     <div className={"time-range-collapsed"}>
                                                         {dateDisplay.start} {dateDisplay.end ? '-' : ''} {dateDisplay.end}

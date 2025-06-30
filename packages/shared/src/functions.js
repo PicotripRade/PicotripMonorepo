@@ -28,20 +28,6 @@ export const fetchUserLocation = async () => {
 };
 
 
-export const getTagDescription = (tag) => {
-    switch (tag) {
-        case "summer_vacation":
-            return "Summer";
-        case "family_trip":
-            return "Family Trip";
-        case "mountains":
-            return "Mountains";
-        default:
-            return tag;
-    }
-}
-
-
 export const formatDateToMonthDayYear = (dateStr) => {
     if (!dateStr) return '';
     const d = new Date(dateStr);

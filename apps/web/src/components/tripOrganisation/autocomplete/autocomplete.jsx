@@ -41,7 +41,6 @@ const Autocomplete = forwardRef(({
 
     const selectedAirports = useSelector((state) => state.tripOrganisation.selectedAirportsList);
 
-    console.log("startibgf porint", startingPoint);
     const [inputValue, setInputValue] = useState(startingPoint || "");
 
     useEffect(() => {
@@ -247,7 +246,6 @@ const Autocomplete = forwardRef(({
                                                 const updatedList = isSelected
                                                     ? selectedAirports.filter(code => code !== airport.iata_code)
                                                     : [...selectedAirports, airport.iata_code];
-                                                console.log("uppdated list of airports", updatedList);
                                                 dispatch(setSelectedAirportsList(updatedList));
                                             }}
                                         >

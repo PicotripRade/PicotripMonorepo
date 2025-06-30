@@ -3,7 +3,7 @@
 
 import {formatDateToNumbersAndLetters} from "../functions";
 import GetRequest from "../api/getRequest";
-import {addCityInfo} from "../store/actions/CityInformationActions.jsx"; // adjust as needed
+import {addCityInfo} from "../store/actions/cityInformationActions.jsx"; // adjust as needed
 
 export const handleCitySelect = async ({
   startDate,

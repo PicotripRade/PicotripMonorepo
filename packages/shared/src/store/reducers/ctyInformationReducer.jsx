@@ -1,4 +1,4 @@
-import {ADD_CITY_INFO, SET_SELECTED_CITY} from "../actions/CityInformationActions.jsx";
+import {ADD_CITY_INFO, SET_SELECTED_CITY} from "../actions/cityInformationActions.jsx";
 
 const initialState = {
   cities: {},         // stores multiple cities by geonameid
