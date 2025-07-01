@@ -22,6 +22,7 @@ import {
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import CustomButton from "../../buttons/customButton.jsx";
 import {
+    fetchAirports,
     fetchUserLocation,
     formatDateToNumbersAndLetters, formatDisplayDate,
     saveTripInfo
@@ -110,7 +111,13 @@ function UserDataEntryStep() {
             setOriginId(id);
             setIsValidSelection(true);
             setStartingPoint(response_formatted);
-            fetchAirports(id);
+
+
+            fetchAirports({
+                id,
+                dispatch,
+                setAutocompleteKey,
+            });
         };
 
         fetchLocation();
@@ -118,7 +125,11 @@ function UserDataEntryStep() {
 
     useEffect(() => {
         if (!originId || !isValidSelection) return;
-        fetchAirports(originId);
+        fetchAirports({
+            originId,
+            dispatch,
+            setAutocompleteKey,
+        });
     }, [originId, isValidSelection]);
 
     useEffect(() => {
@@ -141,20 +152,6 @@ function UserDataEntryStep() {
         document.addEventListener('mousedown', handleClick);
         return () => document.removeEventListener('mousedown', handleClick);
     }, [isValidSelection]);
-
-
-    const fetchAirports = async (originId) => {
-        console.log("fetch airports function")
-        try {
-            const airports_list = await GetRequest(`/api/get_airports_list/?city_id=${originId}`);
-            dispatch(setAirportsList(airports_list));
-            dispatch(setSelectedAirportsList(airports_list.map(a => a.iata_code)));
-
-            setAutocompleteKey(prev => prev + 1); // Force re-render
-        } catch (error) {
-            console.error('Failed to fetch airports list:', error);
-        }
-    };
 
     const handleSearchClick = async ({overrideParams = null, skipUpdateURL = false} = {}) => {
         try {

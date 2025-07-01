@@ -1,7 +1,4 @@
-// shared/fetchUserLocation.js
 import Cookies from "js-cookie";
-import GetRequest from "./api/getRequest.js";
-
 
 export const fetchUserLocation = async () => {
     try {
@@ -255,9 +252,11 @@ export const getCountryName = (code) => {
         VU: 'Vanuatu',
         WF: 'Wallis and Futuna',
         BM: 'Bermuda',
-        GI: 'Gibraltar',
+        GI: 'Gibraltar*',
         AI: 'Anguilla',
-        FO: 'Faroe Islands'
+        FO: 'Faroe Islands',
+        BQ: 'Bonaire, Sint Eustatius and Saba*',
+        TW: 'Taiwan*',
     };
 
     return countryMap[code.toUpperCase()] || code;
