@@ -5,7 +5,7 @@ import {
     RESET_END_DATE,
     CALENDAR_SWITCH,
     AIRPORTS_LIST,
-    SELECTED_AIRPORTS_LIST, STARTING_POINT, ARROW_BACK_PRESSED
+    SELECTED_AIRPORTS_LIST, STARTING_POINT, ARROW_BACK_PRESSED, IS_VALID_SELECTION
 } from '../actions/tripOrganisationActions.jsx';
 
 const initialState = { // Define the initial state
@@ -16,6 +16,7 @@ const initialState = { // Define the initial state
     selectedAirportsList: [],
     startingPoint: "",
     arrowBackPressed: false,
+    isValidSelection: true,
 };
 
 const tripOrganisationReducer = (state = initialState, action) => { // Provide default state value
@@ -64,6 +65,11 @@ const tripOrganisationReducer = (state = initialState, action) => { // Provide d
             return {
                 ...state,
                 tag: action.payload,
+            }
+        case IS_VALID_SELECTION:
+            return {
+                ...state,
+                isValidSelection: action.payload,
             }
         default:
             return state;

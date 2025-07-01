@@ -8,6 +8,7 @@ export const AIRPORTS_LIST = 'AIRPORTS_LIST';
 export const SELECTED_AIRPORTS_LIST = 'SELECTED_AIRPORTS_LIST';
 export const STARTING_POINT = 'STARTING_POINT';
 export const ARROW_BACK_PRESSED = 'ARROW_BACK_PRESSED';
+export const IS_VALID_SELECTION = 'IS_VALID_SELECTION';
 
 export const setStartDateRedux = (date) => ({
     type: SET_START_DATE,
@@ -43,4 +44,9 @@ export const setSelectedAirportsList = (airports) => ({
 export const setArrowBackPressed = (arrowPressed) => ({
     type: ARROW_BACK_PRESSED,
     payload: arrowPressed
+});
+
+export const setIsValidSelection = (validSelection) => ({
+    type: IS_VALID_SELECTION,
+    payload: validSelection
 });

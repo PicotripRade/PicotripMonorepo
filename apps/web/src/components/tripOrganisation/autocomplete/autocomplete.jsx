@@ -7,6 +7,7 @@ import {CloseIcon} from "../../utils/reactIcons/icons.jsx";
 import LoadingSpinner from "../../utils/loadingSpinner/loadingSpinner.jsx";
 import CheckMark from '../../../images/destinations/check-mark-svgrepo-com.svg';
 import {
+    setIsValidSelection,
     setSelectedAirportsList,
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -15,8 +16,6 @@ import {sendCoordinates} from "@picotrip/shared/src/utils/geolocation.js";
 const Autocomplete = forwardRef(({
                                      startingPoint,
                                      setStartingPoint,
-                                     setIsValidSelection,
-                                     isValidSelection,
                                      expanded,
                                      onNextClick,
                                      onOriginChange,
@@ -41,6 +40,7 @@ const Autocomplete = forwardRef(({
 
     const selectedAirports = useSelector((state) => state.tripOrganisation.selectedAirportsList);
 
+    const isValidSelection = useSelector((state) => state.tripOrganisation.isValidSelection);
     const [inputValue, setInputValue] = useState(startingPoint || "");
 
     useEffect(() => {
@@ -83,7 +83,7 @@ const Autocomplete = forwardRef(({
         setStartingPoint?.('')
         setResults([]); // Clear the autocomplete results
         setDropdownVisible(false); // Hide the dropdown
-        setIsValidSelection(false); // Mark the selection as invalid
+        dispatch(setIsValidSelection(false));
     };
 
     const handleGetLocation = () => {
@@ -92,7 +92,7 @@ const Autocomplete = forwardRef(({
         sendCoordinates(
             ({location, originId}) => {
                 setInputValue(location);
-                setIsValidSelection(true);
+                dispatch(setIsValidSelection(true));
                 setStartingPoint?.(location);
                 onOriginChange?.(originId);
             },
@@ -108,7 +108,7 @@ const Autocomplete = forwardRef(({
         const {value} = e.target;
         setInputValue(value);
         setStartingPoint?.(value);
-        setIsValidSelection(false);
+        dispatch(setIsValidSelection(false));
         setDropdownVisible(true); // Show the dropdown when typing
     };
 
@@ -119,7 +119,7 @@ const Autocomplete = forwardRef(({
         setStartingPoint?.(startingPointText);
         // Update the parent component with the selected airport code
         // Mark the selection as valid and remove any previous error messages
-        setIsValidSelection(true);
+        dispatch(setIsValidSelection(true));
         // Set originId based on the selected item and pass it upward
         if (onOriginChange) {
             onOriginChange(item.id);

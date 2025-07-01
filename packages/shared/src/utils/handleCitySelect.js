@@ -1,4 +1,5 @@
-import { GetRequest } from '../api/getRequest.js'; // adjust if your API utility is elsewhere
+import GetRequest from "../api/getRequest.js";
+
 
 export const handleCitySelect = async ({
   geonameid,

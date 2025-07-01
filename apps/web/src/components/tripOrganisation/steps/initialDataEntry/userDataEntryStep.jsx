@@ -17,7 +17,7 @@ import Cookies from "js-cookie";
 import {useDispatch, useSelector} from "react-redux";
 import {addCityInfo} from "@picotrip/shared/src/store/actions/cityInformationActions.jsx";
 import {
-    setAirportsList, setArrowBackPressed,
+    setAirportsList, setArrowBackPressed, setIsValidSelection,
     setSelectedAirportsList
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import CustomButton from "../../buttons/customButton.jsx";
@@ -40,7 +40,7 @@ function UserDataEntryStep() {
     const location = useLocation();
 
     const [autocompleteKey, setAutocompleteKey] = useState(0);
-    const [isValidSelection, setIsValidSelection] = useState(false);
+    // const [isValidSelection, setIsValidSelection] = useState(false);
     const [whereFromExpanded, setWhereFromExpanded] = useState(true);
     const [calendarOpen, setCalendarOpen] = useState(false);
     const [tagsExpanded, setTagsExpanded] = useState(false);
@@ -49,6 +49,8 @@ function UserDataEntryStep() {
     const [inputFieldsCollapsed, setInputFieldsCollapsed] = useState(false);
     const startDate = useSelector((state) => state.tripOrganisation.startDate);
     const endDate = useSelector((state) => state.tripOrganisation.endDate);
+
+    const isValidSelection = useSelector((state) => state.tripOrganisation.isValidSelection)
 
     const errorMessageAirportRef = useRef(null);
     const autocompleteRef = useRef(null);
@@ -113,7 +115,7 @@ function UserDataEntryStep() {
 
             console.log("response_formatted", JSON.stringify(response_formatted));
             setOriginId(id);
-            setIsValidSelection(true);
+            dispatch(setIsValidSelection(true));
             setStartingPoint(response_formatted);
 
 
@@ -235,7 +237,7 @@ function UserDataEntryStep() {
 
     const resetToInitialState = () => {
         dispatch(setArrowBackPressed(true));
-        setIsValidSelection(true);
+        dispatch(setIsValidSelection(true));
         setWhereFromExpanded(true);
         setCalendarOpen(false);
         setTagsExpanded(false);
@@ -308,8 +310,6 @@ function UserDataEntryStep() {
                                             setStartingPoint={setStartingPoint}
                                             key={autocompleteKey}
                                             ref={errorMessageAirportRef}
-                                            setIsValidSelection={setIsValidSelection}
-                                            isValidSelection={isValidSelection}
                                             expanded={whereFromExpanded}
                                             onNextClick={() => {
                                                 setCalendarOpen(true);
