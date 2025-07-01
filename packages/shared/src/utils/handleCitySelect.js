@@ -1,58 +1,53 @@
-
-
-
-import {formatDateToNumbersAndLetters} from "../functions";
-import GetRequest from "../api/getRequest";
-import {addCityInfo} from "../store/actions/cityInformationActions.jsx"; // adjust as needed
+import { GetRequest } from '../api/getRequest.js'; // adjust if your API utility is elsewhere
 
 export const handleCitySelect = async ({
-  startDate,
-  endDate,
-  originId,
-  selectedTag,
-  selectedAirports,
-  dataPerCityRedux,
+  geonameid,
+  transportType,
+  cityName,
+  countryName,
+  from,
+  beginDate,
+  finalDate,
+  tag,
+  selectedAirportsList,
+  dataPerCity,
+  dispatch,
   setIsLoadingCityData,
   setResponseCityData,
-  dispatch,
+  addCityInfoAction, // passed action creator
 }) => {
-  const beginDate = formatDateToNumbersAndLetters(startDate);
-  const finalDate = formatDateToNumbersAndLetters(endDate);
-  const from = originId;
-  const tag = selectedTag || "";
-
   if (!geonameid) {
     console.log("No city id set!!!");
     return;
   }
 
-  if (Object.prototype.hasOwnProperty.call(dataPerCityRedux, geonameid)) {
+  // Use cached data if available
+  if (Object.prototype.hasOwnProperty.call(dataPerCity, geonameid)) {
     console.log("Using cached city data from Redux for geonameid:", geonameid);
-    setResponseCityData(dataPerCityRedux[geonameid].info);
+    setResponseCityData(dataPerCity[geonameid].info);
     return;
   }
 
   try {
     setIsLoadingCityData(true);
-    const city_response = await GetRequest(
-      `/api/get_city_info?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}` +
-        `&selectedAirports=${selectedAirports.join(",")}&geoname=${geonameid}&transportType=${transportType}` +
-        `&cityName=${encodeURIComponent(cityName)}&countryName=${encodeURIComponent(countryName)}`
-    );
+
+    const url = `/api/get_city_info?from=${from}&begin=${beginDate}&end=${finalDate}` +
+                `&activityType=${tag}&selectedAirports=${selectedAirportsList.join(',')}` +
+                `&geoname=${geonameid}&transportType=${transportType}` +
+                `&cityName=${encodeURIComponent(cityName)}&countryName=${encodeURIComponent(countryName)}`;
+
+    const city_response = await GetRequest(url);
 
     console.log("Fetched city data from API:", city_response);
-    setIsLoadingCityData(false);
     setResponseCityData(city_response);
-
-    dispatch(
-      addCityInfo(geonameid, {
-        cityName,
-        transportType,
-        info: city_response,
-      })
-    );
+    dispatch(addCityInfoAction(geonameid, {
+      cityName,
+      transportType,
+      info: city_response
+    }));
   } catch (error) {
     console.error("Failed to fetch city data:", error);
+  } finally {
     setIsLoadingCityData(false);
   }
 };

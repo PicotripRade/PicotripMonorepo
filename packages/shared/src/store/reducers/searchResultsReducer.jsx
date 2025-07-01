@@ -1,4 +1,4 @@
-import {SET_SEARCH_RESULTS_READY, setSearchResultsReady} from "../actions/searchResultsActions.jsx";
+import {SET_SEARCH_RESULTS_READY, SET_SEARCH_RESULTS_DISPLAYED} from "../actions/searchResultsActions.jsx";
 
 const initialState = {
 
@@ -12,7 +12,11 @@ const searchResultsReducer = (state = initialState, action) => {
                 ...state,
                 setSearchResultsReady: action.payload,
             };
-
+        case SET_SEARCH_RESULTS_DISPLAYED:
+            return {
+                ...state,
+                setSearchResultsDisplayed: action.payload,
+            };
 
         default:
             return state;

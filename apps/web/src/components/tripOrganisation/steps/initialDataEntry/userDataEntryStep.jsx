@@ -24,12 +24,15 @@ import CustomButton from "../../buttons/customButton.jsx";
 import {
     fetchAirports,
     fetchUserLocation,
-    formatDateToNumbersAndLetters, formatDisplayDate,
+    formatDateToNumbersAndLetters, formatDisplayDate, handleCitySelect,
     saveTripInfo
 } from "@picotrip/shared";
-import GetRequest from "@picotrip/shared/src/api/getRequest.js";
+
 import getTripsInfo from "@picotrip/shared/src/api/getTripsInformation.js";
-import {setSearchResultsReady} from "@picotrip/shared/src/store/actions/searchResultsActions.jsx";
+import {
+    setSearchResultsDisplayed,
+    setSearchResultsReady
+} from "@picotrip/shared/src/store/actions/searchResultsActions.jsx";
 
 function UserDataEntryStep() {
     const dispatch = useDispatch();
@@ -42,7 +45,7 @@ function UserDataEntryStep() {
     const [calendarOpen, setCalendarOpen] = useState(false);
     const [tagsExpanded, setTagsExpanded] = useState(false);
 
-    const [searchResultsDisplayed, setSearchResultsDisplayed] = useState(false);
+    // const [searchResultsDisplayed, setSearchResultsDisplayed] = useState(false);
     const [inputFieldsCollapsed, setInputFieldsCollapsed] = useState(false);
     const startDate = useSelector((state) => state.tripOrganisation.startDate);
     const endDate = useSelector((state) => state.tripOrganisation.endDate);
@@ -68,6 +71,7 @@ function UserDataEntryStep() {
     const selectedAirportsListRedux = useSelector((state) => state.tripOrganisation.selectedAirportsList);
 
     const searchResultsReady = useSelector((state) => state.searchResults.setSearchResultsReady);
+    const searchResultsDisplayed = useSelector((state) => state.searchResults.setSearchResultsDisplayed);
 
     const [allTypes, setAllTypes] = useState(1);
 
@@ -187,7 +191,7 @@ function UserDataEntryStep() {
 
             if (!arrowBackPressedRef.current) {
                 dispatch(setSearchResultsReady(true));
-                setSearchResultsDisplayed(true);
+                dispatch(setSearchResultsDisplayed(true));
                 setInputFieldsCollapsed(true);
                 setResponseData(data);
             }
@@ -206,46 +210,20 @@ function UserDataEntryStep() {
         }
     };
 
-    const handleCitySelect = async ({geonameid, transportType, cityName, countryName}) => {
-
-        const beginDate = formatDateToNumbersAndLetters(startDate);
-        const finalDate = formatDateToNumbersAndLetters(endDate);
-        const from = originId;
-        const tag = selectedTag || '';
-
-        if (!geonameid) {
-            console.log("No city id set!!!");
-            return;
-        }
-
-        // Check if data for this geonameid is already in Redux
-        if (Object.prototype.hasOwnProperty.call(dataPerCityRedux, geonameid)) {
-            console.log("Using cached city data from Redux for geonameid:", geonameid);
-            setResponseCityData(dataPerCityRedux[geonameid].info);
-            return;
-        }
-
-        // Fetch from API if not found in Redux
-        try {
-            setIsLoadingCityData(true);
-            const city_response = await GetRequest(
-                `/api/get_city_info?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}` +
-                `&selectedAirports=${selectedAirportsListRedux.join(',')}&geoname=${geonameid}&transportType=${transportType}` +
-                `&cityName=${encodeURIComponent(cityName)}&countryName=${encodeURIComponent(countryName)}`
-            );
-
-            console.log("Fetched city data from API:", city_response);
-            setIsLoadingCityData(false);
-            setResponseCityData(city_response);
-
-            dispatch(addCityInfo(geonameid, {
-                cityName: cityName,
-                transportType: transportType,
-                info: city_response,
-            }));
-        } catch (error) {
-            console.error("Failed to fetch city data:", error);
-        }
+    const onCitySelect = async (params) => {
+        await handleCitySelect({
+            ...params,
+            from: originId,
+            beginDate: formatDateToNumbersAndLetters(startDate),
+            finalDate: formatDateToNumbersAndLetters(endDate),
+            tag: selectedTag || '',
+            selectedAirportsList: selectedAirportsListRedux,
+            dataPerCity: dataPerCityRedux,
+            dispatch,
+            setIsLoadingCityData,
+            setResponseCityData,
+            addCityInfoAction: addCityInfo,
+        });
     };
 
     const resetAutocompleteParameters = () => {
@@ -262,7 +240,7 @@ function UserDataEntryStep() {
         setCalendarOpen(false);
         setTagsExpanded(false);
         dispatch(setSearchResultsReady(false));
-        setSearchResultsDisplayed(false);
+        dispatch(setSearchResultsDisplayed(false));
         setInputFieldsCollapsed(false);
         setIsLoading(false);
         setResponseData(null);
@@ -272,6 +250,7 @@ function UserDataEntryStep() {
         window.history.replaceState(null, '', location.pathname);
         resetAutocompleteParameters();
     };
+
 
     const getTagDescription = (tag) => {
         switch (tag) {
@@ -283,6 +262,8 @@ function UserDataEntryStep() {
                 return "Mountains";
             case "skiing":
                 return "Skiing";
+            case "lakes":
+                return "Lakes";
             default:
                 return tag;
         }
@@ -311,7 +292,7 @@ function UserDataEntryStep() {
                                         className={"x-button-results"}
                                         style={{color: "black"}}
                                         onClick={() => {
-                                            setSearchResultsDisplayed(true);
+                                            dispatch(setSearchResultsDisplayed(true))
                                             setInputFieldsCollapsed(true);
                                             resetAutocompleteParameters();
                                         }}
@@ -383,7 +364,7 @@ function UserDataEntryStep() {
                                             setWhereFromExpanded(true);
                                             setCalendarOpen(false);
                                             setTagsExpanded(false);
-                                            setSearchResultsDisplayed(false);
+                                            dispatch(setSearchResultsDisplayed(false));
                                             resetAutocompleteParameters();
                                         }}
                                     >
@@ -444,7 +425,7 @@ function UserDataEntryStep() {
                                     ready={searchResultsReady && searchResultsDisplayed}
                                     data={responseData}
                                     typeToDisplay={allTypes}
-                                    onCitySelect={handleCitySelect}
+                                    onCitySelect={onCitySelect}
                                     cityInfo={responseCityData}
                                     isLoadingCityData={isLoadingCityData}
                                 />
