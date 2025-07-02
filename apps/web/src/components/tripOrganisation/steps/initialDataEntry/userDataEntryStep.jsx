@@ -17,8 +17,8 @@ import Cookies from "js-cookie";
 import {useDispatch, useSelector} from "react-redux";
 import {addCityInfo} from "@picotrip/shared/src/store/actions/cityInformationActions.jsx";
 import {
-    setAirportsList, setArrowBackPressed, setCalendarOpen, setCalendarSwitch, setIsValidSelection,
-    setSelectedAirportsList, setWhereFromExpanded
+    setAirportsList, setArrowBackPressed, setCalendarOpen, setIsValidSelection,
+    setSelectedAirportsList, setTagsExpanded, setWhereFromExpanded
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import CustomButton from "../../buttons/customButton.jsx";
 import {
@@ -41,16 +41,13 @@ function UserDataEntryStep() {
 
     const [autocompleteKey, setAutocompleteKey] = useState(0);
 
-
-    const [tagsExpanded, setTagsExpanded] = useState(false);
-
     const [inputFieldsCollapsed, setInputFieldsCollapsed] = useState(false);
     const startDate = useSelector((state) => state.tripOrganisation.startDate);
     const endDate = useSelector((state) => state.tripOrganisation.endDate);
 
-    const isValidSelection = useSelector((state) => state.tripOrganisation.isValidSelection)
-    const whereFromExpanded = useSelector((state) => state.tripOrganisation.isWhereFromExpanded)
-    const calendarOpen = useSelector((state) => state.tripOrganisation.isCalendarOpen)
+    const isValidSelection = useSelector((state) => state.tripOrganisation.isValidSelection);
+    const whereFromExpanded = useSelector((state) => state.tripOrganisation.isWhereFromExpanded);
+    const calendarOpen = useSelector((state) => state.tripOrganisation.isCalendarOpen);
 
     const errorMessageAirportRef = useRef(null);
     const autocompleteRef = useRef(null);
@@ -143,15 +140,17 @@ function UserDataEntryStep() {
             if (autocompleteRef.current?.contains(event.target)) {
                 dispatch(setWhereFromExpanded(true));
                 dispatch(setCalendarOpen(false));
-                setTagsExpanded(false);
+                dispatch(setTagsExpanded(false));
+
             } else if (calendarRef.current?.contains(event.target)) {
                 dispatch(setWhereFromExpanded(false));
                 dispatch(setCalendarOpen(true));
-                setTagsExpanded(false);
+                dispatch(setTagsExpanded(false));
+
             } else if (tagContainerRef.current?.contains(event.target)) {
                 dispatch(setWhereFromExpanded(false));
                 dispatch(setCalendarOpen(false));
-                setTagsExpanded(true);
+                dispatch(setTagsExpanded(true));
             }
         };
 
@@ -240,7 +239,7 @@ function UserDataEntryStep() {
         dispatch(setIsValidSelection(true));
         dispatch(setWhereFromExpanded(true));
         dispatch(setCalendarOpen(false));
-        setTagsExpanded(false);
+        dispatch(setTagsExpanded(false));
         dispatch(setSearchResultsReady(false));
         dispatch(setSearchResultsDisplayed(false));
         setInputFieldsCollapsed(false);
@@ -308,7 +307,7 @@ function UserDataEntryStep() {
                                         <CustomCalendar
                                             onClose={() => {
                                                 dispatch(setCalendarOpen(false));
-                                                setTagsExpanded(true);
+                                                dispatch(setTagsExpanded(true));
                                             }}
                                             onMonthSelection={() => {
                                             }}
@@ -319,7 +318,6 @@ function UserDataEntryStep() {
                                 {!whereFromExpanded && !calendarOpen && (
                                     <div id={"tag-selection"} ref={tagContainerRef}>
                                         <TagSelection
-                                            tagsExpanded={tagsExpanded}
                                             onSearchClick={() => handleSearchClick()
                                             }
                                             selectedTag={selectedTag}
@@ -343,7 +341,7 @@ function UserDataEntryStep() {
                                             setInputFieldsCollapsed(false);
                                             dispatch(setWhereFromExpanded(true));
                                             dispatch(setCalendarOpen(false));
-                                            setTagsExpanded(false);
+                                            dispatch(setTagsExpanded(false));
                                             dispatch(setSearchResultsDisplayed(false));
                                             resetAutocompleteParameters();
                                         }}

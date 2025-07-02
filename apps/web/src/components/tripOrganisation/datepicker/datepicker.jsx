@@ -4,14 +4,15 @@ import "./styles.css";
 import DatepickerDayButton from "../buttons/dayButton.jsx";
 import CustomButton from "../buttons/customButton.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    resetEndDate,
-    resetStartDate, setCalendarSwitch, setEndDateRedux,
-    setStartDateRedux,
-} from "../../../../../../packages/shared/src/store/actions/tripOrganisationActions.jsx";
+
 import PlusMinus from "./../../../images/destinations/datepicker/plus-minus.svg";
 import PlusMinusWhite from "./../../../images/destinations/datepicker/plus-minus-white.svg";
 import {formatDisplayDate, monthsNames, dayNames, getNumberOfRows, isDaySelectable} from "@picotrip/shared";
+import {
+    resetEndDate, resetStartDate,
+    setCalendarSwitch, setEndDateRedux,
+    setStartDateRedux
+} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 
 const CustomCalendar = ({onClose, onMonthSelection}) => {
         const [displayedMonths, setDisplayedMonths] = useState([new Date()]); // Array of displayed months

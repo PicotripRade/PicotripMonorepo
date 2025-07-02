@@ -5,7 +5,13 @@ import {
     RESET_END_DATE,
     CALENDAR_SWITCH,
     AIRPORTS_LIST,
-    SELECTED_AIRPORTS_LIST, STARTING_POINT, ARROW_BACK_PRESSED, IS_VALID_SELECTION, WHERE_FROM_EXPANDED, CALENDAR_OPEN
+    SELECTED_AIRPORTS_LIST,
+    STARTING_POINT,
+    ARROW_BACK_PRESSED,
+    IS_VALID_SELECTION,
+    WHERE_FROM_EXPANDED,
+    CALENDAR_OPEN,
+    TAGS_EXPANDED
 } from '../actions/tripOrganisationActions.jsx';
 
 const initialState = { // Define the initial state
@@ -19,6 +25,7 @@ const initialState = { // Define the initial state
     isValidSelection: true,
     isWhereFromExpanded: true,
     isCalendarOpen: false,
+    isTagsExpanded: false,
 };
 
 const tripOrganisationReducer = (state = initialState, action) => { // Provide default state value
@@ -82,6 +89,11 @@ const tripOrganisationReducer = (state = initialState, action) => { // Provide d
             return {
                 ...state,
                 isCalendarOpen: action.payload,
+            }
+        case TAGS_EXPANDED:
+            return {
+                ...state,
+                isTagsExpanded: action.payload,
             }
         default:
             return state;

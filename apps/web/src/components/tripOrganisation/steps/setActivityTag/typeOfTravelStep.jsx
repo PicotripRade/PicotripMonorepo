@@ -13,8 +13,9 @@ import CustomNextButton from "../../buttons/customNextButton.jsx";
 import {useSelector} from "react-redux";
 
 
-const TagSelection = forwardRef(({tagsExpanded, onSearchClick, selectedTag, onTagChange}, ref) => {
+const TagSelection = forwardRef(({onSearchClick, selectedTag, onTagChange}, ref) => {
 
+    const tagsExpanded = useSelector((state) => state.tripOrganisation.isTagsExpanded);
     const handleTagClick = (tagId) => {
         if (selectedTag === tagId) { // Check if the clicked tag is already selected
             console.log("dispatching null for tag id", tagId);
