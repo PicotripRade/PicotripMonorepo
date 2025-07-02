@@ -17,15 +17,15 @@ import Cookies from "js-cookie";
 import {useDispatch, useSelector} from "react-redux";
 import {addCityInfo} from "@picotrip/shared/src/store/actions/cityInformationActions.jsx";
 import {
-    setAirportsList, setArrowBackPressed, setIsValidSelection,
-    setSelectedAirportsList
+    setAirportsList, setArrowBackPressed, setCalendarOpen, setCalendarSwitch, setIsValidSelection,
+    setSelectedAirportsList, setWhereFromExpanded
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import CustomButton from "../../buttons/customButton.jsx";
 import {
     fetchAirports,
     fetchUserLocation,
     formatDateToNumbersAndLetters, formatDisplayDate, handleCitySelect,
-    saveTripInfo
+    saveTripInfo, getTagDescription
 } from "@picotrip/shared";
 
 import getTripsInfo from "@picotrip/shared/src/api/getTripsInformation.js";
@@ -40,17 +40,17 @@ function UserDataEntryStep() {
     const location = useLocation();
 
     const [autocompleteKey, setAutocompleteKey] = useState(0);
-    // const [isValidSelection, setIsValidSelection] = useState(false);
-    const [whereFromExpanded, setWhereFromExpanded] = useState(true);
-    const [calendarOpen, setCalendarOpen] = useState(false);
+
+
     const [tagsExpanded, setTagsExpanded] = useState(false);
 
-    // const [searchResultsDisplayed, setSearchResultsDisplayed] = useState(false);
     const [inputFieldsCollapsed, setInputFieldsCollapsed] = useState(false);
     const startDate = useSelector((state) => state.tripOrganisation.startDate);
     const endDate = useSelector((state) => state.tripOrganisation.endDate);
 
     const isValidSelection = useSelector((state) => state.tripOrganisation.isValidSelection)
+    const whereFromExpanded = useSelector((state) => state.tripOrganisation.isWhereFromExpanded)
+    const calendarOpen = useSelector((state) => state.tripOrganisation.isCalendarOpen)
 
     const errorMessageAirportRef = useRef(null);
     const autocompleteRef = useRef(null);
@@ -141,16 +141,16 @@ function UserDataEntryStep() {
     useEffect(() => {
         const handleClick = (event) => {
             if (autocompleteRef.current?.contains(event.target)) {
-                setWhereFromExpanded(true);
-                setCalendarOpen(false);
+                dispatch(setWhereFromExpanded(true));
+                dispatch(setCalendarOpen(false));
                 setTagsExpanded(false);
             } else if (calendarRef.current?.contains(event.target)) {
-                setWhereFromExpanded(false);
-                setCalendarOpen(true);
+                dispatch(setWhereFromExpanded(false));
+                dispatch(setCalendarOpen(true));
                 setTagsExpanded(false);
             } else if (tagContainerRef.current?.contains(event.target)) {
-                setWhereFromExpanded(false);
-                setCalendarOpen(false);
+                dispatch(setWhereFromExpanded(false));
+                dispatch(setCalendarOpen(false));
                 setTagsExpanded(true);
             }
         };
@@ -238,8 +238,8 @@ function UserDataEntryStep() {
     const resetToInitialState = () => {
         dispatch(setArrowBackPressed(true));
         dispatch(setIsValidSelection(true));
-        setWhereFromExpanded(true);
-        setCalendarOpen(false);
+        dispatch(setWhereFromExpanded(true));
+        dispatch(setCalendarOpen(false));
         setTagsExpanded(false);
         dispatch(setSearchResultsReady(false));
         dispatch(setSearchResultsDisplayed(false));
@@ -252,24 +252,6 @@ function UserDataEntryStep() {
         window.history.replaceState(null, '', location.pathname);
         resetAutocompleteParameters();
     };
-
-
-    const getTagDescription = (tag) => {
-        switch (tag) {
-            case "summer_vacation":
-                return "Summer";
-            case "family_trip":
-                return "Family Trip";
-            case "mountains":
-                return "Mountains";
-            case "skiing":
-                return "Skiing";
-            case "lakes":
-                return "Lakes";
-            default:
-                return tag;
-        }
-    }
 
 
     return (
@@ -310,10 +292,9 @@ function UserDataEntryStep() {
                                             setStartingPoint={setStartingPoint}
                                             key={autocompleteKey}
                                             ref={errorMessageAirportRef}
-                                            expanded={whereFromExpanded}
                                             onNextClick={() => {
-                                                setCalendarOpen(true);
-                                                setWhereFromExpanded(false);
+                                                dispatch(setCalendarOpen(true));
+                                                dispatch(setWhereFromExpanded(false));
                                             }}
                                             onOriginChange={(newDestId) => setOriginId(newDestId)}
                                             airportList={airportsListRedux}
@@ -325,9 +306,8 @@ function UserDataEntryStep() {
                                 {!whereFromExpanded && (
                                     <div id={"datepicker"} className={"datepicker-wrapper"} ref={calendarRef}>
                                         <CustomCalendar
-                                            isOpen={calendarOpen}
                                             onClose={() => {
-                                                setCalendarOpen(false);
+                                                dispatch(setCalendarOpen(false));
                                                 setTagsExpanded(true);
                                             }}
                                             onMonthSelection={() => {
@@ -361,8 +341,8 @@ function UserDataEntryStep() {
                                         className={"collapsed-input strong-shadow"}
                                         onClick={() => {
                                             setInputFieldsCollapsed(false);
-                                            setWhereFromExpanded(true);
-                                            setCalendarOpen(false);
+                                            dispatch(setWhereFromExpanded(true));
+                                            dispatch(setCalendarOpen(false));
                                             setTagsExpanded(false);
                                             dispatch(setSearchResultsDisplayed(false));
                                             resetAutocompleteParameters();

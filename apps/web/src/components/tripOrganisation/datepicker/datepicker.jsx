@@ -13,7 +13,7 @@ import PlusMinus from "./../../../images/destinations/datepicker/plus-minus.svg"
 import PlusMinusWhite from "./../../../images/destinations/datepicker/plus-minus-white.svg";
 import {formatDisplayDate, monthsNames, dayNames, getNumberOfRows, isDaySelectable} from "@picotrip/shared";
 
-const CustomCalendar = ({isOpen, onClose, onMonthSelection}) => {
+const CustomCalendar = ({onClose, onMonthSelection}) => {
         const [displayedMonths, setDisplayedMonths] = useState([new Date()]); // Array of displayed months
 
         const [selectedDateExtender, setSelectedDateExtender] = useState("exact");
@@ -21,7 +21,7 @@ const CustomCalendar = ({isOpen, onClose, onMonthSelection}) => {
         const startDate = useSelector((state) => state.tripOrganisation.startDate);
         const endDate = useSelector((state) => state.tripOrganisation.endDate);
         const isDates = useSelector((state) => state.tripOrganisation.calendarSwitch) || false;
-
+        const isOpen = useSelector((state) => state.tripOrganisation.isCalendarOpen);
         const scrollableRef = useRef(null);  // Add this ref
         const dispatch = useDispatch();
 

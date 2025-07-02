@@ -16,7 +16,6 @@ import {sendCoordinates} from "@picotrip/shared/src/utils/geolocation.js";
 const Autocomplete = forwardRef(({
                                      startingPoint,
                                      setStartingPoint,
-                                     expanded,
                                      onNextClick,
                                      onOriginChange,
                                      airportList,
@@ -41,6 +40,7 @@ const Autocomplete = forwardRef(({
     const selectedAirports = useSelector((state) => state.tripOrganisation.selectedAirportsList);
 
     const isValidSelection = useSelector((state) => state.tripOrganisation.isValidSelection);
+    const expanded = useSelector((state) => state.tripOrganisation.isWhereFromExpanded);
     const [inputValue, setInputValue] = useState(startingPoint || "");
 
     useEffect(() => {

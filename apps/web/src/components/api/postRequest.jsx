@@ -2,8 +2,8 @@ const PostRequest = async (requestData, path, responseType) => {
     try {
         // Ensure path is treated as absolute in production mode
         let requestUrl;
-        if (process.env.REACT_APP_WORKMODE === 'dev') {
-            requestUrl = `http://${process.env.REACT_APP_URL}:${process.env.REACT_APP_DJANGO_PORT}/${path}`;
+        if (import.meta.env.VITE_WORKMODE === 'dev') {
+            requestUrl = `http://${import.meta.env.VITE_URL}:${import.meta.env.VITE_DJANGO_PORT}/${path}`;
         } else {
             // Add leading `/` to ensure path is absolute
             requestUrl = `/${path.replace(/^\/+/, '')}`;

@@ -354,3 +354,20 @@ export const saveTripInfo = ({startingPoint, beginDate, finalDate}) => {
     Cookies.set("beginDate", beginDate);
     Cookies.set("finalDate", finalDate);
 };
+
+export const getTagDescription = (tag) => {
+    switch (tag) {
+        case "summer_vacation":
+            return "Summer";
+        case "family_trip":
+            return "Family Trip";
+        case "mountains":
+            return "Mountains";
+        case "skiing":
+            return "Skiing";
+        case "lakes":
+            return "Lakes";
+        default:
+            return tag;
+    }
+}
