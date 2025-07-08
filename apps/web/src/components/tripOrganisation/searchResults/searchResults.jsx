@@ -4,15 +4,11 @@ import RadarScan from "../sonarAnimation/sonar.jsx";
 import PlaneIcon from '../../../images/destinations/plane.svg';
 import CarIcon from '../../../images/destinations/car-taxi-front.svg';
 import Paris from '../../../images/mock/paris.jpg';
-import {
-    removeTextInBrackets,
-    getCountryName,
-    formatDateToMonthDayYear
-} from "../functions/functions.jsx";
 import FlightSegment from "./flightSegment.jsx";
 import Cookies from "js-cookie";
 import {useDispatch} from "react-redux";
-import {setSelectedCityRedux} from "../../../store/store/actions/CityInformationActions.jsx";
+import {setSelectedCityRedux} from "@picotrip/shared/src/store/actions/cityInformationActions.jsx";
+import {formatDateToMonthDayYear, getCountryName, removeTextInBrackets} from "@picotrip/shared";
 
 const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityInfo, isLoadingCityData}) => {
     const SENTENCE_TIME_MILLISECONDS = 3000;
@@ -74,9 +70,6 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
         const rawData = data.results[selectedType];
         if (selectedType === 'flight') {
             filteredData = rawData.filter(city => city.transport === 'direct');
-
-            console.log("direct flights:");
-            console.log(filteredData);
         } else {
             console.log("no direct flights");
         }
@@ -238,8 +231,6 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
                                 </div>
                                 {["direct", "non_direct"].includes(selectedCity.transport) && (
                                     <div className="modal-transport">
-                                        {console.log("selectedCity")}
-                                        {console.log(selectedCity)}
 
                                         <div className={"flight-info-wrapper"}>
                                             <div className={"title-section"}>

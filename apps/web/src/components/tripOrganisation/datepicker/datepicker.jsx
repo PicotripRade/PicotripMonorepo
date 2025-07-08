@@ -4,33 +4,25 @@ import "./styles.css";
 import DatepickerDayButton from "../buttons/dayButton.jsx";
 import CustomButton from "../buttons/customButton.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    resetEndDate,
-    resetStartDate, setEndDateRedux,
-    setStartDateRedux,
-} from "../../../store/store/actions/tripOrganisationActions.jsx";
-import {formatDisplayDate} from "../../utils/dataProcessingFunctions.jsx";
+
 import PlusMinus from "./../../../images/destinations/datepicker/plus-minus.svg";
 import PlusMinusWhite from "./../../../images/destinations/datepicker/plus-minus-white.svg";
+import {formatDisplayDate, monthsNames, dayNames, getNumberOfRows, isDaySelectable} from "@picotrip/shared";
+import {
+    resetEndDate, resetStartDate,
+    setCalendarSwitch, setEndDateRedux,
+    setStartDateRedux
+} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 
-const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December",
-];
-
-const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-
-const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
-        const [tempStartDate, setTempStartDate] = useState(null);
-        const [tempEndDate, setTempEndDate] = useState(null);
+const CustomCalendar = ({onClose, onMonthSelection}) => {
         const [displayedMonths, setDisplayedMonths] = useState([new Date()]); // Array of displayed months
 
         const [selectedDateExtender, setSelectedDateExtender] = useState("exact");
 
-        const startDateFromRedux = useSelector((state) => state.tripOrganisation.startDate);
-        const endDateFromRedux = useSelector((state) => state.tripOrganisation.endDate);
-
-        const [isDates, setIsDates] = useState(false);
+        const startDate = useSelector((state) => state.tripOrganisation.startDate);
+        const endDate = useSelector((state) => state.tripOrganisation.endDate);
+        const isDates = useSelector((state) => state.tripOrganisation.calendarSwitch) || false;
+        const isOpen = useSelector((state) => state.tripOrganisation.isCalendarOpen);
         const scrollableRef = useRef(null);  // Add this ref
         const dispatch = useDispatch();
 
@@ -38,28 +30,16 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
 
 
         useEffect(() => {
-            // Initialize displayedMonths with the current month and the next 5 months
+            // Initialize displayedMonths with the current month and the next 12 months
             const initialMonths = [];
             const current = new Date();
             for (let i = 0; i < 12; i++) {
                 const newMonth = new Date(current.getFullYear(), current.getMonth() + i, 1);
-                if (hasSelectableDaysInCurrentMonth(current)) {
-                }
                 initialMonths.push(newMonth);
             }
             setDisplayedMonths(initialMonths);
         }, []);
 
-
-        useEffect(() => {
-            if (selectedRange) {
-                setTempStartDate(selectedRange.start);
-                setTempEndDate(selectedRange.end);
-            } else {
-                setTempStartDate(startDateFromRedux || null);
-                setTempEndDate(endDateFromRedux || null);
-            }
-        }, [selectedRange]);
 
         // Add this useEffect to handle scrolling when calendar opens
         useEffect(() => {
@@ -75,7 +55,7 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
             if (onMonthSelection) {
                 // Convert to more readable format for parent component
                 const formattedSelection = selectedMonths.map(({monthIndex, year}) => ({
-                    month: months[monthIndex],
+                    month: monthsNames[monthIndex],
                     monthIndex,
                     year
                 }));
@@ -91,11 +71,12 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
 
             for (let el of dayElements) {
                 const elDate = new Date(el.getAttribute('data-calendar-date'));
-                if (tempStartDate) {
+
+                if (startDate) {
                     if (
-                        elDate.getDate() === tempStartDate.getDate() &&
-                        elDate.getMonth() === tempStartDate.getMonth() &&
-                        elDate.getFullYear() === tempStartDate.getFullYear()
+                        elDate.getDate() === startDate.getDate() &&
+                        elDate.getMonth() === startDate.getMonth() &&
+                        elDate.getFullYear() === startDate.getFullYear()
                     ) {
                         el.scrollIntoView({behavior: 'smooth', block: 'start'});
                         return;
@@ -112,81 +93,44 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
         };
 
         const toggleSlider = () => {
-            const slider = document.getElementById("slider");
-            setIsDates(!isDates);
-            slider.style.left = isDates ? "5px" : "105px";
+            dispatch(setCalendarSwitch(!isDates));
         }
-
-        const hasSelectableDaysInCurrentMonth = (currentDate) => {
-            const today = new Date();
-            const minSelectableDate = new Date(today.setDate(today.getDate() - 1));
-
-            // Check if this month is after the minimum selectable date
-            if (new Date(currentDate.getFullYear(), currentDate.getMonth(), 1) >= minSelectableDate) {
-                return true;
-            }
-
-            // Check individual days if month contains the threshold
-            const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
-            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), daysInMonth);
-
-            return lastDay >= minSelectableDate && firstDay <= minSelectableDate;
-        }
-
-        const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
-
-        const getNumberOfRows = (currentDate) => {
-            const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
-            const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
-            return Math.ceil((firstDayOfMonth + daysInMonth) / 7);
-        };
 
         const handleDayClick = (day, currentDate) => {
             const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
 
-            if (!tempStartDate) {
-                setTempStartDate(date);
+            if (!startDate) {
                 dispatch(setStartDateRedux(date));
                 dispatch(resetEndDate());
-            } else if (!tempEndDate) {
+            } else if (!endDate) {
                 // Check if the selected end date is before the start date
-                if (date < tempStartDate) {
-
-                    setTempStartDate(date);
+                if (date < endDate) {
                     dispatch(setStartDateRedux(date));
                 } else {
-                    setTempEndDate(date);
                     dispatch(setEndDateRedux(date));
                 }
             } else {
                 dispatch(resetStartDate());
                 dispatch(resetEndDate());
-                setTempStartDate(null);
-                setTempEndDate(null);
             }
         };
 
         const isDayActive = (day, currentDate) => {
-            if (!tempStartDate) return false;
+
+            if (!startDate) return false;
             const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
             return (
-                date.getDate() === tempStartDate.getDate() &&
-                date.getMonth() === tempStartDate.getMonth() &&
-                date.getFullYear() === tempStartDate.getFullYear()
+                date.getDate() === startDate.getDate() &&
+                date.getMonth() === startDate.getMonth() &&
+                date.getFullYear() === startDate.getFullYear()
             );
         };
 
-        const isDaySelectable = (day, currentDate) => {
-            const today = new Date();
-            const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-            return date > new Date(today.setDate(today.getDate() - 1));
-        };
-
         const isDayInRange = (day, currentDate) => {
-            if (!tempStartDate || !tempEndDate) return false;
+
+            if (!startDate || !endDate) return false;
             const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-            return date >= Math.min(tempStartDate, tempEndDate) && date <= Math.max(tempStartDate, tempEndDate); // Corrected range check
+            return date >= Math.min(startDate, endDate) && date <= Math.max(startDate, endDate); // Corrected range check
         };
 
 
@@ -195,6 +139,8 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                 const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
                 const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
                 const days = [];
+
+
 
                 // Check if the current month is the last month in the displayedMonths array
                 const isLastMonth = index === displayedMonths.length - 1;
@@ -220,14 +166,14 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                                 isActive={isDayActive(i, currentDate)}
                                 isInRange={isDayInRange(i, currentDate)}
                                 isStart={
-                                    i === tempStartDate?.getDate() &&
-                                    tempStartDate?.getMonth() === currentDate.getMonth() &&
-                                    tempStartDate?.getFullYear() === currentDate.getFullYear()
+                                    i === startDate?.getDate() &&
+                                    startDate?.getMonth() === currentDate.getMonth() &&
+                                    startDate?.getFullYear() === currentDate.getFullYear()
                                 }
                                 isEnd={
-                                    i === tempEndDate?.getDate() &&
-                                    tempEndDate?.getMonth() === currentDate.getMonth() &&
-                                    tempEndDate?.getFullYear() === currentDate.getFullYear()
+                                    i === endDate?.getDate() &&
+                                    endDate?.getMonth() === currentDate.getMonth() &&
+                                    endDate?.getFullYear() === currentDate.getFullYear()
                                 }
                                 onClick={() => handleDayClick(i, currentDate)}
                                 isDisabled={isDisabled}
@@ -243,7 +189,7 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                 return (
                     <div key={currentDate.getMonth()} className={`month-container ${isLastMonth ? "last-month" : ""} `}>
                         <div className="calendar-header-inner">
-                            {months[currentDate.getMonth()]}&nbsp;{currentDate.getFullYear()}
+                            {monthsNames[currentDate.getMonth()]}&nbsp;{currentDate.getFullYear()}
                         </div>
                         <div
                             className={`calendar-days ${getNumberOfRows(currentDate) === 5 ? "tight-rows" : ""} ${getNumberOfRows(currentDate) === 4 ? "very-tight-rows" : ""}`}>
@@ -252,11 +198,11 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                     </div>
                 );
             });
-        }, [displayedMonths, tempStartDate, tempEndDate]);
+        }, [displayedMonths, startDate, endDate]);
 
 
         // Usage in your JSX:
-        const dateDisplay = formatDisplayDate(tempStartDate, tempEndDate);
+        const dateDisplay = formatDisplayDate(startDate, endDate);
 
         const handleDoneClick = () => onClose();
 
@@ -269,12 +215,12 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                             {<div className={"disabled-text rounded-left-button"}> When</div>}
                             <div className={"date-range-info-wrapper"}>
                                 <div className="date-range-info rounded-right-button">
-                                    <div className={`range-display ${tempStartDate ? "" : "unselected"}`}>
+                                    <div className={`range-display ${startDate} ? "" : "unselected"}`}>
                                         {dateDisplay.start}
                                     </div>
                                     {!(dateDisplay.start && !dateDisplay.end) &&
                                         <div className={"line unselected"}>-</div>}
-                                    <div className={`range-display ${tempEndDate ? "" : "unselected"}`}>
+                                    <div className={`range-display ${endDate ? "" : "unselected"}`}>
                                         {dateDisplay.end}
                                     </div>
                                 </div>
@@ -284,13 +230,13 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                     {isOpen && (
                         <>
                             <p className={"input-box-title"}> When's your trip?</p>
-                            {/*{process.env.REACT_APP_WORKMODE !== 'prod' && (*/}
-                            {/*    <div className="toggle-container" onClick={toggleSlider}>*/}
-                            {/*        <div className="slider" id="slider"></div>*/}
-                            {/*        <div className="label">Dates</div>*/}
-                            {/*        <div className="label">Flexible</div>*/}
-                            {/*    </div>*/}
-                            {/*)}*/}
+                            {import.meta.env.VITE_WORKMODE !== 'prod' && (
+                                <div className="toggle-container" onClick={toggleSlider}>
+                                    <div className={`slider ${isDates ? "toggled" : ""}`}></div>
+                                    <div className="label">Dates</div>
+                                    <div className="label">Flexible</div>
+                                </div>
+                            )}
                             <div>
                                 <div className={`custom-calendar rounded-button`}>
                                     {isDates === false ? (
@@ -321,7 +267,7 @@ const CustomCalendar = ({isOpen, onClose, selectedRange, onMonthSelection}) => {
                                                 const monthIndex = (currentMonth + monthOffset) % 12;
                                                 const year = currentYear + Math.floor((currentMonth + monthOffset) / 12);
 
-                                                const monthName = months[monthIndex];
+                                                const monthName = monthsNames[monthIndex];
 
                                                 // Check if this month is selected
                                                 const isSelected = selectedMonths.some(

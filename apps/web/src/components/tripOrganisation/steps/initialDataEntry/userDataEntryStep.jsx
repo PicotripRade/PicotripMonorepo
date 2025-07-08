@@ -8,22 +8,31 @@ import CustomCalendar from "../../datepicker/datepicker.jsx";
 import Header from "../../../header/header.jsx";
 import SearchResults from "../../searchResults/searchResults.jsx";
 import TagSelection from "../setActivityTag/typeOfTravelStep.jsx";
-import GetRequest from "../../../api/getRequest.jsx";
-import {formatDisplayDate} from "../../../utils/dataProcessingFunctions.jsx";
+
 import FilterResults from '../../../../images/destinations/filters-2-svgrepo-com.svg';
 import ArrowBack from '../../../../images/destinations/left-navigation-back-svgrepo-com.svg';
 import {CloseIcon} from "../../../utils/reactIcons/icons.jsx";
 import Cookies from "js-cookie";
 
-import {
-    formatDateToNumbersAndLetters,
-    getTagDescription,
-    loadLocationCookies,
-} from "../../functions/functions.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {addCityInfo} from "../../../../store/store/actions/CityInformationActions.jsx";
+import {addCityInfo} from "@picotrip/shared/src/store/actions/cityInformationActions.jsx";
+import {
+    setAirportsList, setArrowBackPressed, setCalendarOpen, setIsValidSelection,
+    setSelectedAirportsList, setTagsExpanded, setWhereFromExpanded
+} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import CustomButton from "../../buttons/customButton.jsx";
-import {fetchUserLocation} from "@picotrip/shared";
+import {
+    fetchAirports,
+    fetchUserLocation,
+    formatDateToNumbersAndLetters, formatDisplayDate, handleCitySelect,
+    saveTripInfo, getTagDescription
+} from "@picotrip/shared";
+
+import getTripsInfo from "@picotrip/shared/src/api/getTripsInformation.js";
+import {
+    setSearchResultsDisplayed,
+    setSearchResultsReady
+} from "@picotrip/shared/src/store/actions/searchResultsActions.jsx";
 
 function UserDataEntryStep() {
     const dispatch = useDispatch();
@@ -31,15 +40,14 @@ function UserDataEntryStep() {
     const location = useLocation();
 
     const [autocompleteKey, setAutocompleteKey] = useState(0);
-    const [isValidSelection, setIsValidSelection] = useState(false);
-    const [whereFromExpanded, setWhereFromExpanded] = useState(true);
-    const [calendarOpen, setCalendarOpen] = useState(false);
-    const [tagsExpanded, setTagsExpanded] = useState(false);
-    const [searchResultsReady, setSearchResultsReady] = useState(false);
-    const [searchResultsDisplayed, setSearchResultsDisplayed] = useState(false);
+
     const [inputFieldsCollapsed, setInputFieldsCollapsed] = useState(false);
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const startDate = useSelector((state) => state.tripOrganisation.startDate);
+    const endDate = useSelector((state) => state.tripOrganisation.endDate);
+
+    const isValidSelection = useSelector((state) => state.tripOrganisation.isValidSelection);
+    const whereFromExpanded = useSelector((state) => state.tripOrganisation.isWhereFromExpanded);
+    const calendarOpen = useSelector((state) => state.tripOrganisation.isCalendarOpen);
 
     const errorMessageAirportRef = useRef(null);
     const autocompleteRef = useRef(null);
@@ -48,37 +56,31 @@ function UserDataEntryStep() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [isLoadingCityData, setIsLoadingCityData] = useState(false);
-    const [startingPoint, setStartingPoint] = useState('');
-    const [arrowBackPressed, setArrowBackPressed] = useState(false);
     const [originId, setOriginId] = useState('') || Cookies.get("geoname");
-    const [selectedTag, setSelectedTag] = useState(null);
+    const [startingPoint, setStartingPoint] = useState('');
+    const [selectedTag, setSelectedTag] = useState('');
+
     const [responseData, setResponseData] = useState(null);
     const [responseCityData, setResponseCityData] = useState(null);
     const [errorResponse, setErrorResponse] = useState(false);
 
-    const [airportList, setAirportList] = useState([]);
-    const [selectedAirports, setSelectedAirports] = useState([]);
+    const arrowBackPressed = useSelector((state) => state.tripOrganisation.arrowBackPressed);
+
+    const airportsListRedux = useSelector((state) => state.tripOrganisation.airportList);
+    const selectedAirportsListRedux = useSelector((state) => state.tripOrganisation.selectedAirportsList);
+
+    const searchResultsReady = useSelector((state) => state.searchResults.setSearchResultsReady);
+    const searchResultsDisplayed = useSelector((state) => state.searchResults.setSearchResultsDisplayed);
+
     const [allTypes, setAllTypes] = useState(1);
 
     const arrowBackPressedRef = useRef(arrowBackPressed);
 
-    const startDateFromRedux = useSelector((state) => state.tripOrganisation.startDate);
-    const endDateFromRedux = useSelector((state) => state.tripOrganisation.endDate);
     const dataPerCityRedux = useSelector((state) => state.cityInfoReducer.cities) || '';
 
     useEffect(() => {
         arrowBackPressedRef.current = arrowBackPressed;
     }, [arrowBackPressed]);
-
-    useEffect(() => {
-        console.log("Redux endDateFromRedux in start:", endDateFromRedux);
-        setStartDate(startDateFromRedux);
-    }, [startDateFromRedux]);
-
-    useEffect(() => {
-        console.log("Redux endDateFromRedux:", endDateFromRedux);
-        setEndDate(endDateFromRedux);
-    }, [endDateFromRedux]);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -90,7 +92,6 @@ function UserDataEntryStep() {
         if (from && begin && end) {
             setOriginId(from);
             Cookies.set("geoname", from);
-            if (tag) setSelectedTag(tag);
 
             handleSearchClick({
                 overrideParams: {
@@ -111,11 +112,15 @@ function UserDataEntryStep() {
 
             console.log("response_formatted", JSON.stringify(response_formatted));
             setOriginId(id);
+            dispatch(setIsValidSelection(true));
             setStartingPoint(response_formatted);
-            setIsValidSelection(true);
-            Cookies.set('startingPoint in parent cookie', response_formatted);
-            console.log("origin id", id);
-            fetchAirports(id);
+
+
+            fetchAirports({
+                id,
+                dispatch,
+                setAutocompleteKey,
+            });
         };
 
         fetchLocation();
@@ -123,23 +128,29 @@ function UserDataEntryStep() {
 
     useEffect(() => {
         if (!originId || !isValidSelection) return;
-        fetchAirports(originId);
+        fetchAirports({
+            originId,
+            dispatch,
+            setAutocompleteKey,
+        });
     }, [originId, isValidSelection]);
 
     useEffect(() => {
         const handleClick = (event) => {
             if (autocompleteRef.current?.contains(event.target)) {
-                setWhereFromExpanded(true);
-                setCalendarOpen(false);
-                setTagsExpanded(false);
+                dispatch(setWhereFromExpanded(true));
+                dispatch(setCalendarOpen(false));
+                dispatch(setTagsExpanded(false));
+
             } else if (calendarRef.current?.contains(event.target)) {
-                setWhereFromExpanded(false);
-                setCalendarOpen(true);
-                setTagsExpanded(false);
+                dispatch(setWhereFromExpanded(false));
+                dispatch(setCalendarOpen(true));
+                dispatch(setTagsExpanded(false));
+
             } else if (tagContainerRef.current?.contains(event.target)) {
-                setWhereFromExpanded(false);
-                setCalendarOpen(false);
-                setTagsExpanded(true);
+                dispatch(setWhereFromExpanded(false));
+                dispatch(setCalendarOpen(false));
+                dispatch(setTagsExpanded(true));
             }
         };
 
@@ -147,45 +158,21 @@ function UserDataEntryStep() {
         return () => document.removeEventListener('mousedown', handleClick);
     }, [isValidSelection]);
 
-    const saveTripCookies = ({airportList, selectedAirports, beginDate, finalDate}) => {
-        console.log("save trip cookies");
-        Cookies.set("airportList", JSON.stringify(airportList));
-        Cookies.set("selectedAirports", JSON.stringify(selectedAirports));
-        Cookies.set("beginDate", beginDate);
-        Cookies.set("finalDate", finalDate);
-    };
-
-
-    const fetchAirports = async (originId) => {
-        try {
-            const airports_list = await GetRequest(`/api/get_airports_list/?city_id=${originId}`);
-            setAirportList(airports_list);
-            setSelectedAirports(airports_list.map(a => a.iata_code)); // All selected initially
-            setAutocompleteKey(prev => prev + 1); // Force re-render
-        } catch (error) {
-            console.error('Failed to fetch airports list:', error);
-        }
-    };
-
-    const handleTagSelection = (tagId) => {
-        setSelectedTag(tagId);
-    };
-
-
     const handleSearchClick = async ({overrideParams = null, skipUpdateURL = false} = {}) => {
         try {
             setErrorResponse(false); // Reset error state on new search
             setTagsExpanded(false);
-            setArrowBackPressed(false);
+            dispatch(setArrowBackPressed(false));
 
             const beginDate = overrideParams?.begin || formatDateToNumbersAndLetters(startDate);
             const finalDate = overrideParams?.end || formatDateToNumbersAndLetters(endDate);
             const from = overrideParams?.from || originId;
-            const tag = overrideParams?.tag || selectedTag || '';
+            const tag = overrideParams?.tag || selectedTag;
 
             // Save to cookies
-
-            saveTripCookies({airportList, selectedAirports, beginDate, finalDate});
+            dispatch(setSelectedAirportsList(selectedAirportsListRedux));
+            dispatch(setAirportsList(airportsListRedux));
+            saveTripInfo({startingPoint, beginDate, finalDate});
 
             if (!skipUpdateURL) {
                 navigate(`?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}`, {
@@ -195,17 +182,20 @@ function UserDataEntryStep() {
 
             setIsLoading(true);
 
-            const data = await GetRequest(
-                `/api/get_trips_info?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}&selectedAirports=${selectedAirports.join(',')}`
-            );
+            const data = await getTripsInfo({
+                from,
+                beginDate,
+                finalDate,
+                tag,
+                selectedAirports: selectedAirportsListRedux
+            });
 
             if (!arrowBackPressedRef.current) {
-                setSearchResultsReady(true);
-                setSearchResultsDisplayed(true);
+                dispatch(setSearchResultsReady(true));
+                dispatch(setSearchResultsDisplayed(true));
                 setInputFieldsCollapsed(true);
                 setResponseData(data);
             }
-
             if (data.error === "Internal server error") {
                 console.log("there was a 500 error");
                 setErrorResponse(true);
@@ -221,74 +211,47 @@ function UserDataEntryStep() {
         }
     };
 
-    const handleCitySelect = async ({geonameid, transportType, cityName, countryName}) => {
-
-        const beginDate = formatDateToNumbersAndLetters(startDate);
-        const finalDate = formatDateToNumbersAndLetters(endDate);
-        const from = originId;
-        const tag = selectedTag || '';
-
-        if (!geonameid) {
-            console.log("No city id set!!!");
-            return;
-        }
-
-        // Check if data for this geonameid is already in Redux
-        if (Object.prototype.hasOwnProperty.call(dataPerCityRedux, geonameid)) {
-            console.log("Using cached city data from Redux for geonameid:", geonameid);
-            setResponseCityData(dataPerCityRedux[geonameid].info);
-            return;
-        }
-
-        // Fetch from API if not found in Redux
-        try {
-            setIsLoadingCityData(true);
-            const city_response = await GetRequest(
-                `/api/get_city_info?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}` +
-                `&selectedAirports=${selectedAirports.join(',')}&geoname=${geonameid}&transportType=${transportType}` +
-                `&cityName=${encodeURIComponent(cityName)}&countryName=${encodeURIComponent(countryName)}`
-            );
-
-            console.log("Fetched city data from API:", city_response);
-            setIsLoadingCityData(false);
-            setResponseCityData(city_response);
-
-            dispatch(addCityInfo(geonameid, {
-                cityName: cityName,
-                transportType: transportType,
-                info: city_response,
-            }));
-        } catch (error) {
-            console.error("Failed to fetch city data:", error);
-        }
+    const onCitySelect = async (params) => {
+        await handleCitySelect({
+            ...params,
+            from: originId,
+            beginDate: formatDateToNumbersAndLetters(startDate),
+            finalDate: formatDateToNumbersAndLetters(endDate),
+            tag: selectedTag || '',
+            selectedAirportsList: selectedAirportsListRedux,
+            dataPerCity: dataPerCityRedux,
+            dispatch,
+            setIsLoadingCityData,
+            setResponseCityData,
+            addCityInfoAction: addCityInfo,
+        });
     };
 
     const resetAutocompleteParameters = () => {
-        const {startingPoint, airportList, selectedAirports} = loadLocationCookies();
+        const startingPoint = Cookies.get("startingPoint") || "";
         setStartingPoint(startingPoint);
-        setAirportList(airportList);
-        setSelectedAirports(selectedAirports);
+
+        setAutocompleteKey(autocompleteKey + 1);
     };
 
     const resetToInitialState = () => {
-        setArrowBackPressed(true);
-        setIsValidSelection(true);
-        setWhereFromExpanded(true);
-        setCalendarOpen(false);
-        setTagsExpanded(false);
-        setSearchResultsReady(false);
-        setSearchResultsDisplayed(false);
+        dispatch(setArrowBackPressed(true));
+        dispatch(setIsValidSelection(true));
+        dispatch(setWhereFromExpanded(true));
+        dispatch(setCalendarOpen(false));
+        dispatch(setTagsExpanded(false));
+        dispatch(setSearchResultsReady(false));
+        dispatch(setSearchResultsDisplayed(false));
         setInputFieldsCollapsed(false);
-        setStartDate(startDateFromRedux);
-        setEndDate(endDateFromRedux);
         setIsLoading(false);
-        setSelectedTag(null);
         setResponseData(null);
         setAllTypes(1);
         setErrorResponse(false);
+        setAutocompleteKey(autocompleteKey + 1)
         window.history.replaceState(null, '', location.pathname);
         resetAutocompleteParameters();
     };
+
 
     return (
         <div className={"full-content-wrapper"}>
@@ -312,7 +275,7 @@ function UserDataEntryStep() {
                                         className={"x-button-results"}
                                         style={{color: "black"}}
                                         onClick={() => {
-                                            setSearchResultsDisplayed(true);
+                                            dispatch(setSearchResultsDisplayed(true))
                                             setInputFieldsCollapsed(true);
                                             resetAutocompleteParameters();
                                         }}
@@ -324,21 +287,16 @@ function UserDataEntryStep() {
                                 <div id={"autocomplete"} className={"autocomplete-wrapper"} ref={autocompleteRef}>
                                     {originId && (
                                         <Autocomplete
-                                            key={autocompleteKey}
-                                            ref={errorMessageAirportRef}
-                                            setIsValidSelection={setIsValidSelection}
-                                            isValidSelection={isValidSelection}
                                             startingPoint={startingPoint}
                                             setStartingPoint={setStartingPoint}
-                                            expanded={whereFromExpanded}
+                                            key={autocompleteKey}
+                                            ref={errorMessageAirportRef}
                                             onNextClick={() => {
-                                                setCalendarOpen(true);
-                                                setWhereFromExpanded(false);
+                                                dispatch(setCalendarOpen(true));
+                                                dispatch(setWhereFromExpanded(false));
                                             }}
                                             onOriginChange={(newDestId) => setOriginId(newDestId)}
-                                            airportList={airportList}
-                                            selectedAirports={selectedAirports}
-                                            setSelectedAirports={setSelectedAirports}
+                                            airportList={airportsListRedux}
                                             xButtonDisplayed={!searchResultsDisplayed && searchResultsReady}
                                         />
                                     )}
@@ -347,27 +305,25 @@ function UserDataEntryStep() {
                                 {!whereFromExpanded && (
                                     <div id={"datepicker"} className={"datepicker-wrapper"} ref={calendarRef}>
                                         <CustomCalendar
-                                            isOpen={calendarOpen}
                                             onClose={() => {
-                                                setCalendarOpen(false);
-                                                setTagsExpanded(true);
+                                                dispatch(setCalendarOpen(false));
+                                                dispatch(setTagsExpanded(true));
                                             }}
                                             onMonthSelection={() => {
-                                                // Do something with the selection
                                             }}
-                                            selectedRange={startDate && endDate ? {
-                                                start: startDate,
-                                                end: endDate
-                                            } : null}
                                         />
+
                                     </div>
                                 )}
                                 {!whereFromExpanded && !calendarOpen && (
                                     <div id={"tag-selection"} ref={tagContainerRef}>
                                         <TagSelection
-                                            tagsExpanded={tagsExpanded}
-                                            onTagSelect={handleTagSelection}
-                                            onSearchClick={() => handleSearchClick()}
+                                            onSearchClick={() => handleSearchClick()
+                                            }
+                                            selectedTag={selectedTag}
+                                            onTagChange={(tag) => {
+                                                setSelectedTag(tag);
+                                            }}
                                         />
                                     </div>
                                 )}
@@ -383,10 +339,10 @@ function UserDataEntryStep() {
                                         className={"collapsed-input strong-shadow"}
                                         onClick={() => {
                                             setInputFieldsCollapsed(false);
-                                            setWhereFromExpanded(true);
-                                            setCalendarOpen(false);
-                                            setTagsExpanded(false);
-                                            setSearchResultsDisplayed(false);
+                                            dispatch(setWhereFromExpanded(true));
+                                            dispatch(setCalendarOpen(false));
+                                            dispatch(setTagsExpanded(false));
+                                            dispatch(setSearchResultsDisplayed(false));
                                             resetAutocompleteParameters();
                                         }}
                                     >
@@ -395,7 +351,7 @@ function UserDataEntryStep() {
                                             return (
                                                 <>
                                                     <div className={"activity-name-collapsed"}>
-                                                        {getTagDescription(selectedTag)}
+                                                        {selectedTag && getTagDescription(selectedTag)}
                                                     </div>
                                                     <div className={"time-range-collapsed"}>
                                                         {dateDisplay.start} {dateDisplay.end ? '-' : ''} {dateDisplay.end}
@@ -447,7 +403,7 @@ function UserDataEntryStep() {
                                     ready={searchResultsReady && searchResultsDisplayed}
                                     data={responseData}
                                     typeToDisplay={allTypes}
-                                    onCitySelect={handleCitySelect}
+                                    onCitySelect={onCitySelect}
                                     cityInfo={responseCityData}
                                     isLoadingCityData={isLoadingCityData}
                                 />

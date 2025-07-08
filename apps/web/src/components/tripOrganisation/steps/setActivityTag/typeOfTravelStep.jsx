@@ -1,26 +1,32 @@
-import React, {forwardRef, useState} from "react";
-import SkiingIcon from "../../../../images/tags/travel_type/retro/v3/ski-svgrepo-com.svg";
-import SummerVacationIcon from "../../../../images/tags/travel_type/retro/v3/summer-svgrepo-com.svg";
-import HikingIcon from "../../../../images/tags/travel_type/retro/v3/hiking-svgrepo-com-2.svg";
-import FamilyTripIcon from "../../../../images/tags/travel_type/retro/v3/family-svgrepo-com.svg";
-import LakesIcon from "../../../../images/tags/travel_type/retro/v3/lake-svgrepo-com.svg";
-import ParachuteIcon from "../../../../images/tags/travel_type/retro/v3/parachute-svgrepo-com.svg";
-import CavingIcon from "../../../../images/tags/travel_type/retro/v3/underground-cave-svgrepo-com.svg";
+import React, {forwardRef} from "react";
+import SkiingIcon from "../../../../images/tags/travel_type/v3/ski-svgrepo-com.svg";
+import SummerVacationIcon from "../../../../images/tags/travel_type/v3/summer-svgrepo-com.svg";
+import HikingIcon from "../../../../images/tags/travel_type/v3/hiking-svgrepo-com-2.svg";
+import FamilyTripIcon from "../../../../images/tags/travel_type/v3/family-svgrepo-com.svg";
+import LakesIcon from "../../../../images/tags/travel_type/v3/lake-svgrepo-com.svg";
+import ParachuteIcon from "../../../../images/tags/travel_type/v3/parachute-svgrepo-com.svg";
+import CavingIcon from "../../../../images/tags/travel_type/v3/underground-cave-svgrepo-com.svg";
 import MountainIcon from "../../../../images/destinations/tags/mountain-svgrepo-com.svg";
 
 import Tag from "../../tag/tag.jsx";
 import CustomNextButton from "../../buttons/customNextButton.jsx";
+import {useSelector} from "react-redux";
 
-const TagSelection = forwardRef(({tagsExpanded, onTagSelect, onSearchClick}, ref) => {
-    const [selectedTagId, setSelectedTagId] = useState(null); // Store the ID of the selected tag
 
+const TagSelection = forwardRef(({onSearchClick, selectedTag, onTagChange}, ref) => {
+
+    const tagsExpanded = useSelector((state) => state.tripOrganisation.isTagsExpanded);
     const handleTagClick = (tagId) => {
-        if (selectedTagId === tagId) { // Check if the clicked tag is already selected
-            setSelectedTagId(null);       // If so, deselect it
-            onTagSelect(null);           // and notify parent
+        if (selectedTag === tagId) { // Check if the clicked tag is already selected
+            console.log("dispatching null for tag id", tagId);
+            if (onTagChange) {
+                onTagChange(null);  // <-- Propagate to parent immediately
+            }
         } else {
-            setSelectedTagId(tagId);     // Otherwise, select the clicked tag
-            onTagSelect(tagId);       // and notify parent
+            console.log("dispatching tag", tagId);
+            if (onTagChange) {
+                onTagChange(tagId);  // <-- Propagate to parent immediately
+            }
         }
     };
 
@@ -47,7 +53,7 @@ const TagSelection = forwardRef(({tagsExpanded, onTagSelect, onSearchClick}, ref
                             icon={tag.icon}
                             alt={tag.alt}
                             onClick={handleTagClick}
-                            isSelected={tag.id === selectedTagId}
+                            isSelected={tag.id === selectedTag}
                             ref={ref}
                         />
                     ))}
@@ -62,10 +68,10 @@ const TagSelection = forwardRef(({tagsExpanded, onTagSelect, onSearchClick}, ref
         return (
             <div className={"tags-container collapsed bottom-shadow rounded-button"}>
                 <div className="disabled-text rounded-left-button">What</div>
-                <div className={`activity-tag ${selectedTagId ? "" : "unselected"}`}>{!selectedTagId && (
+                <div className={`activity-tag ${selectedTag ? "" : "unselected"}`}>{!selectedTag && (
                     <div>Type of activity</div>)}
-                    {selectedTagId && (
-                        <div>{selectedTagId}</div>)}</div>
+                    {selectedTag && (
+                        <div>{selectedTag}</div>)}</div>
             </div>
         );
     }

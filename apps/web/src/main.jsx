@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import store from './store/store/store.jsx'; // adjust the path to your store
+import store from '../../../packages/shared/src/store/store.jsx'; // adjust the path to your store
 import App from './App.jsx';
 import './index.css';
 

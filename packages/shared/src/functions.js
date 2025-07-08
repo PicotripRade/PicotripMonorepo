@@ -1,4 +1,3 @@
-// shared/fetchUserLocation.js
 import Cookies from "js-cookie";
 
 export const fetchUserLocation = async () => {
@@ -24,3 +23,351 @@ export const fetchUserLocation = async () => {
     }
 
 };
+
+
+export const formatDateToMonthDayYear = (dateStr) => {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+
+    const options = {year: 'numeric', month: 'short', day: 'numeric'};
+    return d.toLocaleDateString('en-US', options);
+};
+
+
+export const formatDateToNumbersAndLetters = (date) => {
+    if (!date) return '';
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${year}-${month}-${day}`;
+};
+
+export const removeTextInBrackets = (str) => {
+    return str.replace(/\s*\(.*?\)\s*/g, '').trim();
+};
+
+export const getCountryName = (code) => {
+    const countryMap = {
+        AL: 'Albania',
+        GR: 'Greece',
+        BA: 'Bosnia and Herzegovina',
+        ES: 'Spain',
+        FR: 'France',
+        IT: 'Italy',
+        DE: 'Germany',
+        AT: 'Austria',
+        CH: 'Switzerland',
+        PT: 'Portugal',
+        HR: 'Croatia',
+        RS: 'Serbia',
+        MK: 'North Macedonia',
+        MT: 'Malta',
+        SI: 'Slovenia',
+        ME: 'Montenegro',
+        XK: 'Kosovo*',
+        HU: 'Hungary',
+        RO: 'Romania',
+        BG: 'Bulgaria',
+        PL: 'Poland',
+        CZ: 'Czech Republic',
+        SK: 'Slovakia',
+        NL: 'Netherlands',
+        BE: 'Belgium',
+        LU: 'Luxembourg',
+        DK: 'Denmark',
+        SE: 'Sweden',
+        NO: 'Norway',
+        FI: 'Finland',
+        IE: 'Ireland',
+        GB: 'United Kingdom',
+        IS: 'Iceland',
+        LV: 'Latvia',
+        EE: 'Estonia',
+        LT: 'Lithuania',
+        TR: 'Turkey',
+        CY: 'Cyprus',
+        UA: 'Ukraine',
+        RU: 'Russia',
+        AU: 'Australia',
+        NZ: 'New Zealand',
+        IL: 'Israel',
+        CN: 'China',
+        JP: 'Japan',
+        KR: 'South Korea',
+        IN: 'India',
+        BR: 'Brazil',
+        ZA: 'South Africa',
+        EG: 'Egypt',
+        MA: 'Morocco',
+        TN: 'Tunisia',
+        DZ: 'Algeria',
+        AO: 'Angola',
+        BJ: 'Benin',
+        BW: 'Botswana',
+        BF: 'Burkina Faso',
+        BI: 'Burundi',
+        CM: 'Cameroon',
+        CV: 'Cape Verde',
+        CF: 'Central African Republic',
+        TD: 'Chad',
+        KM: 'Comoros',
+        CG: 'Congo (Brazzaville)',
+        CD: 'Congo (Kinshasa)',
+        CI: 'Côte d’Ivoire',
+        DJ: 'Djibouti',
+        GQ: 'Equatorial Guinea',
+        ER: 'Eritrea',
+        ET: 'Ethiopia',
+        GA: 'Gabon',
+        GM: 'Gambia',
+        GH: 'Ghana',
+        GN: 'Guinea',
+        GW: 'Guinea-Bissau',
+        KE: 'Kenya',
+        LS: 'Lesotho',
+        LR: 'Liberia',
+        LY: 'Libya',
+        MG: 'Madagascar',
+        MW: 'Malawi',
+        ML: 'Mali',
+        MR: 'Mauritania',
+        MU: 'Mauritius',
+        MZ: 'Mozambique',
+        NA: 'Namibia',
+        NE: 'Niger',
+        NG: 'Nigeria',
+        RW: 'Rwanda',
+        ST: 'São Tomé and Príncipe',
+        SN: 'Senegal',
+        SC: 'Seychelles',
+        SL: 'Sierra Leone',
+        SO: 'Somalia',
+        SS: 'South Sudan',
+        SD: 'Sudan',
+        SZ: 'Eswatini',
+        TZ: 'Tanzania',
+        TG: 'Togo',
+        UG: 'Uganda',
+        ZM: 'Zambia',
+        ZW: 'Zimbabwe',
+        AF: 'Afghanistan',
+        AM: 'Armenia',
+        AZ: 'Azerbaijan',
+        BH: 'Bahrain',
+        BD: 'Bangladesh',
+        BT: 'Bhutan',
+        BN: 'Brunei',
+        KH: 'Cambodia',
+        GE: 'Georgia',
+        ID: 'Indonesia',
+        IR: 'Iran',
+        IQ: 'Iraq',
+        JO: 'Jordan',
+        KZ: 'Kazakhstan',
+        KW: 'Kuwait',
+        KG: 'Kyrgyzstan',
+        LA: 'Laos',
+        LB: 'Lebanon',
+        MY: 'Malaysia',
+        MV: 'Maldives',
+        MN: 'Mongolia',
+        MM: 'Myanmar (Burma)',
+        NP: 'Nepal',
+        OM: 'Oman',
+        PK: 'Pakistan',
+        PH: 'Philippines',
+        QA: 'Qatar',
+        SA: 'Saudi Arabia',
+        SG: 'Singapore',
+        LK: 'Sri Lanka',
+        SY: 'Syria',
+        TJ: 'Tajikistan',
+        TH: 'Thailand',
+        TL: 'Timor-Leste',
+        TM: 'Turkmenistan',
+        AE: 'United Arab Emirates',
+        UZ: 'Uzbekistan',
+        VN: 'Vietnam',
+        YE: 'Yemen',
+        AG: 'Antigua and Barbuda',
+        AW: 'Aruba',
+        BS: 'Bahamas',
+        BB: 'Barbados',
+        BZ: 'Belize',
+        PR: 'Puerto Rico',
+        CA: 'Canada',
+        CR: 'Costa Rica',
+        CU: 'Cuba',
+        DM: 'Dominica',
+        DO: 'Dominican Republic',
+        SV: 'El Salvador',
+        GD: 'Grenada',
+        GT: 'Guatemala',
+        HT: 'Haiti',
+        HN: 'Honduras',
+        JM: 'Jamaica',
+        MX: 'Mexico',
+        NI: 'Nicaragua',
+        PA: 'Panama',
+        KN: 'Saint Kitts and Nevis',
+        LC: 'Saint Lucia',
+        VC: 'Saint Vincent and the Grenadines',
+        VI: 'Virgin Islands (U.S.)',
+        TT: 'Trinidad and Tobago',
+        US: 'United States',
+        AR: 'Argentina',
+        BO: 'Bolivia',
+        CL: 'Chile',
+        CO: 'Colombia',
+        EC: 'Ecuador',
+        GY: 'Guyana',
+        PY: 'Paraguay',
+        PE: 'Peru',
+        SR: 'Suriname',
+        UY: 'Uruguay',
+        VE: 'Venezuela',
+        FK: 'Falkland Islands',
+        AS: 'American Samoa',
+        CK: 'Cook Islands',
+        FJ: 'Fiji',
+        PF: 'French Polynesia',
+        GU: 'Guam',
+        KI: 'Kiribati',
+        MH: 'Marshall Islands',
+        FM: 'Micronesia',
+        NR: 'Nauru',
+        NC: 'New Caledonia',
+        NU: 'Niue',
+        MP: 'Northern Mariana Islands',
+        PW: 'Palau',
+        PG: 'Papua New Guinea',
+        WS: 'Samoa',
+        CW: 'Curaçao',
+        SB: 'Solomon Islands',
+        SX: 'Sint Maarten',
+        TK: 'Tokelau',
+        TO: 'Tonga',
+        TV: 'Tuvalu',
+        VU: 'Vanuatu',
+        WF: 'Wallis and Futuna',
+        BM: 'Bermuda',
+        GI: 'Gibraltar*',
+        AI: 'Anguilla',
+        FO: 'Faroe Islands',
+        BQ: 'Bonaire, Sint Eustatius and Saba*',
+        TW: 'Taiwan*',
+    };
+
+    return countryMap[code.toUpperCase()] || code;
+};
+
+export const formatDisplayDate = (startDate, endDate) => {
+
+    if (!startDate) return {start: "start", end: "end"};
+
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const formatSingleDate = (date) => {
+        return `${date.getDate().toString().padStart(2, "0")} ${months[date.getMonth()]}`;
+    };
+
+    const startFormatted = formatSingleDate(startDate);
+
+    if (!endDate) {
+        return {
+            start: startFormatted,
+        };
+    }
+
+    const endFormatted = formatSingleDate(endDate);
+
+    // Same month and year: "12-15 Mar"
+    if (startDate.getMonth() === endDate.getMonth() &&
+        startDate.getFullYear() === endDate.getFullYear()) {
+        return {
+            start: `${startDate.getDate().toString().padStart(2, "0")}`,
+            end: `${endDate.getDate().toString().padStart(2, "0")} ${months[endDate.getMonth()]}`
+        };
+    }
+
+    // Same year only: "12 Mar - 23 Apr"
+    if (startDate.getFullYear() === endDate.getFullYear()) {
+        return {
+            start: startFormatted,
+            end: endFormatted
+        };
+    }
+
+    // Different years: "12 Mar '23 - 15 Jan '24"
+    return {
+        start: `${startFormatted} '${startDate.getFullYear().toString().slice(-2)}`,
+        end: `${endFormatted} '${endDate.getFullYear().toString().slice(-2)}`
+    };
+};
+
+// datepicker functions
+
+export const monthsNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+];
+
+export const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+export const hasSelectableDaysInCurrentMonth = (currentDate) => {
+    const today = new Date();
+    const minSelectableDate = new Date(today.setDate(today.getDate() - 1));
+
+    // Check if this month is after the minimum selectable date
+    if (new Date(currentDate.getFullYear(), currentDate.getMonth(), 1) >= minSelectableDate) {
+        return true;
+    }
+
+    // Check individual days if month contains the threshold
+    const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
+    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), daysInMonth);
+
+    return lastDay >= minSelectableDate && firstDay <= minSelectableDate;
+}
+
+export const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
+
+export const getNumberOfRows = (currentDate) => {
+    const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
+    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+    return Math.ceil((firstDayOfMonth + daysInMonth) / 7);
+};
+
+export const isDaySelectable = (day, currentDate) => {
+    const today = new Date();
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    return date > new Date(today.setDate(today.getDate() - 1));
+};
+
+export const saveTripInfo = ({startingPoint, beginDate, finalDate}) => {
+
+    console.log("save trip cookies");
+    Cookies.set("startingPoint", startingPoint);
+    Cookies.set("beginDate", beginDate);
+    Cookies.set("finalDate", finalDate);
+};
+
+export const getTagDescription = (tag) => {
+    switch (tag) {
+        case "summer_vacation":
+            return "Summer";
+        case "family_trip":
+            return "Family Trip";
+        case "mountains":
+            return "Mountains";
+        case "skiing":
+            return "Skiing";
+        case "lakes":
+            return "Lakes";
+        default:
+            return tag;
+    }
+}

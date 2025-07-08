@@ -1,28 +1,28 @@
 import React, {useState, useEffect, useRef, forwardRef} from 'react';
 import './styles.css';
-import Cookies from "js-cookie";
 import LocationImage from '../../../images/destinations/my-location-svgrepo-com.svg';
 import PostRequest from "../../api/postRequest.jsx";
 import CustomNextButton from "../buttons/customNextButton.jsx";
 import {CloseIcon} from "../../utils/reactIcons/icons.jsx";
 import LoadingSpinner from "../../utils/loadingSpinner/loadingSpinner.jsx";
 import CheckMark from '../../../images/destinations/check-mark-svgrepo-com.svg';
+import {
+    setIsValidSelection,
+    setSelectedAirportsList,
+} from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {sendCoordinates} from "@picotrip/shared/src/utils/geolocation.js";
 
 const Autocomplete = forwardRef(({
-                                     setIsValidSelection,
-                                     isValidSelection,
                                      startingPoint,
                                      setStartingPoint,
-                                     expanded,
                                      onNextClick,
                                      onOriginChange,
                                      airportList,
-                                     selectedAirports,
-                                     setSelectedAirports,
                                      xButtonDisplayed
                                  }, ref) => {
 
-    const [inputValue, setInputValue] = useState(startingPoint);
+
     const [results, setResults] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -35,10 +35,16 @@ const Autocomplete = forwardRef(({
     const preFilledPlaceholder = "Starting Point";
     const MAX_NUMBER_OF_RESULTS = 10;
 
+    const dispatch = useDispatch();
+
+    const selectedAirports = useSelector((state) => state.tripOrganisation.selectedAirportsList);
+
+    const isValidSelection = useSelector((state) => state.tripOrganisation.isValidSelection);
+    const expanded = useSelector((state) => state.tripOrganisation.isWhereFromExpanded);
+    const [inputValue, setInputValue] = useState(startingPoint || "");
+
     useEffect(() => {
-        console.log("expanded:", expanded);
-        console.log("isValidSelection:", isValidSelection);
-        console.log("airportList:", airportList);
+
         if (inputValue.length >= 2 && dropdownVisible) {
             if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
             debounceTimeout.current = setTimeout(() => {
@@ -74,65 +80,35 @@ const Autocomplete = forwardRef(({
 
     const clearInput = () => {
         setInputValue(''); // Clear the input value
-        setStartingPoint?.('');
+        setStartingPoint?.('')
         setResults([]); // Clear the autocomplete results
         setDropdownVisible(false); // Hide the dropdown
-        setIsValidSelection(false); // Mark the selection as invalid
+        dispatch(setIsValidSelection(false));
     };
 
-    const sendCoordinates = () => {
-        if (!navigator.geolocation) {
-            console.log('Geolocation is not supported by this browser.');
-            return;
-        }
-        setIsFetchingLocation(true); // Start spinner
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const locationData = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                    timestamp: new Date().toISOString() // Optional: add timestamp
-                };
-                // Build string to send
-                const readyToSend = `(${locationData.latitude},${locationData.longitude})`;
-                const path = 'api/set_geolocation/';
+    const handleGetLocation = () => {
+        setIsFetchingLocation(true);
 
-                PostRequest(readyToSend, path, 'json')
-                    .then(response => {
-                        if (response) {
-                            console.log("geolocation set successfully", response);
-                            // Assume response.city contains id, city, and country info
-                            const cityLocation = `${response.city.city}, ${response.city.country}`;
-                            setIsValidSelection(true);
-                            setInputValue(cityLocation);
-                            setStartingPoint?.(cityLocation);
-
-                            if (onOriginChange) {
-                                onOriginChange(response.city.id);
-                            }
-                        } else {
-                            console.error("Unexpected response:", response);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error sending location:", error);
-                    })
-                    .finally(() => {
-                        setIsFetchingLocation(false); // Stop spinner
-                    });
+        sendCoordinates(
+            ({location, originId}) => {
+                setInputValue(location);
+                dispatch(setIsValidSelection(true));
+                setStartingPoint?.(location);
+                onOriginChange?.(originId);
             },
-            (err) => {
-                console.log("error when getting location: ", err.message);
-                setIsFetchingLocation(false);
+            (error) => {
+                console.error("Failed to get or send geolocation", error);
             }
-        );
+        ).finally(() => {
+            setIsFetchingLocation(false);
+        });
     };
 
     const onInputChange = (e) => {
         const {value} = e.target;
         setInputValue(value);
         setStartingPoint?.(value);
-        setIsValidSelection(false);
+        dispatch(setIsValidSelection(false));
         setDropdownVisible(true); // Show the dropdown when typing
     };
 
@@ -143,16 +119,12 @@ const Autocomplete = forwardRef(({
         setStartingPoint?.(startingPointText);
         // Update the parent component with the selected airport code
         // Mark the selection as valid and remove any previous error messages
-        setIsValidSelection(true);
+        dispatch(setIsValidSelection(true));
         // Set originId based on the selected item and pass it upward
         if (onOriginChange) {
             onOriginChange(item.id);
         }
-        Cookies.set('startingPoint', startingPointText, {
-            sameSite: window.location.protocol === 'https:' ? 'None' : 'Lax',
-            secure: window.location.protocol === 'https:',
-            path: '/'
-        });
+
         // Clear the autocomplete results and hide the dropdown
         setResults([]);
         setDropdownVisible(false);
@@ -199,7 +171,7 @@ const Autocomplete = forwardRef(({
                                     <img
                                         src={LocationImage}
                                         alt="Location"
-                                        onClick={sendCoordinates}
+                                        onClick={handleGetLocation}
                                         style={{cursor: 'pointer'}}
                                     />
                                 )}
@@ -240,11 +212,11 @@ const Autocomplete = forwardRef(({
                                             key={airport.iata_code}
                                             className={`airport-button ${isSelected ? 'selected bottom-shadow' : ''}`}
                                             onClick={() => {
-                                                setSelectedAirports(prev =>
-                                                    prev.includes(airport.iata_code)
-                                                        ? prev.filter(code => code !== airport.iata_code)
-                                                        : [...prev, airport.iata_code]
-                                                );
+                                                const isSelected = selectedAirports.includes(airport.iata_code);
+                                                const updatedList = isSelected
+                                                    ? selectedAirports.filter(code => code !== airport.iata_code)
+                                                    : [...selectedAirports, airport.iata_code];
+                                                dispatch(setSelectedAirportsList(updatedList));
                                             }}
                                         >
                                             <div className={"airport-text-wrapper"}>
@@ -263,8 +235,6 @@ const Autocomplete = forwardRef(({
                                                 />
                                                 }
                                             </div>
-
-
                                         </div>
                                     );
                                 })}
