@@ -25,14 +25,14 @@ import {
     fetchAirports,
     fetchUserLocation,
     formatDateToNumbersAndLetters, formatDisplayDate, handleCitySelect,
-    saveTripInfo, getTagDescription
+    getTagDescription
 } from "@picotrip/shared";
 
-import getTripsInfo from "@picotrip/shared/src/api/getTripsInformation.js";
 import {
     setSearchResultsDisplayed,
     setSearchResultsReady
 } from "@picotrip/shared/src/store/actions/searchResultsActions.jsx";
+import {handleSearchClick} from "@picotrip/shared/src/utils/handleSearchClick.js";
 
 function UserDataEntryStep() {
     const dispatch = useDispatch();
@@ -158,57 +158,32 @@ function UserDataEntryStep() {
         return () => document.removeEventListener('mousedown', handleClick);
     }, [isValidSelection]);
 
-    const handleSearchClick = async ({overrideParams = null, skipUpdateURL = false} = {}) => {
-        try {
-            setErrorResponse(false); // Reset error state on new search
-            setTagsExpanded(false);
-            dispatch(setArrowBackPressed(false));
 
-            const beginDate = overrideParams?.begin || formatDateToNumbersAndLetters(startDate);
-            const finalDate = overrideParams?.end || formatDateToNumbersAndLetters(endDate);
-            const from = overrideParams?.from || originId;
-            const tag = overrideParams?.tag || selectedTag;
-
-            // Save to cookies
-            dispatch(setSelectedAirportsList(selectedAirportsListRedux));
-            dispatch(setAirportsList(airportsListRedux));
-            saveTripInfo({startingPoint, beginDate, finalDate});
-
-            if (!skipUpdateURL) {
-                navigate(`?from=${from}&begin=${beginDate}&end=${finalDate}&activityType=${tag}`, {
-                    replace: true
-                });
-            }
-
-            setIsLoading(true);
-
-            const data = await getTripsInfo({
-                from,
-                beginDate,
-                finalDate,
-                tag,
-                selectedAirports: selectedAirportsListRedux
-            });
-
-            if (!arrowBackPressedRef.current) {
-                dispatch(setSearchResultsReady(true));
-                dispatch(setSearchResultsDisplayed(true));
-                setInputFieldsCollapsed(true);
-                setResponseData(data);
-            }
-            if (data.error === "Internal server error") {
-                console.log("there was a 500 error");
-                setErrorResponse(true);
-            }
-
-            return data;
-        } catch (error) {
-            console.error('Search failed:', error);
-            setErrorResponse(true);
-            return null;
-        } finally {
-            setIsLoading(false);
-        }
+    const onSearchClick = () => {
+        handleSearchClick({
+            overrideParams: null,
+            skipUpdateURL: false,
+            startDate,
+            endDate,
+            originId,
+            selectedTag,
+            selectedAirportsList: selectedAirportsListRedux,
+            airportsList: airportsListRedux,
+            startingPoint,
+            dispatch,
+            arrowBackPressedRef,
+            navigate,
+            setSearchResultsDisplayed,
+            setSearchResultsReady,
+            setErrorResponse,
+            setInputFieldsCollapsed,
+            setIsLoading,
+            setResponseData,
+            setTagsExpanded,
+            setArrowBackPressedAction: setArrowBackPressed,
+            setAirportsListAction: setAirportsList,
+            setSelectedAirportsListAction: setSelectedAirportsList
+        });
     };
 
     const onCitySelect = async (params) => {
@@ -318,7 +293,7 @@ function UserDataEntryStep() {
                                 {!whereFromExpanded && !calendarOpen && (
                                     <div id={"tag-selection"} ref={tagContainerRef}>
                                         <TagSelection
-                                            onSearchClick={() => handleSearchClick()
+                                            onSearchClick={() => onSearchClick()
                                             }
                                             selectedTag={selectedTag}
                                             onTagChange={(tag) => {
