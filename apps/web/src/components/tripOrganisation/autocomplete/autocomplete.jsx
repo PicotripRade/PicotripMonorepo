@@ -1,11 +1,10 @@
 import React, {useState, useEffect, useRef, forwardRef} from 'react';
 import './styles.css';
-import LocationImage from '../../../images/destinations/my-location-svgrepo-com.svg';
-import PostRequest from "../../api/postRequest.jsx";
+import LocationImage from "@picotrip/shared/assets/images/my-location-svgrepo-com.svg";
 import CustomNextButton from "../buttons/customNextButton.jsx";
 import {CloseIcon} from "../../utils/reactIcons/icons.jsx";
 import LoadingSpinner from "../../utils/loadingSpinner/loadingSpinner.jsx";
-import CheckMark from '../../../images/destinations/check-mark-svgrepo-com.svg';
+import CheckMark from "@picotrip/shared/assets/images/check-mark-svgrepo-com.svg";
 import {
     setIsValidSelection,
     setSelectedAirportsList,
