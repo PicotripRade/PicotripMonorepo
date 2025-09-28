@@ -3,10 +3,10 @@ import {View, Text, TouchableOpacity, StyleSheet, ActivityIndicator} from "react
 import {useDispatch, useSelector} from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useNavigation, useRoute} from "@react-navigation/native";
+import { styles } from './styles';
 
 import {addCityInfo} from "@picotrip/shared/src/store/actions/cityInformationActions";
 import {
-    setAirportsList,
     setArrowBackPressed,
     setCalendarOpen,
     setIsValidSelection,
@@ -54,7 +54,6 @@ export default function UserDataEntryStep() {
     const isValidSelection = useSelector((state) => state.tripOrganisation.isValidSelection);
     const airportsListRedux = useSelector((state) => state.tripOrganisation.airportList);
 
-    import { styles } from './styles'; // optional if separate file
 
     useEffect(() => {
         const fetchLocation = async () => {
