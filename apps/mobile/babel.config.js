@@ -7,11 +7,11 @@ module.exports = function (api) {
         "module-resolver",
         {
           alias: {
-            "@picotrip/shared": "../../packages/shared"
-          }
-        }
+            "@picotrip/shared": "../../packages/shared",
+          },
+        },
       ],
-      "react-native-reanimated/plugin"
-    ]
+      "react-native-reanimated/plugin",
+    ],
   };
 };
