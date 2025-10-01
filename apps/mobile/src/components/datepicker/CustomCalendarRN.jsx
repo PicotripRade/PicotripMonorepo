@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import CustomButton from "../buttons/customButton.native"; // RN version
 import PlusMinus from "@picotrip/shared/assets/images/datepicker/plus-minus.svg";
 import PlusMinusWhite from "@picotrip/shared/assets/images/datepicker/plus-minus-white.svg";
 
@@ -30,6 +29,7 @@ import {
   setStartDateRedux,
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions";
 import DatepickerDayButton from "./DayButton";
+import CustomButton from "../buttons/CustomButtonRN";
 
 const { width: screenWidth } = Dimensions.get("window");
 

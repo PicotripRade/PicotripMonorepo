@@ -1,6 +1,5 @@
 import GetRequest from "../api/getRequest.js";
 
-
 export const handleCitySelect = async ({
   geonameid,
   transportType,
