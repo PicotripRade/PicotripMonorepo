@@ -23,3 +23,7 @@ dist/
 
 # Large files
 apps/backend/raw_backend/all_reviews.json
+
+# configurations
+.expo/
+.idea/

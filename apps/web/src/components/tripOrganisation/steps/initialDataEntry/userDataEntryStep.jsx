@@ -5,7 +5,7 @@ import "./styles.css";
 import "../styles.css";
 import "../../../../commonStyles.css";
 import CustomCalendar from "../../datepicker/datepicker.jsx";
-import Header from "../../../header/header.jsx";
+
 import SearchResults from "../../searchResults/searchResults.jsx";
 import TagSelection from "../setActivityTag/typeOfTravelStep.jsx";
 
@@ -26,7 +26,7 @@ import {
     fetchUserLocation,
     formatDateToNumbersAndLetters, formatDisplayDate, handleCitySelect,
     getTagDescription
-} from "@picotrip/shared";
+} from "@picotrip/shared/src";
 
 import {
     setSearchResultsDisplayed,

@@ -5,4 +5,6 @@ export * from "./api/getTripsInformation.js";
 export * from "./api/postRequest.js";
 export * from './utils/fetchAirports.js';
 export * from './utils/geolocation.js';
+export * from './utils/handleCitySelect.js';
+export * from './utils/handleSearchClick.js';
 export * from './store/store.jsx';

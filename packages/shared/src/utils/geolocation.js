@@ -1,5 +1,4 @@
-import PostRequest from "../api/postRequest.js";
-
+import PostRequest from "../api/postRequest";
 
 export async function sendCoordinates(onSuccess, onError) {
     if (!navigator.geolocation) {
