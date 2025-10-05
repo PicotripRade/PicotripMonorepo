@@ -7,4 +7,4 @@ export * from './utils/fetchAirports.js';
 export * from './utils/geolocation.js';
 export * from './utils/handleCitySelect.js';
 export * from './utils/handleSearchClick.js';
-export * from './store/store.jsx';
+export * from './store/store.js';

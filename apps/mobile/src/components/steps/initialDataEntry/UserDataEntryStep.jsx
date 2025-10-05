@@ -4,6 +4,10 @@ import {useDispatch, useSelector} from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import { styles } from './styles';
+import { API_URL, APP_NAME } from '@env';
+
+console.log("Mobile API:", API_URL);
+console.log("App name:", APP_NAME);
 
 import {addCityInfo} from "@picotrip/shared/src/store/actions/cityInformationActions";
 import {
@@ -57,6 +61,9 @@ export default function UserDataEntryStep() {
 
     useEffect(() => {
         const fetchLocation = async () => {
+
+            console.log("MOBILE FETCH USER LOC")
+            console.log()
             const {city, country, id} = await fetchUserLocation();
             const response_formatted = `${city}, ${country}`;
 

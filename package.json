@@ -1,6 +1,9 @@
 {
   "name": "picotrip-monorepo",
   "private": true,
+  "overrides": {
+    "react-native-screens": "3.37.0"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
