@@ -12,6 +12,6 @@
     "sass-embedded": "^1.90.0"
   },
   "dependencies": {
-    "react-native-worklets": "^0.6.0"
+    "react-native-reanimated": "^3.10.1"
   }
 }
