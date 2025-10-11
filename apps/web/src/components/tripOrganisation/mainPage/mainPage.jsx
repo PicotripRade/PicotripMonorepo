@@ -6,7 +6,7 @@ import "../styles.css";
 import "./filters.css";
 import "../../../commonStyles.css";
 import CustomCalendar from "../datepicker/datepicker.jsx";
-import { motion, AnimatePresence} from "framer-motion"; // ✅ Added for animation
+import {motion, AnimatePresence} from "framer-motion"; // ✅ Added for animation
 
 import SearchResults from "../searchResults/searchResults.jsx";
 import TagSelection from "../setActivityTag/typeOfTravelStep.jsx";
@@ -403,15 +403,26 @@ function MainPage() {
                                         onClick={() => setFilterOpen(false)}
                                     />
 
-                                    {/* Slide-up container */}
+                                    {/* Slide-up container with drag support */}
                                     <motion.div
                                         className="filter-panel"
                                         initial={{y: "100%"}}
                                         animate={{y: 0}}
                                         exit={{y: "100%"}}
+                                        drag="y"                             // 👈 allow vertical dragging
+                                        dragConstraints={{top: 0, bottom: 0}} // 👈 prevent dragging upward
+                                        dragElastic={0.2}                    // 👈 make it feel “springy”
+                                        onDragEnd={(event, info) => {
+                                            // 👇 if dragged down more than 150px, close it
+                                            if (info.offset.y > 150) {
+                                                setFilterOpen(false);
+                                            }
+                                        }}
                                         transition={{type: "spring", stiffness: 120, damping: 18}}
                                     >
                                         <div className="filter-header">
+                                            <div className="filter-drag-handle"/>
+                                            {/* 👈 small grab indicator */}
                                             <h2>Filters</h2>
                                             <div className="close-filter" onClick={() => setFilterOpen(false)}>
                                                 <CloseIcon/>
