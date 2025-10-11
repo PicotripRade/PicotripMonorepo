@@ -8,8 +8,8 @@ import ParachuteIcon from "@picotrip/shared/assets/images/tags/parachute-svgrepo
 import CavingIcon from "@picotrip/shared/assets/images/tags/underground-cave-svgrepo-com.svg";
 import MountainIcon from "@picotrip/shared/assets/images/tags/mountain-svgrepo-com.svg";
 
-import Tag from "../../tag/tag.jsx";
-import CustomNextButton from "../../buttons/customNextButton.jsx";
+import Tag from "../tag/tag.jsx";
+import CustomNextButton from "../buttons/customNextButton.jsx";
 import {useSelector} from "react-redux";
 
 

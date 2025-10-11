@@ -1,17 +1,17 @@
 import React, {useState, useRef, useEffect} from "react";
 import {useNavigate, useLocation} from "react-router-dom";
-import Autocomplete from "../../autocomplete/autocomplete.jsx";
+import Autocomplete from "../autocomplete/autocomplete.jsx";
 import "./styles.css";
 import "../styles.css";
-import "../../../../commonStyles.css";
-import CustomCalendar from "../../datepicker/datepicker.jsx";
+import "../../../commonStyles.css";
+import CustomCalendar from "../datepicker/datepicker.jsx";
 
-import SearchResults from "../../searchResults/searchResults.jsx";
+import SearchResults from "../searchResults/searchResults.jsx";
 import TagSelection from "../setActivityTag/typeOfTravelStep.jsx";
 
-import FilterResults from '../../../../images/destinations/filters-2-svgrepo-com.svg';
-import ArrowBack from '../../../../images/destinations/left-navigation-back-svgrepo-com.svg';
-import {CloseIcon} from "../../../utils/reactIcons/icons.jsx";
+import FilterResults from '../../../images/destinations/filters-2-svgrepo-com.svg';
+import ArrowBack from '../../../images/destinations/left-navigation-back-svgrepo-com.svg';
+import {CloseIcon} from "../../utils/reactIcons/icons.jsx";
 import Cookies from "js-cookie";
 
 import {useDispatch, useSelector} from "react-redux";
@@ -20,13 +20,13 @@ import {
     setAirportsList, setArrowBackPressed, setCalendarOpen, setIsValidSelection,
     setSelectedAirportsList, setTagsExpanded, setWhereFromExpanded
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
-import CustomButton from "../../buttons/customButton.jsx";
+import CustomButton from "../buttons/customButton.jsx";
 import {
     fetchAirports,
     fetchUserLocation,
     formatDateToNumbersAndLetters, formatDisplayDate, handleCitySelect,
     getTagDescription
-} from "@picotrip/shared/src";
+} from "@picotrip/shared";
 
 import {
     setSearchResultsDisplayed,
@@ -34,7 +34,7 @@ import {
 } from "@picotrip/shared/src/store/actions/searchResultsActions.jsx";
 import {handleSearchClick} from "@picotrip/shared/src/utils/handleSearchClick.js";
 
-function UserDataEntryStep() {
+function MainPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -391,4 +391,4 @@ function UserDataEntryStep() {
     );
 }
 
-export default UserDataEntryStep;
+export default MainPage;
