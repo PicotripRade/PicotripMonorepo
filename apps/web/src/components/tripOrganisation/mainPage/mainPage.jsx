@@ -3,8 +3,10 @@ import {useNavigate, useLocation} from "react-router-dom";
 import Autocomplete from "../autocomplete/autocomplete.jsx";
 import "./styles.css";
 import "../styles.css";
+import "./filters.css";
 import "../../../commonStyles.css";
 import CustomCalendar from "../datepicker/datepicker.jsx";
+import { motion, AnimatePresence} from "framer-motion"; // ✅ Added for animation
 
 import SearchResults from "../searchResults/searchResults.jsx";
 import TagSelection from "../setActivityTag/typeOfTravelStep.jsx";
@@ -73,6 +75,8 @@ function MainPage() {
     const searchResultsDisplayed = useSelector((state) => state.searchResults.setSearchResultsDisplayed);
 
     const [allTypes, setAllTypes] = useState(1);
+    const [filterOpen, setFilterOpen] = useState(false);
+
 
     const arrowBackPressedRef = useRef(arrowBackPressed);
 
@@ -335,7 +339,8 @@ function MainPage() {
                                             );
                                         })()}
                                     </div>
-                                    <div className={"filter-results"}>
+                                    {/* ✅ Filter button now opens slide-up panel */}
+                                    <div className={"filter-results"} onClick={() => setFilterOpen(true)}>
                                         <img src={FilterResults} alt="Filter Results"/>
                                     </div>
                                 </div>
@@ -384,6 +389,42 @@ function MainPage() {
                                 />
                             </div>
                         </>
+
+                        {/* ✅ Filter slide-up panel */}
+                        <AnimatePresence>
+                            {filterOpen && (
+                                <>
+                                    {/* Dimmed background */}
+                                    <motion.div
+                                        className="filter-overlay"
+                                        initial={{opacity: 0}}
+                                        animate={{opacity: 0.4}}
+                                        exit={{opacity: 0}}
+                                        onClick={() => setFilterOpen(false)}
+                                    />
+
+                                    {/* Slide-up container */}
+                                    <motion.div
+                                        className="filter-panel"
+                                        initial={{y: "100%"}}
+                                        animate={{y: 0}}
+                                        exit={{y: "100%"}}
+                                        transition={{type: "spring", stiffness: 120, damping: 18}}
+                                    >
+                                        <div className="filter-header">
+                                            <h2>Filters</h2>
+                                            <div className="close-filter" onClick={() => setFilterOpen(false)}>
+                                                <CloseIcon/>
+                                            </div>
+                                        </div>
+                                        <div className="filter-content">
+                                            <p>Filter options will appear here...</p>
+                                        </div>
+                                    </motion.div>
+                                </>
+                            )}
+                        </AnimatePresence>
+
                     </>
                 )}
             </div>
