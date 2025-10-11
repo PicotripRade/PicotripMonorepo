@@ -1,6 +1,6 @@
 
 import {setAirportsList, setSelectedAirportsList} from "../store/actions/tripOrganisationActions.jsx";
-import GetRequest from "../api/getRequest.js"; // adjust import path to your shared API helper
+import GetRequest from "../../../shared/src/api/getRequest.js"; // adjust import path to your shared API helper
 
 
 export const fetchAirports = async ({

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
-import UserDataEntryStep from "./components/tripOrganisation/steps/initialDataEntry/userDataEntryStep.jsx";
+import MainPage from "./components/tripOrganisation/mainPage/mainPage.jsx";
 
 const TrackingWrapper = () => {
     const location = useLocation();
@@ -64,10 +64,10 @@ const App = () => {
         <Router>
             <TrackingWrapper/>
             <Routes>
-                <Route path="/" exact element={<UserDataEntryStep/>}/>
-                <Route path="/en" exact element={<UserDataEntryStep/>}/>
-                <Route path="/search" element={<UserDataEntryStep/>}/>
-                <Route path="/search/en" element={<UserDataEntryStep/>}/>
+                <Route path="/" exact element={<MainPage/>}/>
+                <Route path="/en" exact element={<MainPage/>}/>
+                <Route path="/search" element={<MainPage/>}/>
+                <Route path="/search/en" element={<MainPage/>}/>
             </Routes>
         </Router>
     );

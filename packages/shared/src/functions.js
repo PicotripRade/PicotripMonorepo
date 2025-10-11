@@ -371,3 +371,10 @@ export const getTagDescription = (tag) => {
             return tag;
     }
 }
+
+export const setColor = (id, color) => {
+    const element = document.getElementById(id); // Get element by ID
+    if (element) {  // Important check!
+        element.style.fill = color;
+    }
+}

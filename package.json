@@ -1,8 +1,18 @@
 {
   "name": "picotrip-monorepo",
   "private": true,
+  "overrides": {
+    "react-native-screens": "3.37.0"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "sass-embedded": "^1.90.0"
+  },
+  "dependencies": {
+    "framer-motion": "^12.23.24",
+    "react-native-reanimated": "^3.10.1"
+  }
 }

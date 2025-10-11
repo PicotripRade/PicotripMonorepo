@@ -1,17 +1,19 @@
 import React, {useState, useRef, useEffect} from "react";
 import {useNavigate, useLocation} from "react-router-dom";
-import Autocomplete from "../../autocomplete/autocomplete.jsx";
+import Autocomplete from "../autocomplete/autocomplete.jsx";
 import "./styles.css";
 import "../styles.css";
-import "../../../../commonStyles.css";
-import CustomCalendar from "../../datepicker/datepicker.jsx";
-import Header from "../../../header/header.jsx";
-import SearchResults from "../../searchResults/searchResults.jsx";
+import "./filters.css";
+import "../../../commonStyles.css";
+import CustomCalendar from "../datepicker/datepicker.jsx";
+import {motion, AnimatePresence} from "framer-motion"; // ✅ Added for animation
+
+import SearchResults from "../searchResults/searchResults.jsx";
 import TagSelection from "../setActivityTag/typeOfTravelStep.jsx";
 
-import FilterResults from '../../../../images/destinations/filters-2-svgrepo-com.svg';
-import ArrowBack from '../../../../images/destinations/left-navigation-back-svgrepo-com.svg';
-import {CloseIcon} from "../../../utils/reactIcons/icons.jsx";
+import FilterResults from '../../../images/destinations/filters-2-svgrepo-com.svg';
+import ArrowBack from '../../../images/destinations/left-navigation-back-svgrepo-com.svg';
+import {CloseIcon} from "../../utils/reactIcons/icons.jsx";
 import Cookies from "js-cookie";
 
 import {useDispatch, useSelector} from "react-redux";
@@ -20,7 +22,7 @@ import {
     setAirportsList, setArrowBackPressed, setCalendarOpen, setIsValidSelection,
     setSelectedAirportsList, setTagsExpanded, setWhereFromExpanded
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
-import CustomButton from "../../buttons/customButton.jsx";
+import CustomButton from "../buttons/customButton.jsx";
 import {
     fetchAirports,
     fetchUserLocation,
@@ -34,7 +36,7 @@ import {
 } from "@picotrip/shared/src/store/actions/searchResultsActions.jsx";
 import {handleSearchClick} from "@picotrip/shared/src/utils/handleSearchClick.js";
 
-function UserDataEntryStep() {
+function MainPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -73,6 +75,8 @@ function UserDataEntryStep() {
     const searchResultsDisplayed = useSelector((state) => state.searchResults.setSearchResultsDisplayed);
 
     const [allTypes, setAllTypes] = useState(1);
+    const [filterOpen, setFilterOpen] = useState(false);
+
 
     const arrowBackPressedRef = useRef(arrowBackPressed);
 
@@ -335,7 +339,8 @@ function UserDataEntryStep() {
                                             );
                                         })()}
                                     </div>
-                                    <div className={"filter-results"}>
+                                    {/* ✅ Filter button now opens slide-up panel */}
+                                    <div className={"filter-results"} onClick={() => setFilterOpen(true)}>
                                         <img src={FilterResults} alt="Filter Results"/>
                                     </div>
                                 </div>
@@ -384,6 +389,53 @@ function UserDataEntryStep() {
                                 />
                             </div>
                         </>
+
+                        {/* ✅ Filter slide-up panel */}
+                        <AnimatePresence>
+                            {filterOpen && (
+                                <>
+                                    {/* Dimmed background */}
+                                    <motion.div
+                                        className="filter-overlay"
+                                        initial={{opacity: 0}}
+                                        animate={{opacity: 0.4}}
+                                        exit={{opacity: 0}}
+                                        onClick={() => setFilterOpen(false)}
+                                    />
+
+                                    {/* Slide-up container with drag support */}
+                                    <motion.div
+                                        className="filter-panel"
+                                        initial={{y: "100%"}}
+                                        animate={{y: 0}}
+                                        exit={{y: "100%"}}
+                                        drag="y"                             // 👈 allow vertical dragging
+                                        dragConstraints={{top: 0, bottom: 0}} // 👈 prevent dragging upward
+                                        dragElastic={0.2}                    // 👈 make it feel “springy”
+                                        onDragEnd={(event, info) => {
+                                            // 👇 if dragged down more than 150px, close it
+                                            if (info.offset.y > 150) {
+                                                setFilterOpen(false);
+                                            }
+                                        }}
+                                        transition={{type: "spring", stiffness: 120, damping: 18}}
+                                    >
+                                        <div className="filter-header">
+                                            <div className="filter-drag-handle"/>
+                                            {/* 👈 small grab indicator */}
+                                            <h2>Filters</h2>
+                                            <div className="close-filter" onClick={() => setFilterOpen(false)}>
+                                                <CloseIcon/>
+                                            </div>
+                                        </div>
+                                        <div className="filter-content">
+                                            <p>Filter options will appear here...</p>
+                                        </div>
+                                    </motion.div>
+                                </>
+                            )}
+                        </AnimatePresence>
+
                     </>
                 )}
             </div>
@@ -391,4 +443,4 @@ function UserDataEntryStep() {
     );
 }
 
-export default UserDataEntryStep;
+export default MainPage;

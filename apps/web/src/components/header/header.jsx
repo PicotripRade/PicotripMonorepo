@@ -6,6 +6,7 @@ import './../../commonStyles.css';
 import logoPath from "../../images/header/picotrip.svg";
 
 import {useNavigate} from "react-router-dom";
+import {setColor} from "@picotrip/shared";
 
 const Header = ({title}) => {
 
@@ -20,12 +21,7 @@ const Header = ({title}) => {
     useEffect(() => {
         // This code runs AFTER the component has rendered
 
-        function setColor(id, newColor) {
-            const element = document.getElementById(id); // Get element by ID
-            if (element) {  // Important check!
-                element.style.fill = newColor;
-            }
-        }
+
 
         // Use document.documentElement to access the root element
         const logoColor = getComputedStyle(document.documentElement).getPropertyValue('--element-background').trim();
