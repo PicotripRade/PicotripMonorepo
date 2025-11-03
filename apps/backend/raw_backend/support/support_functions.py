@@ -18,22 +18,24 @@ from backend.raw_backend.control_panel.flight_weights import weights_for_flight_
 from backend.raw_backend.control_panel.weights import min_max_scaling_hb, min_max_scaling_lb
 from backend.raw_backend.control_panel.flight_offers_params import baggage_required
 from zstandard import ZstdDecompressor
-import sqlite3
 
 
 import pickle
 import pandas as pd
 from datetime import datetime, timedelta, time
-from itertools import combinations
-from .support_objects import country_names
-
 
 from .support_objects import country_names
+from ... import settings
 
-with open('backend/raw_backend/support/databases/airports.pkl', 'rb') as fp:
+# Correct, absolute paths using settings.BASE_DIR
+airports_path = os.path.join(settings.BASE_DIR, 'backend', 'raw_backend', 'support', 'databases', 'airports.pkl')
+reviews_path = os.path.join(settings.BASE_DIR, 'backend', 'raw_backend', 'all_reviews.json')
+
+# Load the files
+with open(airports_path, 'rb') as fp:
     airports = pickle.load(fp)
 
-with open('backend/raw_backend/all_reviews.json', 'rb') as fp:
+with open(reviews_path, 'rb') as fp:
     all_reviews = json.load(fp)
 
 
