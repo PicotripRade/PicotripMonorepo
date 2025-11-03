@@ -36,7 +36,21 @@ from django.conf import settings
 
 pkl_path = os.path.join(settings.BASE_DIR, 'backend/raw_backend/support/databases/new_airports.pkl')
 
-with open('backend/raw_backend/all_reviews.json', 'rb') as fp:
+import os
+
+# Path to /backend/raw_backend/support/
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Path to /backend/raw_backend/
+RAW_BACKEND_DIR = os.path.abspath(os.path.join(BASE_DIR, '..'))
+
+# Path to /backend/
+BACKEND_DIR = os.path.abspath(os.path.join(RAW_BACKEND_DIR, '..'))
+
+REVIEWS_PATH = os.path.join(RAW_BACKEND_DIR, 'all_reviews.json')
+
+
+with open(REVIEWS_PATH, 'r', encoding='utf-8') as fp:
     all_reviews = json.load(fp)
 
 client_openai = OpenAI(api_key=ApiKeys.openai_key)
