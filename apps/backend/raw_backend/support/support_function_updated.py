@@ -31,9 +31,10 @@ from .support_objects import country_names
 from ..control_panel.HW import hotel_weights, location_radius, budget_cutoff
 from pydantic import BaseModel
 from typing import List
+import os
+from django.conf import settings
 
-with open('backend/raw_backend/support/databases/new_airports.pkl', 'rb') as fp:
-    new_airports = pickle.load(fp)
+pkl_path = os.path.join(settings.BASE_DIR, 'backend/raw_backend/support/databases/new_airports.pkl')
 
 with open('backend/raw_backend/all_reviews.json', 'rb') as fp:
     all_reviews = json.load(fp)
