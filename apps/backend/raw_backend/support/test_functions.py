@@ -937,7 +937,7 @@ def get_hotel_amenities(hotel, amenity_list=amenities, reviews=all_reviews):
 
 def insert_record(x):
     # Connect to SQLite database (create if not exists)
-    conn = sqlite3.connect('records.db')
+    conn = sqlite3.connect('records-backup.db')
     cursor = conn.cursor()
 
     try:
@@ -974,7 +974,7 @@ def insert_record(x):
 
 def fetch_record(primary_key):
     # Connect to SQLite database
-    conn = sqlite3.connect('records.db')
+    conn = sqlite3.connect('records-backup.db')
     cursor = conn.cursor()
 
     try:
@@ -1007,7 +1007,7 @@ import json
 
 def fetch_records(primary_keys):
     # Connect to SQLite database
-    conn = sqlite3.connect('records.db')
+    conn = sqlite3.connect('records-backup.db')
     cursor = conn.cursor()
 
     results_dict = {}

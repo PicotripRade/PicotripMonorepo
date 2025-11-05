@@ -49,7 +49,7 @@ def autocomplete_api(request):
     # Determine Elasticsearch password based on WORKMODE
     workmode = os.getenv("VITE_WORKMODE", "DEV")
     if workmode.upper() == "PROD":
-        password = "MCNCMhwigWK+1PD0svS5"
+        password = "dxjW92732AxAVJg3fi27"
     else:
         password = "rade123"
 
