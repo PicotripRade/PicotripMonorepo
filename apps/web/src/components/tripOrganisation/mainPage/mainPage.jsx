@@ -6,7 +6,7 @@ import "../styles.css";
 import "./filters.css";
 import "../../../commonStyles.css";
 import CustomCalendar from "../datepicker/datepicker.jsx";
-import {motion, AnimatePresence} from "framer-motion"; // ✅ Added for animation
+import {AnimatePresence} from "framer-motion"; // ✅ Added for animation
 
 import SearchResults from "../searchResults/searchResults.jsx";
 import TagSelection from "../setActivityTag/typeOfTravelStep.jsx";

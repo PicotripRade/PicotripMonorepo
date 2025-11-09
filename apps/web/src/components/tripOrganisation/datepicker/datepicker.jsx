@@ -230,13 +230,13 @@ const CustomCalendar = ({onClose, onMonthSelection}) => {
                     {isOpen && (
                         <>
                             <p className={"input-box-title"}> When's your trip?</p>
-                            {import.meta.env.VITE_WORKMODE !== 'prod' && (
-                                <div className="toggle-container" onClick={toggleSlider}>
-                                    <div className={`slider ${isDates ? "toggled" : ""}`}></div>
-                                    <div className="label">Dates</div>
-                                    <div className="label">Flexible</div>
-                                </div>
-                            )}
+                            {/*{import.meta.env.VITE_WORKMODE !== 'prod' && (*/}
+                            {/*    <div className="toggle-container" onClick={toggleSlider}>*/}
+                            {/*        <div className={`slider ${isDates ? "toggled" : ""}`}></div>*/}
+                            {/*        <div className="label">Dates</div>*/}
+                            {/*        <div className="label">Flexible</div>*/}
+                            {/*    </div>*/}
+                            {/*)}*/}
                             <div>
                                 <div className={`custom-calendar rounded-button`}>
                                     {isDates === false ? (
