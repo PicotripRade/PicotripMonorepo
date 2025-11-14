@@ -23,8 +23,6 @@ redis_port = os.getenv('REDIS_PORT')
 localhost = '127.0.0.1'
 WORKMODE = os.getenv('VITE_WORKMODE', 'prod')  # Default to production
 
-print("WORKMODE =", WORKMODE)
-
 
 BACKEND_URL = f'{protocol}://{url}:{django_port}'
 

@@ -54,7 +54,7 @@ def autocomplete_api(request):
         password = "rade123"
 
     es = Elasticsearch(
-        "http://127.0.0.1:9200",
+        "http://localhost:9200",
         basic_auth=("elastic", password),
         verify_certs=False,
     )
