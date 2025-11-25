@@ -3,8 +3,6 @@ import ast
 import json
 import os
 
-from io import StringIO
-
 import h3
 import requests
 import urllib3
@@ -16,7 +14,6 @@ from dotenv import load_dotenv
 from elasticsearch import Elasticsearch, helpers
 
 from .support_fun import get_result, nearby_airports, get_activity_recommendations
-from .tasks import get_destinations # Import the Celery task function
 
 import logging
 import polars as pl
