@@ -230,13 +230,17 @@ $colorGreen: black;
 }
 
 .peak {
-    position: absolute;
+  position: absolute;
   top: 83%;
   left: 42%;
-  z-index: 200;
+  width: 30px;
+  height: 30px;
+  z-index: 1; // Changed from 200 to 1 to stay within display context
 }
 
-.peak svg {
-  width: 25px;
-  height: 25px;
+.peak img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }

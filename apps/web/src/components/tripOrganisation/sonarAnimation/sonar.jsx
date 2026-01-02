@@ -19,21 +19,6 @@ const RadarScan = () => {
                         <div className="distance__circle"></div>
                     </div>
 
-                    {/*<div className="degree">*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*</div>*/}
-
                     <div className="matrix"></div>
 
                     <div className="rotary"></div>
@@ -42,7 +27,9 @@ const RadarScan = () => {
                         <div className="ship-1"></div>
                         <div className="ship-2"></div>
                         <div className="ship-3"></div>
-                        <div className={"peak"}><img src={sonarPath} /></div>
+                        <div className="peak">
+                            <img src={sonarPath} alt="mountain"/>
+                        </div>
                     </div>
 
                 </div>
@@ -51,7 +38,7 @@ const RadarScan = () => {
 
         </div>
 
-);
+    );
 };
 
 export default RadarScan;
