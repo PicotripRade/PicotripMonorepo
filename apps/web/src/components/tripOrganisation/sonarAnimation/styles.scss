@@ -1,7 +1,7 @@
 // color vars
 
 $colorDark: #82b0f2;
-$colorGreen: black;
+$colorGreen: #000000;
 
 
 // mixin
@@ -41,15 +41,10 @@ $colorGreen: black;
   height: 0;
   position: relative;
 
-  //@media (min-width: 800px) {
-  //  width: 40%;
-  //  padding-top: 40%;
-  //}
-
 
   &__container {
-    width: calc(100% - 60px);
-    height: calc(100% - 60px);
+    width: calc(45% - 10px);
+    height: calc(45% - 10px);
     @include centerSelf;
     border: 1px solid rgba($colorGreen, 0.6);
     border-radius: 50%;
@@ -230,7 +225,9 @@ $colorGreen: black;
 }
 
 .peak {
-    position: absolute;
+  width: 25px;
+  height: 25px;
+  position: absolute;
   top: 83%;
   left: 42%;
   z-index: 200;

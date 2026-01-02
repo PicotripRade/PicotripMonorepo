@@ -2,6 +2,9 @@ import './styles.scss';
 import React from "react";
 import sonarPath from "../../../images/destinations/radar/mountain-svgrepo-com.svg";
 
+
+
+
 const RadarScan = () => {
 
     return (
@@ -42,7 +45,10 @@ const RadarScan = () => {
                         <div className="ship-1"></div>
                         <div className="ship-2"></div>
                         <div className="ship-3"></div>
-                        <div className={"peak"}><img src={sonarPath} /></div>
+                        <div className="peak">
+                            <svg viewBox="0 0 800 800" width="25" height="25"> src={sonarPath} </svg>
+                        </div>
+
                     </div>
 
                 </div>
