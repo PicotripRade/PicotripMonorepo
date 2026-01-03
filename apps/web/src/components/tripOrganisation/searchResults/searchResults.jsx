@@ -97,7 +97,7 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
     if (loading) {
         return (
             <div className="results-wrapper">
-                <RadarScan/>
+                <RadarScan  />
                 <p className="loading-text">
                     {loadingSentences[loadingIndex]}
                     {".".repeat(dotCount)}

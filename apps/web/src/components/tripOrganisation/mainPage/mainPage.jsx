@@ -164,31 +164,38 @@ function MainPage() {
 
 
     const onSearchClick = () => {
-        handleSearchClick({
-            overrideParams: null,
-            skipUpdateURL: false,
-            startDate,
-            endDate,
-            originId,
-            selectedTag,
-            selectedAirportsList: selectedAirportsListRedux,
-            airportsList: airportsListRedux,
-            startingPoint,
-            dispatch,
-            arrowBackPressedRef,
-            navigate,
-            setSearchResultsDisplayed,
-            setSearchResultsReady,
-            setErrorResponse,
-            setInputFieldsCollapsed,
-            setIsLoading,
-            setResponseData,
-            setTagsExpanded,
-            setArrowBackPressedAction: setArrowBackPressed,
-            setAirportsListAction: setAirportsList,
-            setSelectedAirportsListAction: setSelectedAirportsList
-        });
-    };
+
+            if (selectedTag) {
+                Cookies.set("activityType", selectedTag, {expires: 7});
+            } else {
+                Cookies.remove("activityType");
+            }
+
+            handleSearchClick({
+                overrideParams: null,
+                skipUpdateURL: false,
+                startDate,
+                endDate,
+                originId,
+                selectedTag,
+                selectedAirportsList: selectedAirportsListRedux,
+                airportsList: airportsListRedux,
+                startingPoint,
+                dispatch,
+                arrowBackPressedRef,
+                navigate,
+                setSearchResultsDisplayed,
+                setSearchResultsReady,
+                setErrorResponse,
+                setInputFieldsCollapsed,
+                setIsLoading,
+                setResponseData,
+                setTagsExpanded,
+                setArrowBackPressedAction: setArrowBackPressed,
+                setAirportsListAction: setAirportsList,
+                setSelectedAirportsListAction: setSelectedAirportsList
+            });
+        };
 
     const onCitySelect = async (params) => {
         await handleCitySelect({
