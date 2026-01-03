@@ -1,6 +1,7 @@
 import './styles.scss';
 import React from "react";
 import sonarPath from "../../../images/destinations/radar/mountain-svgrepo-com.svg";
+import waterfallPath from "../../../images/destinations/radar/waterfall-svgrepo-com.svg";
 
 
 
@@ -22,21 +23,6 @@ const RadarScan = () => {
                         <div className="distance__circle"></div>
                     </div>
 
-                    {/*<div className="degree">*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*    <div className="degree__line"></div>*/}
-                    {/*</div>*/}
-
                     <div className="matrix"></div>
 
                     <div className="rotary"></div>
@@ -46,9 +32,11 @@ const RadarScan = () => {
                         <div className="ship-2"></div>
                         <div className="ship-3"></div>
                         <div className="peak">
-                            <svg viewBox="0 0 800 800" width="25" height="25"> src={sonarPath} </svg>
+                            <img src={sonarPath} alt="mountain"/>
                         </div>
-
+                        <div className="waterfall">
+                                                   <img src={waterfallPath} alt="waterfall"/>
+                                               </div>
                     </div>
 
                 </div>
@@ -57,7 +45,7 @@ const RadarScan = () => {
 
         </div>
 
-);
+    );
 };
 
 export default RadarScan;

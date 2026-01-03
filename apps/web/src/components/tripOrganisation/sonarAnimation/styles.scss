@@ -1,7 +1,7 @@
 // color vars
 
 $colorDark: #82b0f2;
-$colorGreen: #000000;
+$colorGreen: black;
 
 
 // mixin
@@ -40,6 +40,11 @@ $colorGreen: #000000;
   padding-top: 100%;
   height: 0;
   position: relative;
+
+  //@media (min-width: 800px) {
+  //  width: 40%;
+  //  padding-top: 40%;
+  //}
 
 
   &__container {
@@ -225,15 +230,26 @@ $colorGreen: #000000;
 }
 
 .peak {
-  width: 25px;
-  height: 25px;
   position: absolute;
-  top: 83%;
+  top: 63%;
   left: 42%;
-  z-index: 200;
+  width: 50px;
+  height: 50px;
+  z-index: 50; // Changed from 200 to 1 to stay within display context
 }
 
-.peak svg {
-  width: 25px;
-  height: 25px;
+.peak img, .waterfall img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }
+.waterfall {
+  position: absolute;
+  top: 48%;
+  left: 82%;
+  width: 50px;
+  height: 50px;
+  z-index: 50; // Changed from 200 to 1 to stay within display context
+}
+
