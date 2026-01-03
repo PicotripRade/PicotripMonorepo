@@ -164,6 +164,13 @@ function MainPage() {
 
 
     const onSearchClick = () => {
+
+        if (selectedTag) {
+            Cookies.set("activityType", selectedTag, {expires: 7});
+        } else {
+            Cookies.remove("activityType");
+        }
+
         handleSearchClick({
             overrideParams: null,
             skipUpdateURL: false,
