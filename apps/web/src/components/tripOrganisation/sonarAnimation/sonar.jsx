@@ -2,7 +2,8 @@ import './styles.scss';
 import React, { useState, useEffect } from "react";
 import sonarPath from "../../../images/destinations/radar/mountain-svgrepo-com.svg";
 import waterfallPath from "../../../images/destinations/radar/waterfall-svgrepo-com.svg";
-
+import skiingPath from "../../../images/destinations/radar/skiing.svg";
+import snowingPath from "../../../images/destinations/radar/snowing-svgrepo-com.svg";
 
 const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -19,14 +20,11 @@ const RadarScan = () => {
         setTag(activityType);
     }, []);
 
-
     return (
-
         <div className="app">
-
             <div className="sonar">
-
                 <div className="sonar__container">
+
                     <div className="distance">
                         <div className="distance__circle"></div>
                         <div className="distance__circle"></div>
@@ -36,39 +34,49 @@ const RadarScan = () => {
                     </div>
 
                     <div className="matrix"></div>
-
                     <div className="rotary"></div>
 
                     <div className="display">
                         <div className="ship-1"></div>
                         <div className="ship-2"></div>
                         <div className="ship-3"></div>
-                        <div className="display">
-                            {tag === "mountains" && (
-                                <>
+
+                        {/* MOUNTAINS */}
+                        {tag === "mountains" && (
+                            <>
                                 <div className="peak">
                                     <img src={sonarPath} alt="mountain" />
-
                                 </div>
+
                                 <div className="waterfall">
-                                                                                   <img src={waterfallPath} alt="waterfall"/>
-                                                                               </div>
-                                                                               </>
+                                    <img src={waterfallPath} alt="waterfall" />
+                                </div>
+                            </>
+                        )}
 
-                            )}
+                        {/* SKIING */}
+                        {tag === "skiing" && (
+                            <>
+                                {/* ISTA PLANINA */}
+                                <div className="peak">
+                                    <img src={sonarPath} alt="mountain" />
+                                </div>
 
+                                <div className="skiing">
+                                    <img src={skiingPath} alt="skiing" />
+                                </div>
 
-                        </div>
-
+                                <div className="snowing">
+                                    <img src={snowingPath} alt="snowing" />
+                                </div>
+                            </>
+                        )}
 
                     </div>
 
                 </div>
-
             </div>
-
         </div>
-
     );
 };
 
