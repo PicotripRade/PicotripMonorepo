@@ -7,6 +7,11 @@ import snowingPath from "../../../images/destinations/radar/snowing-svgrepo-com.
 import summerPath from "../../../images/destinations/radar/summer-cocktail-svgrepo-com.svg";
 import forestPath from "../../../images/destinations/radar/circle-forest-svgrepo-com.svg";
 import umbrellaPath from "../../../images/destinations/radar/summer-svgrepo-com.svg";
+import icePath from "../../../images/destinations/radar/ice-cream-sweet-dairy-ice-cream-svgrepo-com.svg";
+import swimmerPath from "../../../images/destinations/radar/swimmer-in-water-waves-under-the-sun-svgrepo-com.svg";
+import parkPath from "../../../images/destinations/radar/park-svgrepo-com.svg";
+import familyPath from  "../../../images/destinations/radar/family-svgrepo-com.svg";
+import babyPath from "../../../images/destinations/radar/baby-stroller-stroller-svgrepo-com.svg";
 
 const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -85,8 +90,34 @@ const RadarScan = () => {
                                <div className="umbrella">
                                    <img src={umbrellaPath} alt="umbrella" />
                                </div>
+
+                               <div className="ice">
+                                   <img src={icePath} alt="ice cream" />
+                               </div>
+
+                               <div className="swimmer">
+                                   <img src={swimmerPath} alt="swimmer" />
+                               </div>
                            </>
                        )}
+                   {tag === "family_trip" && (
+                     <>
+                       <div className="park">
+                         <img src={parkPath} alt="park" />
+                       </div>
+
+                       <div className="family">
+                         <img src={familyPath} alt="family" />
+                       </div>
+
+                       <div className="baby">
+                         <img src={babyPath} alt="baby" />
+                       </div>
+                     </>
+                   )}
+
+
+
 
 
 
