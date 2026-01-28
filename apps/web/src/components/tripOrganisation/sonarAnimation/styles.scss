@@ -203,7 +203,7 @@ $colorGreen: black;
 }
 
 
-.peak img, .waterfall img, .skiing img, .snowing img, .summer img, .forest img, .umbrella img, .ice img, .swimmer img, .park img, .family img, .baby img, .hiking img, .boot img, .person img, .surface img, .cave img{
+.peak img, .waterfall img, .skiing img, .snowing img, .summer img, .forest img, .umbrella img, .ice img, .swimmer img, .park img, .family img, .baby img, .hiking img, .boot img, .person img, .surface img, .cave img, .underground img, .peak-caving img, .forest-caving img{
   width: 100%;
   height: 100%;
   display: block;
@@ -348,6 +348,32 @@ $colorGreen: black;
     height: 45px;
     transform: translate(-50%, -50%);
     z-index: 50;
+}
+ .underground {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45px;
+    height: 45px;
+    z-index: 5;
+}
+.peak-caving {
+  position: absolute;
+  top: 40%;
+  left: 8%;
+  transform: none;
+  width: 60px;
+  height: 60px;
+  z-index: 5;
+}
+.forest-caving {
+  position: absolute;
+  top: 40%;
+  left: 80%;
+  width: 50px;
+  height: 50px;
+  z-index: 50;
 }
 
 

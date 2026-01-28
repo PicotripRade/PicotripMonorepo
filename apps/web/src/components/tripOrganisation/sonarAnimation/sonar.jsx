@@ -17,6 +17,7 @@ import bootPath from "../../../images/destinations/radar/hiking-boot-svgrepo-com
 import personPath from "../../../images/destinations/radar/hiking-person-silhouette-with-a-stick-svgrepo-com.svg";
 import surfacePath from "../../../images/destinations/radar/surface-water-source-svgrepo-com.svg";
 import cavePath from "../../../images/destinations/radar/caving-cave-svgrepo-com.svg";
+import undergroundPath from "../../../images/destinations/radar/underground-cave-svgrepo-com.svg";
 
 const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -142,9 +143,23 @@ const RadarScan = () => {
                </div>
            )}
        {tag === "caving" && (
-           <div className="cave">
-               <img src={cavePath} alt="cave" />
+         <>
+           <div className="peak-caving">
+             <img src={mountainPath} alt="mountain" />
            </div>
+
+           <div className="cave">
+             <img src={cavePath} alt="cave" />
+           </div>
+
+           <div className="underground">
+             <img src={undergroundPath} alt="underground cave" />
+           </div>
+
+           <div className="forest-caving">
+             <img src={forestPath} alt="forest" />
+           </div>
+         </>
        )}
 
 
