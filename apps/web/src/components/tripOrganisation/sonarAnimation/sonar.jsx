@@ -12,6 +12,11 @@ import swimmerPath from "../../../images/destinations/radar/swimmer-in-water-wav
 import parkPath from "../../../images/destinations/radar/park-svgrepo-com.svg";
 import familyPath from  "../../../images/destinations/radar/family-svgrepo-com.svg";
 import babyPath from "../../../images/destinations/radar/baby-stroller-stroller-svgrepo-com.svg";
+import hikingPath from "../../../images/destinations/radar/hiking-svgrepo-com.svg";
+import bootPath from "../../../images/destinations/radar/hiking-boot-svgrepo-com.svg";
+import personPath from "../../../images/destinations/radar/hiking-person-silhouette-with-a-stick-svgrepo-com.svg";
+import surfacePath from "../../../images/destinations/radar/surface-water-source-svgrepo-com.svg";
+import cavePath from "../../../images/destinations/radar/caving-cave-svgrepo-com.svg";
 
 const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -115,6 +120,33 @@ const RadarScan = () => {
                        </div>
                      </>
                    )}
+
+               {tag === "hiking" && (
+                   <>
+                       <div className="hiking">
+                           <img src={hikingPath} alt="hiking" />
+                       </div>
+
+                       <div className="boot">
+                           <img src={bootPath} alt="hiking boot" />
+                       </div>
+
+                       <div className="person">
+                           <img src={personPath} alt="hiking person" />
+                       </div>
+                   </>
+               )}
+           {tag === "lakes" && (
+               <div className="surface">
+                   <img src={surfacePath} alt="surface" />
+               </div>
+           )}
+       {tag === "caving" && (
+           <div className="cave">
+               <img src={cavePath} alt="cave" />
+           </div>
+       )}
+
 
 
 
