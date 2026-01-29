@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef, forwardRef} from 'react';
 import './styles.css';
+import { useTranslation } from "react-i18next";
 import LocationImage from "@picotrip/shared/assets/images/my-location-svgrepo-com.svg";
 import CustomNextButton from "../buttons/customNextButton.jsx";
 import {CloseIcon} from "../../utils/reactIcons/icons.jsx";
@@ -21,7 +22,7 @@ const Autocomplete = forwardRef(({
                                      xButtonDisplayed
                                  }, ref) => {
 
-
+    const { t } = useTranslation();
     const [results, setResults] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -143,7 +144,7 @@ const Autocomplete = forwardRef(({
             <div className={`${expanded ? "expanded" : ""}`}>
                 <div
                     className={`inner-block ${expanded ? "expanded" : ""} ${xButtonDisplayed ? "decreased-height" : ""}`}>
-                    {expanded && (<p className={"input-box-title"}>Where from?</p>)}
+                    {expanded && (<p className={"input-box-title"}>{t("whereFrom")}</p>)}
                     <div className={`destination-input-field rounded-button ${expanded ? "" : "collapsed"}`}>
                         {!isFocused && !inputValue && (
                             <div className={`placeholder-text ${expanded ? "" : "placeholder-collapsed"}`}>
