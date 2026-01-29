@@ -202,7 +202,7 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
                             </div>
                             <div className={"modal-content-inner"}>
                                 <div className="ai-city-info">
-                                    {isLoadingCityData && (<div className={"radar-on-city-info"}><RadarScan/></div>)}
+                                    {isLoadingCityData && (<div className={"radar-on-city-info"}><RadarScan useIcons={false} /></div>)}
                                     {cityInfo?.what_attraction_to_visit_regarding_activity && !isLoadingCityData && (
                                         <>
                                             <h3>Must See</h3>
