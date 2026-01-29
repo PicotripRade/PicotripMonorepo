@@ -155,32 +155,32 @@ const SearchResults = ({loading, ready, data, typeToDisplay, onCitySelect, cityI
                                     {/* Summer Vacation */}
                                     {city.BCH_no_h6_1 > 0 && (
                                         <div
-                                            className={"beaches-count"}>{`BCH ${city.BCH_no_h6_1}`}
+                                            className={"beaches-count"}>{`Beaches ${city.BCH_no_h6_1}`}
                                         </div>)}
                                     {city.BAY_no_h6_1 > 0 && (
                                         <div
-                                            className={"bay-count"}>{`BAY ${city.BAY_no_h6_1}`}
+                                            className={"bay-count"}>{`Bays ${city.BAY_no_h6_1}`}
                                         </div>)}
                                     {city.COVE_no_h6_1 > 0 && (
                                         <div
-                                            className={"cove-count"}>{`COVE ${city.COVE_no_h6_1}`}
+                                            className={"cove-count"}>{`Coves ${city.COVE_no_h6_1}`}
                                         </div>)}
                                     {city.LGN_no_h6_1 > 0 && (
                                         <div
-                                            className={"lagoon-count"}>{`LAGOON ${city.LGN_no_h6_1}`}
+                                            className={"lagoon-count"}>{`Lagoons ${city.LGN_no_h6_1}`}
                                         </div>)}
                                     {city.GULF_no_h6_1 > 0 && (
                                         <div
-                                            className={"gulf-count"}>{`GULF ${city.GULF_no_h6_1}`}
+                                            className={"gulf-count"}>{`Gulfs ${city.GULF_no_h6_1}`}
                                         </div>)}
                                     {/* Mountains */}
                                     {city.PK_no_h5_1 > 0 && (
                                         <div
-                                            className={"peaks-count"}>{`PEAKS ${city.PK_no_h5_1}`}
+                                            className={"peaks-count"}>{`Peaks ${city.PK_no_h5_1}`}
                                         </div>)}
                                     {city.MT_no_h5_1 > 0 && (
                                         <div
-                                            className={"mountains-count"}>{`MOUNTAINS ${city.MT_no_h5_1}`}
+                                            className={"mountains-count"}>{`Mountains ${city.MT_no_h5_1}`}
                                         </div>)}
                                 </div>
                             </div>
