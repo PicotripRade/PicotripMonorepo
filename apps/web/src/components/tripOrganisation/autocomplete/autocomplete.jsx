@@ -144,7 +144,7 @@ const Autocomplete = forwardRef(({
             <div className={`${expanded ? "expanded" : ""}`}>
                 <div
                     className={`inner-block ${expanded ? "expanded" : ""} ${xButtonDisplayed ? "decreased-height" : ""}`}>
-                    {expanded && (<p className={"input-box-title"}>{t("whereFrom")}</p>)}
+                    {expanded && (<p className={"input-box-title"}>Where From?</p>)}
                     <div className={`destination-input-field rounded-button ${expanded ? "" : "collapsed"}`}>
                         {!isFocused && !inputValue && (
                             <div className={`placeholder-text ${expanded ? "" : "placeholder-collapsed"}`}>

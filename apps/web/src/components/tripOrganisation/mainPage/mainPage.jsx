@@ -167,38 +167,37 @@ function MainPage() {
 
 
     const onSearchClick = () => {
+        if (selectedTag) {
+            Cookies.set("activityType", selectedTag, {expires: 7});
+        } else {
+            Cookies.remove("activityType");
+        }
 
-            if (selectedTag) {
-                Cookies.set("activityType", selectedTag, {expires: 7});
-            } else {
-                Cookies.remove("activityType");
-            }
-
-            handleSearchClick({
-                overrideParams: null,
-                skipUpdateURL: false,
-                startDate,
-                endDate,
-                originId,
-                selectedTag,
-                selectedAirportsList: selectedAirportsListRedux,
-                airportsList: airportsListRedux,
-                startingPoint,
-                dispatch,
-                arrowBackPressedRef,
-                navigate,
-                setSearchResultsDisplayed,
-                setSearchResultsReady,
-                setErrorResponse,
-                setInputFieldsCollapsed,
-                setIsLoading,
-                setResponseData,
-                setTagsExpanded,
-                setArrowBackPressedAction: setArrowBackPressed,
-                setAirportsListAction: setAirportsList,
-                setSelectedAirportsListAction: setSelectedAirportsList
-            });
-        };
+        handleSearchClick({
+            overrideParams: null,
+            skipUpdateURL: false,
+            startDate,
+            endDate,
+            originId,
+            selectedTag,
+            selectedAirportsList: selectedAirportsListRedux,
+            airportsList: airportsListRedux,
+            startingPoint,
+            dispatch,
+            arrowBackPressedRef,
+            navigate,
+            setSearchResultsDisplayed,
+            setSearchResultsReady,
+            setErrorResponse,
+            setInputFieldsCollapsed,
+            setIsLoading,
+            setResponseData,
+            setTagsExpanded,
+            setArrowBackPressedAction: setArrowBackPressed,
+            setAirportsListAction: setAirportsList,
+            setSelectedAirportsListAction: setSelectedAirportsList
+        });
+    };
 
     const onCitySelect = async (params) => {
         await handleCitySelect({
@@ -245,7 +244,7 @@ function MainPage() {
     return (
         <div className={"full-content-wrapper"}>
               {/* ✅ Language switcher u gornjem desnom uglu */}
-              <LanguageSwitcher />
+              {/*<LanguageSwitcher />*/}
             <div id={"container"} className="form-inline-wrapper user-entry-length">
                 {errorResponse ? (
                     <div className="error-message-container">

@@ -154,13 +154,6 @@ LOGGING = {
 # Redis session backend
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': f'redis://{localhost}:{redis_port}/1',
-        'OPTIONS': {'CLIENT_CLASS': 'django_redis.client.DefaultClient'}
-    }
-}
 
 # Celery
 CELERY_BROKER_URL = f'redis://{localhost}:{redis_port}/0'
