@@ -245,7 +245,7 @@ function MainPage() {
     return (
         <div className={"full-content-wrapper"}>
               {/* ✅ Language switcher u gornjem desnom uglu */}
-              <LanguageSwitcher />
+              {/*<LanguageSwitcher />*/}
             <div id={"container"} className="form-inline-wrapper user-entry-length">
                 {errorResponse ? (
                     <div className="error-message-container">
