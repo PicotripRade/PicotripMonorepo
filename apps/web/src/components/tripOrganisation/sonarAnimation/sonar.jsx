@@ -52,127 +52,127 @@ const RadarScan = ({ useIcons = true }) => {
                       <div className="matrix"></div>
                       <div className="rotary"></div>
                       <div className="display">
-                        {useIcons && (
-                            <>
-                                {/* MOUNTAINS */}
-                                {tag === "mountains" && (
-                                    <>
-                                        <div className="peak">
-                                            <img src={mountainPath} alt="mountain" />
-                                        </div>
-                                        <div className="waterfall">
-                                            <img src={waterfallPath} alt="waterfall" />
-                                        </div>
-                                        <div className="forest">
-                                            <img src={forestPath} alt="forest" />
-                                        </div>
-                                    </>
-                                )}
+                        {/*{useIcons && (*/}
+                        {/*    <>*/}
+                        {/*        /!* MOUNTAINS *!/*/}
+                        {/*        {tag === "mountains" && (*/}
+                        {/*            <>*/}
+                        {/*                <div className="peak">*/}
+                        {/*                    <img src={mountainPath} alt="mountain" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="waterfall">*/}
+                        {/*                    <img src={waterfallPath} alt="waterfall" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="forest">*/}
+                        {/*                    <img src={forestPath} alt="forest" />*/}
+                        {/*                </div>*/}
+                        {/*            </>*/}
+                        {/*        )}*/}
 
-                                {/* SKIING */}
-                                {tag === "skiing" && (
-                                    <>
-                                        <div className="peak">
-                                            <img src={mountainPath} alt="mountain" />
-                                        </div>
-                                        <div className="skiing">
-                                            <img src={skiingPath} alt="skiing" />
-                                        </div>
-                                        <div className="snowing">
-                                            <img src={snowingPath} alt="snowing" />
-                                        </div>
-                                    </>
-                                )}
+                        {/*        /!* SKIING *!/*/}
+                        {/*        {tag === "skiing" && (*/}
+                        {/*            <>*/}
+                        {/*                <div className="peak">*/}
+                        {/*                    <img src={mountainPath} alt="mountain" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="skiing">*/}
+                        {/*                    <img src={skiingPath} alt="skiing" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="snowing">*/}
+                        {/*                    <img src={snowingPath} alt="snowing" />*/}
+                        {/*                </div>*/}
+                        {/*            </>*/}
+                        {/*        )}*/}
 
-                                {/* SUMMER VACATION */}
-                                {tag === "summer_vacation" && (
-                                    <>
-                                        <div className="summer">
-                                            <img src={summerPath} alt="summer" />
-                                        </div>
-                                        <div className="umbrella">
-                                            <img src={umbrellaPath} alt="umbrella" />
-                                        </div>
-                                        <div className="ice">
-                                            <img src={icePath} alt="ice cream" />
-                                        </div>
-                                        <div className="swimmer">
-                                            <img src={swimmerPath} alt="swimmer" />
-                                        </div>
-                                    </>
-                                )}
+                        {/*        /!* SUMMER VACATION *!/*/}
+                        {/*        {tag === "summer_vacation" && (*/}
+                        {/*            <>*/}
+                        {/*                <div className="summer">*/}
+                        {/*                    <img src={summerPath} alt="summer" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="umbrella">*/}
+                        {/*                    <img src={umbrellaPath} alt="umbrella" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="ice">*/}
+                        {/*                    <img src={icePath} alt="ice cream" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="swimmer">*/}
+                        {/*                    <img src={swimmerPath} alt="swimmer" />*/}
+                        {/*                </div>*/}
+                        {/*            </>*/}
+                        {/*        )}*/}
 
-                                {/* FAMILY TRIP */}
-                                {tag === "family_trip" && (
-                                    <>
-                                        <div className="park">
-                                            <img src={parkPath} alt="park" />
-                                        </div>
-                                        <div className="family">
-                                            <img src={familyPath} alt="family" />
-                                        </div>
-                                        <div className="baby">
-                                            <img src={babyPath} alt="baby" />
-                                        </div>
-                                    </>
-                                )}
+                        {/*        /!* FAMILY TRIP *!/*/}
+                        {/*        {tag === "family_trip" && (*/}
+                        {/*            <>*/}
+                        {/*                <div className="park">*/}
+                        {/*                    <img src={parkPath} alt="park" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="family">*/}
+                        {/*                    <img src={familyPath} alt="family" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="baby">*/}
+                        {/*                    <img src={babyPath} alt="baby" />*/}
+                        {/*                </div>*/}
+                        {/*            </>*/}
+                        {/*        )}*/}
 
-                                {/* HIKING */}
-                                {tag === "hiking" && (
-                                    <>
-                                        <div className="hiking">
-                                            <img src={hikingPath} alt="hiking" />
-                                        </div>
-                                        <div className="boot">
-                                            <img src={bootPath} alt="hiking boot" />
-                                        </div>
-                                        <div className="person">
-                                            <img src={personPath} alt="hiking person" />
-                                        </div>
-                                    </>
-                                )}
+                        {/*        /!* HIKING *!/*/}
+                        {/*        {tag === "hiking" && (*/}
+                        {/*            <>*/}
+                        {/*                <div className="hiking">*/}
+                        {/*                    <img src={hikingPath} alt="hiking" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="boot">*/}
+                        {/*                    <img src={bootPath} alt="hiking boot" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="person">*/}
+                        {/*                    <img src={personPath} alt="hiking person" />*/}
+                        {/*                </div>*/}
+                        {/*            </>*/}
+                        {/*        )}*/}
 
-                                {/* LAKES */}
-                                {tag === "lakes" && (
-                                    <div className="surface">
-                                        <img src={surfacePath} alt="surface" />
-                                    </div>
-                                )}
+                        {/*        /!* LAKES *!/*/}
+                        {/*        {tag === "lakes" && (*/}
+                        {/*            <div className="surface">*/}
+                        {/*                <img src={surfacePath} alt="surface" />*/}
+                        {/*            </div>*/}
+                        {/*        )}*/}
 
-                                {/* CAVING */}
-                                {tag === "caving" && (
-                                    <>
-                                        <div className="peak-caving">
-                                            <img src={mountainPath} alt="mountain" />
-                                        </div>
-                                        <div className="cave">
-                                            <img src={cavePath} alt="cave" />
-                                        </div>
-                                        <div className="underground">
-                                            <img src={undergroundPath} alt="underground cave" />
-                                        </div>
-                                        <div className="forest-caving">
-                                            <img src={forestPath} alt="forest" />
-                                        </div>
-                                    </>
-                                )}
+                        {/*        /!* CAVING *!/*/}
+                        {/*        {tag === "caving" && (*/}
+                        {/*            <>*/}
+                        {/*                <div className="peak-caving">*/}
+                        {/*                    <img src={mountainPath} alt="mountain" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="cave">*/}
+                        {/*                    <img src={cavePath} alt="cave" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="underground">*/}
+                        {/*                    <img src={undergroundPath} alt="underground cave" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="forest-caving">*/}
+                        {/*                    <img src={forestPath} alt="forest" />*/}
+                        {/*                </div>*/}
+                        {/*            </>*/}
+                        {/*        )}*/}
 
-                                {/* PARACHUTING */}
-                                {tag === "parachuting" && (
-                                    <>
-                                        <div className="airplane">
-                                            <img src={airplanePath} alt="airplane" />
-                                        </div>
-                                        <div className="cloud">
-                                            <img src={cloudPath} alt="cloud" />
-                                        </div>
-                                        <div className="parachuting">
-                                            <img src={parachutePath} alt="parachuting" />
-                                        </div>
-                                    </>
-                                )}
-                            </>
-                        )}
+                        {/*        /!* PARACHUTING *!/*/}
+                        {/*        {tag === "parachuting" && (*/}
+                        {/*            <>*/}
+                        {/*                <div className="airplane">*/}
+                        {/*                    <img src={airplanePath} alt="airplane" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="cloud">*/}
+                        {/*                    <img src={cloudPath} alt="cloud" />*/}
+                        {/*                </div>*/}
+                        {/*                <div className="parachuting">*/}
+                        {/*                    <img src={parachutePath} alt="parachuting" />*/}
+                        {/*                </div>*/}
+                        {/*            </>*/}
+                        {/*        )}*/}
+                        {/*    </>*/}
+                        {/*)}*/}
                     </div>
                 </div>
             </div>
