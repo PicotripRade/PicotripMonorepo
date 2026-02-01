@@ -4,6 +4,10 @@ import { Provider } from 'react-redux';
 import store from '@picotrip/shared/src/store/store.js';
 import App from './App';
 import reportWebVitals from "./reportWebVitals.jsx";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./i18n"; // ⚠ mora biti importovan pre App-a
 
 // Unregister old service workers and register the new one
 if ('serviceWorker' in navigator) {

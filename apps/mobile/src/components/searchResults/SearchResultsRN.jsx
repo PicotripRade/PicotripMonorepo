@@ -103,7 +103,7 @@ const SearchResults = ({
     if (loading) {
         return (
             <View style={styles.resultsWrapper}>
-                <RadarScan/>
+                <RadarScan useIcons={false} />
                 <Text style={styles.loadingText}>
                     {loadingSentences[loadingIndex]}
                     {".".repeat(dotCount)}

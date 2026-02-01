@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect} from "react";
 import {useNavigate, useLocation} from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Autocomplete from "../autocomplete/autocomplete.jsx";
 import "./styles.css";
 import "../styles.css";
@@ -8,6 +9,7 @@ import "../../../commonStyles.css";
 import CustomCalendar from "../datepicker/datepicker.jsx";
 import {AnimatePresence} from "framer-motion"; // ✅ Added for animation
 
+import LanguageSwitcher from "../../../functions/LanguageSwitcher.jsx";
 import SearchResults from "../searchResults/searchResults.jsx";
 import TagSelection from "../setActivityTag/typeOfTravelStep.jsx";
 
@@ -40,6 +42,7 @@ function MainPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const { t } = useTranslation();
 
     const [autocompleteKey, setAutocompleteKey] = useState(0);
 
@@ -164,7 +167,6 @@ function MainPage() {
 
 
     const onSearchClick = () => {
-
         if (selectedTag) {
             Cookies.set("activityType", selectedTag, {expires: 7});
         } else {
@@ -241,6 +243,8 @@ function MainPage() {
 
     return (
         <div className={"full-content-wrapper"}>
+              {/* ✅ Language switcher u gornjem desnom uglu */}
+              {/*<LanguageSwitcher />*/}
             <div id={"container"} className="form-inline-wrapper user-entry-length">
                 {errorResponse ? (
                     <div className="error-message-container">
@@ -250,7 +254,7 @@ function MainPage() {
                             onClick={() => {
                                 resetToInitialState();
                             }}
-                            label={"Search Again"}></CustomButton>
+                            label={t("searchAgain")}></CustomButton>
                     </div>
                 ) : (
                     <>

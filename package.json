@@ -1,18 +1,16 @@
 {
-  "name": "picotrip-monorepo",
+  "name": "picotripmonorepo",
+  "version": "1.0.0",
   "private": true,
-  "overrides": {
-    "react-native-screens": "3.37.0"
-  },
+  "type": "commonjs",
   "workspaces": [
-    "apps/*",
+    "apps/web",
     "packages/*"
   ],
-  "devDependencies": {
-    "sass-embedded": "^1.90.0"
-  },
-  "dependencies": {
-    "framer-motion": "^12.23.24",
-    "react-native-reanimated": "^3.10.1"
+  "scripts": {
+    "web:dev": "yarn workspace web dev",
+    "web:build": "yarn workspace web build",
+    "web:preview": "yarn workspace web preview",
+    "web:lint": "yarn workspace web lint"
   }
 }

@@ -48,7 +48,7 @@ def autocomplete_api(request):
     if workmode.upper() == "PROD":
         password = "dxjW92732AxAVJg3fi27"
     else:
-        password = "rade123"
+        password = "Ud+DOtkYKoyFUfHHR9B1"
 
     es = Elasticsearch(
         "http://localhost:9200",
