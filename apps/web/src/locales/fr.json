@@ -1,7 +1,89 @@
 {
-  "searchAgain": "Pretrazite ponovo",
-  "mountains": "Planine",
-  "skiing": "Skijanje",
-  "summer_vacation": "Letnji odmor",
-  "family_trip": "Porodično putovanje"
+  "searchAgain": "Rechercher à nouveau", // bouton pour relancer la recherche
+  "mountains": "Montagnes",
+  "skiing": "Ski",
+  "summer_vacation": "Vacances d'été",
+  "family_trip": "Voyage en famille",
+  "whereFrom": "D'où partez-vous ?",
+  "startingPoint": "Point de départ",
+  "from": "De",
+  "location": "Emplacement",
+  "flyingOutDescription": "Vous prenez l'avion ? Choisissez vos aéroports proches et nous vous montrerons les destinations directes.",
+  "checkmark": "Sélectionné",
+  "when": "Quand",
+  "whensYourTrip": "Quand est votre voyage ?",
+  "exactDates": "dates exactes",
+  "done": "Terminé",
+  "oneDay": "1 jour",
+  "twoDays": "2 jours",
+  "threeDays": "3 jours",
+  "fiveDays": "5 jours",
+  "monday": "Lundi",
+  "tuesday": "Mardi",
+  "wednesday": "Mercredi",
+  "thursday": "Jeudi",
+  "friday": "Vendredi",
+  "saturday": "Samedi",
+  "sunday": "Dimanche",
+  "january": "Janvier",
+  "february": "Février",
+  "march": "Mars",
+  "april": "Avril",
+  "may": "Mai",
+  "june": "Juin",
+  "july": "Juillet",
+  "august": "Août",
+  "september": "Septembre",
+  "october": "Octobre",
+  "november": "Novembre",
+  "december": "Décembre",
+  "somethingWentWrong": "Une erreur s'est produite",
+  "searchErrorDescription": "Nous n'avons pas pu terminer votre recherche. Veuillez réessayer.",
+  "backToSearch": "Retour à la recherche",
+  "filterResults": "Filtrer les résultats",
+  "top": "Top",
+  "flights": "Vols",
+  "car": "Voiture",
+  "filters": "Filtres",
+  "filterOptionsPlaceholder": "Les options de filtre apparaîtront ici...",
+  "loading": {
+    "analyzingDestinations": "Analyse de 5000+ destinations",
+    "findingFlights": "Recherche de vols",
+    "calculatingRoutes": "Calcul des itinéraires",
+    "optimizingOffers": "Optimisation des offres"
+  },
+  "cityStats": {
+    "beaches": "Plages",
+    "bays": "Baies",
+    "coves": "Criques",
+    "lagoons": "Lagunes",
+    "gulfs": "Golfes",
+    "peaks": "Pics"
+  },
+  "modal": {
+    "mustSee": "À voir absolument",
+    "recommendations": "Recommandations"
+  },
+  "modalFlights": {
+    "flightsTo": "Vols vers la destination",
+    "returnFlights": "Vols retour"
+  },
+  "flightLabels": {
+    "from": "de",
+    "via": "via",
+    "direct": "Direct"
+  },
+  "search": {
+    "noResults": "Aucun résultat"
+  },
+  "tags": {
+    "skiing": "Ski",
+    "summer_vacation": "Vacances d'été",
+    "hiking": "Randonnée",
+    "mountains": "Montagnes",
+    "family_trip": "Voyage en famille",
+    "lakes": "Lacs",
+    "parachuting": "Parachutisme",
+    "caving": "Spéléologie"
+  }
 }

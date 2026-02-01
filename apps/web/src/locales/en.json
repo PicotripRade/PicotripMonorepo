@@ -5,4 +5,85 @@
   "summer_vacation": "Summer Vacation",
   "family_trip": "Family Trip",
   "whereFrom": "Where From?",
+  "startingPoint": "Starting Point",
+  "from": "From",
+  "location": "Location",
+  "flyingOutDescription": "Flying out? Choose your nearby airports and we will show where you can go direct.",
+  "checkmark": "Selected",
+  "when": "When",
+  "whensYourTrip": "When's your trip?",
+  "exactDates": "exact dates",
+  "done": "Done",
+  "oneDay": "1 day",
+  "twoDays": "2 days",
+  "threeDays": "3 days",
+  "fiveDays": "5 days",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+  "january": "January",
+  "february": "February",
+  "march": "March",
+  "april": "April",
+  "may": "May",
+  "june": "June",
+  "july": "July",
+  "august": "August",
+  "september": "September",
+  "october": "October",
+  "november": "November",
+  "december": "December",
+  "somethingWentWrong": "Something went wrong",
+  "searchErrorDescription": "We couldn't complete your search. Please try again.",
+  "backToSearch": "Back to Search",
+  "filterResults": "Filter Results",
+  "top": "Top",
+  "flights": "Flights",
+  "car": "Car",
+  "filters": "Filters",
+  "filterOptionsPlaceholder": "Filter options will appear here...",
+  "loading": {
+    "analyzingDestinations": "Analyzing 5000+ destinations",
+    "findingFlights": "Finding flights",
+    "calculatingRoutes": "Calculating routes",
+    "optimizingOffers": "Optimizing offers"
+  },
+  "cityStats": {
+    "beaches": "Beaches",
+    "bays": "Bays",
+    "coves": "Coves",
+    "lagoons": "Lagoons",
+    "gulfs": "Gulfs",
+    "peaks": "Peaks"
+  },
+  "modal": {
+    "mustSee": "Must See",
+    "recommendations": "Recommendations"
+  },
+  "modalFlights": {
+    "flightsTo": "Flights to Destination",
+    "returnFlights": "Return Flights"
+  },
+  "flightLabels": {
+    "from": "from",
+    "via": "via",
+    "direct": "Direct"
+  },
+  "search": {
+    "noResults": "No results found."
+  },
+  "tags": {
+    "skiing": "Skiing",
+    "summer_vacation": "Summer Vacation",
+    "hiking": "Hiking",
+    "mountains": "Mountains",
+    "family_trip": "Family Trip",
+    "lakes": "Lakes",
+    "parachuting": "Parachuting",
+    "caving": "Caving"
+  }
 }

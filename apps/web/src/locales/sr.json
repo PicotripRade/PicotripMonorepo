@@ -1,8 +1,89 @@
 {
-  "searchAgain": "Pretrazite ponovo",
+  "searchAgain": "Pretraži ponovo",
   "mountains": "Planine",
   "skiing": "Skijanje",
   "summer_vacation": "Letnji odmor",
   "family_trip": "Porodično putovanje",
-  "whereFrom": "Odakle kreces?",
+  "whereFrom": "Odakle polazite?",
+  "startingPoint": "Polazna tačka",
+  "from": "Od",
+  "location": "Lokacija",
+  "flyingOutDescription": "Letite? Izaberite obližnje aerodrome i prikazaćemo gde možete direktno putovati.",
+  "checkmark": "Izabrano",
+  "when": "Kada",
+  "whensYourTrip": "Kada je vaše putovanje?",
+  "exactDates": "tačni datumi",
+  "done": "Gotovo",
+  "oneDay": "1 dan",
+  "twoDays": "2 dana",
+  "threeDays": "3 dana",
+  "fiveDays": "5 dana",
+  "monday": "Ponedeljak",
+  "tuesday": "Utorak",
+  "wednesday": "Sreda",
+  "thursday": "Četvrtak",
+  "friday": "Petak",
+  "saturday": "Subota",
+  "sunday": "Nedelja",
+  "january": "Januar",
+  "february": "Februar",
+  "march": "Mart",
+  "april": "April",
+  "may": "Maj",
+  "june": "Jun",
+  "july": "Jul",
+  "august": "Avgust",
+  "september": "Septembar",
+  "october": "Oktobar",
+  "november": "Novembar",
+  "december": "Decembar",
+  "somethingWentWrong": "Nešto je pošlo po zlu",
+  "searchErrorDescription": "Nismo mogli da završimo vašu pretragu. Pokušajte ponovo.",
+  "backToSearch": "Nazad na pretragu",
+  "filterResults": "Filtriraj rezultate",
+  "top": "Najbolje",
+  "flights": "Letovi",
+  "car": "Automobil",
+  "filters": "Filteri",
+  "filterOptionsPlaceholder": "Opcije filtera će se prikazati ovde...",
+  "loading": {
+    "analyzingDestinations": "Analiza 5000+ destinacija",
+    "findingFlights": "Pronalaženje letova",
+    "calculatingRoutes": "Izračunavanje ruta",
+    "optimizingOffers": "Optimizacija ponuda"
+  },
+  "cityStats": {
+    "beaches": "Plaže",
+    "bays": "Zalivi",
+    "coves": "Uvale",
+    "lagoons": "Lagune",
+    "gulfs": "Golfoovi",
+    "peaks": "Vrhovi"
+  },
+  "modal": {
+    "mustSee": "Obavezno videti",
+    "recommendations": "Preporuke"
+  },
+  "modalFlights": {
+    "flightsTo": "Letovi ka destinaciji",
+    "returnFlights": "Povratni letovi"
+  },
+  "flightLabels": {
+    "from": "od",
+    "via": "preko",
+    "direct": "Direktno"
+  },
+  "search": {
+    "noResults": "Nema rezultata"
+  },
+  "tags": {
+    "skiing": "Skijanje",
+    "summer_vacation": "Letnji odmor",
+    "hiking": "Planinarenje",
+    "mountains": "Planine",
+    "family_trip": "Porodično putovanje",
+    "lakes": "Jezera",
+    "parachuting": "Padobranstvo",
+    "caving": "Speleologija"
+  }
 }
