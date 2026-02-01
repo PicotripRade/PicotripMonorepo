@@ -1,4 +1,5 @@
 import './styles.scss';
+
 import React, { useState, useEffect } from "react";
 import mountainPath from "../../../images/destinations/radar/mountain-svgrepo-com.svg";
 import waterfallPath from "../../../images/destinations/radar/waterfall-svgrepo-com.svg";
@@ -48,11 +49,9 @@ const RadarScan = ({ useIcons = true }) => {
                         <div className="distance__circle"></div>
                         <div className="distance__circle"></div>
                     </div>
-
-                    <div className="matrix"></div>
-                    <div className="rotary"></div>
-
-                    <div className="display">
+                      <div className="matrix"></div>
+                      <div className="rotary"></div>
+                      <div className="display">
                         {useIcons && (
                             <>
                                 {/* MOUNTAINS */}
