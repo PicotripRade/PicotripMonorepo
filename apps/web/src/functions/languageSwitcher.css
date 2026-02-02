@@ -1,28 +1,115 @@
 /* src/components/languageSwitcher/languageSwitcher.css */
-.language-switcher {
-  position: fixed;
-  top: 10px;
-  right: 20px;
-  z-index: 9999;
+.language-switcher-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.language-switcher-trigger {
   display: flex;
+  align-items: center;
   gap: 8px;
-}
-
-.language-switcher button {
-  padding: 6px 12px;
-  border: 1px solid #333;
-  background-color: white;
+  padding: 8px 16px;
+  background: var(--element-background, #ffffff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  border-radius: 4px;
-  transition: 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary, #333333);
+  transition: all 0.2s ease;
+  min-width: 120px;
 }
 
-.language-switcher button:hover {
-  background-color: #f0f0f0;
+.language-switcher-trigger:hover {
+  border-color: var(--primary-color, #007bff);
+  background: var(--hover-background, #f8f9fa);
 }
 
-.language-switcher button.active {
-  background-color: #333;
+.dropdown-arrow {
+  font-size: 10px;
+  margin-left: auto;
+  transition: transform 0.2s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.flag {
+  font-size: 16px;
+}
+
+.language-name {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.language-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background: var(--element-background, #ffffff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 140px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
+  color: var(--text-primary, #333333);
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--hover-background, #f8f9fa);
+}
+
+.dropdown-item.active {
+  background-color: var(--primary-color, #007bff);
   color: white;
+}
+
+.dropdown-item.active .flag {
+  filter: brightness(0) invert(1);
+}
+
+/* Add to header styles.css */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--header-background, #ffffff);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary, #333333);
+  text-align: center;
+  flex-grow: 1;
 }

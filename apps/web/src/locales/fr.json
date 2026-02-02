@@ -7,6 +7,7 @@
   "whereFrom": "D'où partez-vous ?",
   "startingPoint": "Point de départ",
   "from": "De",
+  "whereFrom": "D'où vient ?",
   "location": "Emplacement",
   "flyingOutDescription": "Vous prenez l'avion ? Choisissez vos aéroports proches et nous vous montrerons les destinations directes.",
   "checkmark": "Sélectionné",
@@ -71,7 +72,7 @@
   "flightLabels": {
     "from": "de",
     "via": "via",
-    "direct": "Direct"
+    "direct": "direct"
   },
   "search": {
     "noResults": "Aucun résultat"

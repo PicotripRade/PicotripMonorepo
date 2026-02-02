@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from "react";
 import {useNavigate, useLocation} from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import Autocomplete from "../autocomplete/autocomplete.jsx";
 import "./styles.css";
 import "../styles.css";
@@ -37,12 +37,13 @@ import {
     setSearchResultsReady
 } from "@picotrip/shared/src/store/actions/searchResultsActions.jsx";
 import {handleSearchClick} from "@picotrip/shared/src/utils/handleSearchClick.js";
+import Header from "../../header/header.jsx";
 
 function MainPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const [autocompleteKey, setAutocompleteKey] = useState(0);
 
@@ -243,8 +244,10 @@ function MainPage() {
 
     return (
         <div className={"full-content-wrapper"}>
-              {/* ✅ Language switcher u gornjem desnom uglu */}
-              {/*<LanguageSwitcher />*/}
+            <div className="app-shell">
+            <Header title="Picotrip"/>
+            {/* ✅ Language switcher u gornjem desnom uglu */}
+            {/*<LanguageSwitcher />*/}
             <div id={"container"} className="form-inline-wrapper user-entry-length">
                 {errorResponse ? (
                     <div className="error-message-container">
@@ -449,6 +452,7 @@ function MainPage() {
 
                     </>
                 )}
+            </div>
             </div>
         </div>
     );

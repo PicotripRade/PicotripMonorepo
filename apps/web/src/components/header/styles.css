@@ -1,15 +1,57 @@
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    #background-color: var(--background-less-dark);
+    justify-content: center;
+    height: 56px;
     background-color: var(--monitor-shadow-color);
-    max-height: 5vh;
-    z-index: 50;
-    position:fixed;
-    top:0;
-    width:100%;
+    position: relative;
 }
+
+/* Center title properly */
+.page-title {
+    font-family: Aspira, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* Left logo */
+.logo {
+    position: absolute;
+    left: 12px;
+    cursor: pointer;
+}
+
+/* Right controls */
+.header-right {
+    position: absolute;
+    right: 12px;
+    display: flex;
+    align-items: center;
+}
+
+
+.full-content-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+}
+
+/* Tiny phones */
+@media (max-width: 330px) {
+    .app-shell {
+        width: var(--container-width-tiny-smartphone);
+    }
+}
+
+.app-shell {
+    width: var(--container-width-smartphone);
+    background: var(--background-dark);
+    border-radius: 5px;
+    overflow: hidden; /* 🔑 ensures header corners clip */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
 
 .profile-icon {
     display: flex;

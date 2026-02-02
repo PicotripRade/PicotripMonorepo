@@ -2,6 +2,7 @@
   "whereFrom": "Odakle polazite?",
   "startingPoint": "Polazna tačka",
   "from": "Od",
+  "whereFrom": "Odakle krećes?",
   "location": "Lokacija",
   "flyingOutDescription": "Letite? Izaberite obližnje aerodrome i prikazaćemo gde možete direktno putovati.",
   "checkmark": "Izabrano",
@@ -66,7 +67,7 @@
   "flightLabels": {
     "from": "od",
     "via": "preko",
-    "direct": "Direktno"
+    "direct": "direktno"
   },
   "search": {
     "noResults": "Nema rezultata"

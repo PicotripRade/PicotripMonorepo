@@ -1,6 +1,7 @@
 {
   "startingPoint": "Starting Point",
   "from": "From",
+  "whereFrom": "Where From?",
   "location": "Location",
   "flyingOutDescription": "Flying out? Choose your nearby airports and we will show where you can go direct.",
   "checkmark": "Selected",
@@ -65,7 +66,7 @@
   "flightLabels": {
     "from": "from",
     "via": "via",
-    "direct": "Direct"
+    "direct": "direct"
   },
   "search": {
     "noResults": "No results found."
