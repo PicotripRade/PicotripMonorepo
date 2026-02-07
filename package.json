@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "web:dev": "yarn workspace web dev",
+    "web:dev": "yarn workspace web dev --host",
     "web:build": "yarn workspace web build",
     "web:preview": "yarn workspace web preview",
     "web:lint": "yarn workspace web lint"

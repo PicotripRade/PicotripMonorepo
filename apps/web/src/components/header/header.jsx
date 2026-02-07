@@ -26,7 +26,7 @@ const Header = ({title}) => {
             <div className="logo">
                 <img src={logoPath} id="logo" ref={logoRef} onClick={handleClickOnLogo} alt="PicoTrip Logo"></img>
             </div>
-            <div className="page-title"> {title} </div>
+            {/*<div className="page-title"> {title} </div>*/}
             <div className="header-right">
                 <LanguageSwitcher />
             </div>

@@ -133,7 +133,6 @@ input {
 .input-box-title {
     color: var(--text-color);
     font-family: Aspira, sans-serif;
-    padding-top: 10px;
     font-weight: bold;
     font-size: 18px;
     text-align: left;

@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef, forwardRef} from 'react';
 import './styles.css';
-import { useTranslation } from "react-i18next";
 import LocationImage from "@picotrip/shared/assets/images/my-location-svgrepo-com.svg";
 import CustomNextButton from "../buttons/customNextButton.jsx";
 import {CloseIcon} from "../../utils/reactIcons/icons.jsx";
@@ -12,7 +11,8 @@ import {
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {sendCoordinates} from "@picotrip/shared/src/utils/geolocation.js";
-import Header from "../../header/header.jsx";
+import i18n from "../../../functions/i18n.js";
+import { useTranslation } from "react-i18next";
 
 
 const Autocomplete = forwardRef(({
@@ -24,7 +24,7 @@ const Autocomplete = forwardRef(({
                                      xButtonDisplayed
                                  }, ref) => {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation(undefined, { i18n: i18n });
     const [results, setResults] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
@@ -32,7 +32,6 @@ const Autocomplete = forwardRef(({
     const autocompleteRef = useRef(null);
     const [isFetchingLocation, setIsFetchingLocation] = useState(false);
 
-    const preFilledPlaceholder = t('startingPoint', 'Starting Point');
     const MAX_NUMBER_OF_RESULTS = 10;
 
     const dispatch = useDispatch();
@@ -131,116 +130,113 @@ const Autocomplete = forwardRef(({
     const shouldRemoveLocationBlock = inputValue.length >= 2;
 
     return (
-        <div className="page-container">
-
-            <div className="content-wrapper">
-                <div className={`autocomplete rounded-button bottom-shadow ${expanded ? "expanded" : ""}`}
-                     ref={autocompleteRef}>
-                    <div className={`${expanded ? "expanded" : ""}`}>
-                        <div
-                            className={`inner-block ${expanded ? "expanded" : ""} ${xButtonDisplayed ? "decreased-height" : ""}`}>
-                            {expanded && (<p className={"input-box-title"}>{t('whereFrom')}</p>)}
-                            <div className={`destination-input-field rounded-button ${expanded ? "" : "collapsed"}`}>
-                                {!isFocused && !inputValue && (
-                                    <div className={`placeholder-text ${expanded ? "" : "placeholder-collapsed"}`}>
-                                        {preFilledPlaceholder}
-                                    </div>
-                                )}
-                                {!expanded && <div className={"disabled-text"}>{t('from')}</div>}
-                                <input
-                                    type="text"
-                                    value={inputValue}
-                                    onChange={onInputChange}
-                                    onFocus={() => setIsFocused(true)}
-                                    onBlur={() => setIsFocused(false)}
-                                    required
-                                    className={` ${inputValue ? '' : 'placeholder-active'} ${expanded ? "rounded-left-button" : "input-collapsed rounded-button"}`}
-                                    ref={ref}
-                                />
-                                {!shouldRemoveLocationBlock && expanded && (
-                                    <div className={"location-block rounded-right-button"}>
-                                        {isFetchingLocation ? (
-                                            <LoadingSpinner/>
-                                        ) : (
-                                            <img
-                                                src={LocationImage}
-                                                alt={t('location')}
-                                                onClick={handleGetLocation}
-                                                style={{cursor: 'pointer'}}
-                                            />
-                                        )}
-                                    </div>
-                                )}
-                                {shouldRemoveLocationBlock && expanded && (
-                                    <div onClick={clearInput} className={"location-block rounded-right-button"}
-                                         style={{color: "white"}}>
-                                        <CloseIcon/>
-                                    </div>
-                                )}
-                            </div>
-                            {dropdownVisible && results.length > 0 && (
-                                <ul className="autocomplete-results">
-                                    {results.map((result, index) => (
-                                        <li
-                                            key={index}
-                                            className={`autocomplete-item ${index === results.length - 1 ? 'last' : ''} ${index === 0 ? 'first' : ''}`}
-                                            onClick={() => onItemClick(result)}
-                                        >
-                                            <span className="name">
-                                                {result.city}, {result.country}, {result.admin_name}
-                                            </span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                            {expanded && isValidSelection && airportList.length > 0 && (
-                                <div className={"airports-selection-wrapper"}>
-                                    <div className={"section-title"}>
-                                        {t('flyingOutDescription')}
-                                    </div>
-                                    <div className="airport-checkbox-list">
-                                        {airportList.map((airport) => {
-                                            const isSelected = selectedAirports.includes(airport.iata_code);
-                                            return (
-                                                <div
-                                                    key={airport.iata_code}
-                                                    className={`airport-button ${isSelected ? 'selected bottom-shadow' : ''}`}
-                                                    onClick={() => {
-                                                        const isSelected = selectedAirports.includes(airport.iata_code);
-                                                        const updatedList = isSelected
-                                                            ? selectedAirports.filter(code => code !== airport.iata_code)
-                                                            : [...selectedAirports, airport.iata_code];
-                                                        dispatch(setSelectedAirportsList(updatedList));
-                                                    }}
-                                                >
-                                                    <div className={"airport-text-wrapper"}>
-                                                        <div className="iata-code">{airport.iata_code}</div>
-                                                        <div className={"city-and-country"}>
-                                                            <div className="city-name">{airport.name},&nbsp;</div>
-                                                            <div className="country-name">{airport.iso_country}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div className={"empty-space"}></div>
-                                                    <div className={`checkbox ${isSelected ? '' : 'hidden'}`}>
-                                                        {isSelected && <img
-                                                            src={CheckMark}
-                                                            alt={t('checkmark', 'checkmark')}
-                                                            style={{cursor: 'pointer'}}
-                                                        />}
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
+        <div className="content-wrapper">
+            <div className={`autocomplete rounded-button bottom-shadow ${expanded ? "expanded" : ""}`}
+                 ref={autocompleteRef}>
+                <div className={`${expanded ? "expanded" : ""}`}>
+                    <div
+                        className={`inner-block ${expanded ? "expanded" : ""} ${xButtonDisplayed ? "decreased-height" : ""}`}>
+                        {expanded && (<p className={"input-box-title"}>{t('whereFrom')}</p>)}
+                        <div className={`destination-input-field rounded-button ${expanded ? "" : "collapsed"}`}>
+                            {!isFocused && !inputValue && (
+                                <div className={`placeholder-text ${expanded ? "" : "placeholder-collapsed"}`}>
+                                    {t('startingPoint')}
                                 </div>
                             )}
-                            {expanded && (<div className={"empty-space"}></div>)}
-                            {expanded && (
-                                <div className={"input-navigation"}>
-                                    <CustomNextButton onClick={handleNextClick} isReady={isValidSelection}/>
+                            {!expanded && <div className={"disabled-text"}>{t('from')}</div>}
+                            <input
+                                type="text"
+                                value={inputValue}
+                                onChange={onInputChange}
+                                onFocus={() => setIsFocused(true)}
+                                onBlur={() => setIsFocused(false)}
+                                required
+                                className={` ${inputValue ? '' : 'placeholder-active'} ${expanded ? "rounded-left-button" : "input-collapsed rounded-button"}`}
+                                ref={ref}
+                            />
+                            {!shouldRemoveLocationBlock && expanded && (
+                                <div className={"location-block rounded-right-button"}>
+                                    {isFetchingLocation ? (
+                                        <LoadingSpinner/>
+                                    ) : (
+                                        <img
+                                            src={LocationImage}
+                                            alt={t('location')}
+                                            onClick={handleGetLocation}
+                                            style={{cursor: 'pointer'}}
+                                        />
+                                    )}
+                                </div>
+                            )}
+                            {shouldRemoveLocationBlock && expanded && (
+                                <div onClick={clearInput} className={"location-block rounded-right-button"}
+                                     style={{color: "white"}}>
+                                    <CloseIcon/>
                                 </div>
                             )}
                         </div>
+                        {dropdownVisible && results.length > 0 && (
+                            <ul className="autocomplete-results">
+                                {results.map((result, index) => (
+                                    <li
+                                        key={index}
+                                        className={`autocomplete-item ${index === results.length - 1 ? 'last' : ''} ${index === 0 ? 'first' : ''}`}
+                                        onClick={() => onItemClick(result)}
+                                    >
+                                            <span className="name">
+                                                {result.city}, {result.country}, {result.admin_name}
+                                            </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                        {expanded && isValidSelection && airportList.length > 0 && (
+                            <div className={"airports-selection-wrapper"}>
+                                <div className={"section-title"}>
+                                    {t('flyingOutDescription')}
+                                </div>
+                                <div className="airport-checkbox-list">
+                                    {airportList.map((airport) => {
+                                        const isSelected = selectedAirports.includes(airport.iata_code);
+                                        return (
+                                            <div
+                                                key={airport.iata_code}
+                                                className={`airport-button ${isSelected ? 'selected bottom-shadow' : ''}`}
+                                                onClick={() => {
+                                                    const isSelected = selectedAirports.includes(airport.iata_code);
+                                                    const updatedList = isSelected
+                                                        ? selectedAirports.filter(code => code !== airport.iata_code)
+                                                        : [...selectedAirports, airport.iata_code];
+                                                    dispatch(setSelectedAirportsList(updatedList));
+                                                }}
+                                            >
+                                                <div className={"airport-text-wrapper"}>
+                                                    <div className="iata-code">{airport.iata_code}</div>
+                                                    <div className={"city-and-country"}>
+                                                        <div className="city-name">{airport.name},&nbsp;</div>
+                                                        <div className="country-name">{airport.iso_country}</div>
+                                                    </div>
+                                                </div>
+                                                <div className={"empty-space"}></div>
+                                                <div className={`checkbox ${isSelected ? '' : 'hidden'}`}>
+                                                    {isSelected && <img
+                                                        src={CheckMark}
+                                                        alt={t('checkmark', 'checkmark')}
+                                                        style={{cursor: 'pointer'}}
+                                                    />}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+                        {expanded && (<div className={"empty-space"}></div>)}
+                        {expanded && (
+                            <div className={"input-navigation"}>
+                                <CustomNextButton onClick={handleNextClick} isReady={isValidSelection}/>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
