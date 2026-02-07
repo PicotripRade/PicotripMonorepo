@@ -13,6 +13,8 @@ import {
     setCalendarSwitch, setEndDateRedux,
     setStartDateRedux
 } from "@picotrip/shared/src/store/actions/tripOrganisationActions.jsx";
+import { useTranslation } from "react-i18next";
+import i18nInstance from "../../../functions/i18n.js";
 
 const CustomCalendar = ({onClose, onMonthSelection}) => {
         const [displayedMonths, setDisplayedMonths] = useState([new Date()]); // Array of displayed months
@@ -27,6 +29,10 @@ const CustomCalendar = ({onClose, onMonthSelection}) => {
         const dispatch = useDispatch();
 
         const [selectedMonths, setSelectedMonths] = useState([]);
+
+        const { t } = useTranslation(undefined, { i18n: i18nInstance });
+
+
 
 
         useEffect(() => {
@@ -212,7 +218,7 @@ const CustomCalendar = ({onClose, onMonthSelection}) => {
                 >
                     {!isOpen && (
                         <div className="time-range-box rounded-button">
-                            {<div className={"disabled-text rounded-left-button"}> When</div>}
+                            {<div className={"disabled-text rounded-left-button"}>{t('when')}</div>}
                             <div className={"date-range-info-wrapper"}>
                                 <div className="date-range-info rounded-right-button">
                                     <div className={`range-display ${startDate} ? "" : "unselected"}`}>
@@ -229,7 +235,7 @@ const CustomCalendar = ({onClose, onMonthSelection}) => {
                     )}
                     {isOpen && (
                         <>
-                            <p className={"input-box-title"}> When's your trip?</p>
+                            <p className={"input-box-title"}>{t('whensYourTrip')}</p>
                             {/*{import.meta.env.VITE_WORKMODE !== 'prod' && (*/}
                             {/*    <div className="toggle-container" onClick={toggleSlider}>*/}
                             {/*        <div className={`slider ${isDates ? "toggled" : ""}`}></div>*/}

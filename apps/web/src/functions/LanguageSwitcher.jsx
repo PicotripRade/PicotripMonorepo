@@ -2,9 +2,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "./languageSwitcher.css";
+import i18nInstance from "../functions/i18n.js";
 
 const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation(undefined, { i18n: i18nInstance });
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 

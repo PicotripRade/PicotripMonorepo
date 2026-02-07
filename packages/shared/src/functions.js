@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import i18n from "../../../apps/web/src/functions/i18n.js"; // Proveri putanju do tvog i18n.js fajla
 
 export const fetchUserLocation = async () => {
     try {
@@ -266,9 +267,6 @@ export const formatDisplayDate = (startDate, endDate) => {
 
     if (!startDate) return {start: "start", end: "end"};
 
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
     const formatSingleDate = (date) => {
         return `${date.getDate().toString().padStart(2, "0")} ${months[date.getMonth()]}`;
     };
@@ -310,8 +308,10 @@ export const formatDisplayDate = (startDate, endDate) => {
 // datepicker functions
 
 export const monthsNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December",
+            i18n.t("january"), i18n.t("february"), i18n.t("march"),
+        i18n.t("april"), i18n.t("may"), i18n.t("june"),
+        i18n.t("july"), i18n.t("august"), i18n.t("september"),
+        i18n.t("october"), i18n.t("november"), i18n.t("december")
 ];
 
 export const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
