@@ -103,22 +103,35 @@ const CustomCalendar = ({onClose, onMonthSelection}) => {
         }
 
         const handleDayClick = (day, currentDate) => {
+            console.log("handleDayClick received", {day, currentDate});
+
             const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
 
+            console.log("Constructed date: ", date);
+
             if (!startDate) {
+                console.log("Setting start date");
                 dispatch(setStartDateRedux(date));
                 dispatch(resetEndDate());
             } else if (!endDate) {
                 // Check if the selected end date is before the start date
                 if (date < endDate) {
+                    console.log("Setting start date (end date was earlier)");
                     dispatch(setStartDateRedux(date));
                 } else {
+                    console.log("Setting end date");
                     dispatch(setEndDateRedux(date));
                 }
             } else {
+                console.log("Resetting both start and end dates");
                 dispatch(resetStartDate());
                 dispatch(resetEndDate());
             }
+
+            console.log("Current start and end dates from redux: ", {
+                start: useSelector((state) => state.tripOrganisation.startDate),
+                end: useSelector((state) => state.tripOrganisation.endDate)
+            });
         };
 
         const isDayActive = (day, currentDate) => {

@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import i18n from "../../../apps/web/src/functions/i18n.js"; // Proveri putanju do tvog i18n.js fajla
+import i18n from "../../../apps/web/src/functions/i18n.js";
 
 export const fetchUserLocation = async () => {
     try {
