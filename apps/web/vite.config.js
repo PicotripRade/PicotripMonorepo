@@ -14,9 +14,11 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
+      host: '0.0.0.0', // Listen on all network interfaces
+      allowedHosts: ['picotrip.local.com', '.local'], // Allow local domains
       proxy: {
         '/api': {
-          target: env.VITE_API_URL || 'http://localhost:8000',
+          target: env.VITE_API_URL || 'http://picotrip.local.com:8000',
           changeOrigin: true,
           secure: false,
         },

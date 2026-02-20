@@ -63,7 +63,6 @@ export default function UserDataEntryStep() {
         const fetchLocation = async () => {
 
             console.log("MOBILE FETCH USER LOC")
-            console.log()
             const {city, country, id} = await fetchUserLocation();
             const response_formatted = `${city}, ${country}`;
 

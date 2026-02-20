@@ -23,7 +23,6 @@ redis_port = os.getenv('REDIS_PORT')
 localhost = '127.0.0.1'
 WORKMODE = os.getenv('VITE_WORKMODE', 'prod')  # Default to production
 
-
 BACKEND_URL = f'{protocol}://{url}:{django_port}'
 
 # Quick-start development settings - unsuitable for production
@@ -33,8 +32,8 @@ DEBUG = False
 if WORKMODE == "dev":
     ALLOWED_HOSTS = ['*']  # Allow all hosts in dev
 else:
-    ALLOWED_HOSTS = [url, 'localhost', '127.0.0.1', '192.168.1.9', 'picotrip.com', 'www.picotrip.com']
-
+    ALLOWED_HOSTS = [url, 'localhost', '127.0.0.1', '192.168.1.25', 'picotrip.local.com', 'picotrip.com',
+                     'www.picotrip.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -75,6 +74,7 @@ else:
         "https://picotrip.com",
         "https://www.picotrip.com",
         "http://127.0.0.1:3000",
+        "http://DESKTOP-962EV46.local:5173",
     ]
     CORS_ALLOW_CREDENTIALS = True
     CORS_ALLOW_HEADERS = list(default_headers) + ["sessionid", "cache-control"]
@@ -111,10 +111,10 @@ DATABASES = {
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
 
 # Internationalization
@@ -133,7 +133,7 @@ LOGOUT_REDIRECT_URL = "home"
 
 # Channels
 CHANNEL_LAYERS = {
-    "default": {"BACKEND": "channels.layers.InMemoryChannelLayer",},
+    "default": {"BACKEND": "channels.layers.InMemoryChannelLayer", },
 }
 
 # Logging
@@ -146,7 +146,8 @@ LOGGING = {
     },
     'handlers': {
         'console': {'level': 'INFO', 'class': 'logging.StreamHandler', 'formatter': 'verbose'},
-        'file': {'level': 'INFO', 'class': 'logging.FileHandler', 'filename': 'django_debug.log', 'formatter': 'verbose'},
+        'file': {'level': 'INFO', 'class': 'logging.FileHandler', 'filename': 'django_debug.log',
+                 'formatter': 'verbose'},
     },
     'loggers': {'root': {'handlers': ['console', 'file'], 'level': 'INFO'}},
 }

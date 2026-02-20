@@ -1950,12 +1950,9 @@ def get_nearest_airports_with_large_constraint(
 
 def nearby_airports(search_params, airports=3, large_airports=1, autocomplete_cities=autocomplete_cities,
                     all_airports=all_airports):
-    start_date = datetime.strptime(search_params["start_date_string"], "%Y-%m-%d")
-    end_date = datetime.strptime(search_params["end_date_string"], "%Y-%m-%d")
-    trip_duration = (end_date - start_date).days
     start_point = autocomplete_cities.filter(pl.col('id') == int(search_params["id"]))
 
-    search_area_params = search_area(trip_duration)
+    search_area_params = (4, 1)
     start_airports_index_radius = search_area_params['starting_airport']
 
     allowed_airports = all_airports.filter(
