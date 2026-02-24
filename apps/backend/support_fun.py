@@ -1628,7 +1628,7 @@ def get_scored_cities(weights, metadata, airports, cities, score_matrix):
             'iata_code'].to_list() for allowed_index in allowed_airport_indexes]
     final_result = result.with_columns(
         pl.Series("airports", nearby_airports)  # Create a new column named "B"
-    )
+    ).filter(pl.col("population") > 30000).group_by("h3_index_3").head(1)
 
     return final_result
 
